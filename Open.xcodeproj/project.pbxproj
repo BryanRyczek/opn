@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2AE8ED62A4D263A0D37FC926 /* Pods_Open.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64D185DDE602F14DACEAEC5A /* Pods_Open.framework */; };
+		5C2171A3F78382A061D366D6 /* Pods_OpenUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E47470BD685635AD9123C8 /* Pods_OpenUITests.framework */; };
+		60F7B288ABA718C0E8AC947C /* Pods_OpenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7C1E38671A93B6D219A8A6 /* Pods_OpenTests.framework */; };
+		931951161DC0F56400F5346C /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 931951151DC0F56400F5346C /* FontAwesome.otf */; };
+		931F56671DB5307D003B62D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 931F56661DB5307D003B62D5 /* GoogleService-Info.plist */; };
+		931F56681DB5307D003B62D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 931F56661DB5307D003B62D5 /* GoogleService-Info.plist */; };
+		931F56691DB5307D003B62D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 931F56661DB5307D003B62D5 /* GoogleService-Info.plist */; };
+		93366CA61DC8121A001BEA48 /* FirebaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */; };
 		938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD191DB46A81000A0675 /* AppDelegate.swift */; };
 		938CFD1C1DB46A81000A0675 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD1B1DB46A81000A0675 /* ViewController.swift */; };
 		938CFD1F1DB46A81000A0675 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD1D1DB46A81000A0675 /* Main.storyboard */; };
@@ -15,6 +23,45 @@
 		938CFD271DB46A81000A0675 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD251DB46A81000A0675 /* LaunchScreen.storyboard */; };
 		938CFD321DB46A81000A0675 /* OpenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD311DB46A81000A0675 /* OpenTests.swift */; };
 		938CFD3D1DB46A81000A0675 /* OpenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD3C1DB46A81000A0675 /* OpenUITests.swift */; };
+		938CFD561DB46C29000A0675 /* AvenirLTStd-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4A1DB46C29000A0675 /* AvenirLTStd-Black.otf */; };
+		938CFD571DB46C29000A0675 /* AvenirLTStd-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4A1DB46C29000A0675 /* AvenirLTStd-Black.otf */; };
+		938CFD581DB46C29000A0675 /* AvenirLTStd-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4A1DB46C29000A0675 /* AvenirLTStd-Black.otf */; };
+		938CFD591DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4B1DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf */; };
+		938CFD5A1DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4B1DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf */; };
+		938CFD5B1DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4B1DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf */; };
+		938CFD5C1DB46C29000A0675 /* AvenirLTStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4C1DB46C29000A0675 /* AvenirLTStd-Book.otf */; };
+		938CFD5D1DB46C29000A0675 /* AvenirLTStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4C1DB46C29000A0675 /* AvenirLTStd-Book.otf */; };
+		938CFD5E1DB46C29000A0675 /* AvenirLTStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4C1DB46C29000A0675 /* AvenirLTStd-Book.otf */; };
+		938CFD5F1DB46C29000A0675 /* AvenirLTStd-BookOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4D1DB46C29000A0675 /* AvenirLTStd-BookOblique.otf */; };
+		938CFD601DB46C29000A0675 /* AvenirLTStd-BookOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4D1DB46C29000A0675 /* AvenirLTStd-BookOblique.otf */; };
+		938CFD611DB46C29000A0675 /* AvenirLTStd-BookOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4D1DB46C29000A0675 /* AvenirLTStd-BookOblique.otf */; };
+		938CFD621DB46C29000A0675 /* AvenirLTStd-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4E1DB46C29000A0675 /* AvenirLTStd-Heavy.otf */; };
+		938CFD631DB46C29000A0675 /* AvenirLTStd-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4E1DB46C29000A0675 /* AvenirLTStd-Heavy.otf */; };
+		938CFD641DB46C29000A0675 /* AvenirLTStd-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4E1DB46C29000A0675 /* AvenirLTStd-Heavy.otf */; };
+		938CFD651DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4F1DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf */; };
+		938CFD661DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4F1DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf */; };
+		938CFD671DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD4F1DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf */; };
+		938CFD681DB46C29000A0675 /* AvenirLTStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD501DB46C29000A0675 /* AvenirLTStd-Light.otf */; };
+		938CFD691DB46C29000A0675 /* AvenirLTStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD501DB46C29000A0675 /* AvenirLTStd-Light.otf */; };
+		938CFD6A1DB46C29000A0675 /* AvenirLTStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD501DB46C29000A0675 /* AvenirLTStd-Light.otf */; };
+		938CFD6B1DB46C29000A0675 /* AvenirLTStd-LightOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD511DB46C29000A0675 /* AvenirLTStd-LightOblique.otf */; };
+		938CFD6C1DB46C29000A0675 /* AvenirLTStd-LightOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD511DB46C29000A0675 /* AvenirLTStd-LightOblique.otf */; };
+		938CFD6D1DB46C29000A0675 /* AvenirLTStd-LightOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD511DB46C29000A0675 /* AvenirLTStd-LightOblique.otf */; };
+		938CFD6E1DB46C29000A0675 /* AvenirLTStd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD521DB46C29000A0675 /* AvenirLTStd-Medium.otf */; };
+		938CFD6F1DB46C29000A0675 /* AvenirLTStd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD521DB46C29000A0675 /* AvenirLTStd-Medium.otf */; };
+		938CFD701DB46C29000A0675 /* AvenirLTStd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD521DB46C29000A0675 /* AvenirLTStd-Medium.otf */; };
+		938CFD711DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD531DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf */; };
+		938CFD721DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD531DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf */; };
+		938CFD731DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD531DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf */; };
+		938CFD741DB46C29000A0675 /* AvenirLTStd-Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD541DB46C29000A0675 /* AvenirLTStd-Oblique.otf */; };
+		938CFD751DB46C29000A0675 /* AvenirLTStd-Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD541DB46C29000A0675 /* AvenirLTStd-Oblique.otf */; };
+		938CFD761DB46C29000A0675 /* AvenirLTStd-Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD541DB46C29000A0675 /* AvenirLTStd-Oblique.otf */; };
+		938CFD771DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */; };
+		938CFD781DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */; };
+		938CFD791DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */; };
+		93C510791DBABB9800F35504 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C510781DBABB9800F35504 /* Business.swift */; };
+		93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DCD8E01DBE570500E2624B /* SignupViewController.swift */; };
+		93E2A5B21DC2948D00CFBB4F /* HoursButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E2A5B11DC2948D00CFBB4F /* HoursButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +82,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E20B7CE9971291397047DDB /* Pods-OpenUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenUITests/Pods-OpenUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		392779ACCE81932BED6547DB /* Pods-Open.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Open.release.xcconfig"; path = "Pods/Target Support Files/Pods-Open/Pods-Open.release.xcconfig"; sourceTree = "<group>"; };
+		64D185DDE602F14DACEAEC5A /* Pods_Open.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Open.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70C631ECFE3195CF183BE0C2 /* Pods-OpenUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenUITests/Pods-OpenUITests.release.xcconfig"; sourceTree = "<group>"; };
+		931951151DC0F56400F5346C /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		931F56661DB5307D003B62D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseHelpers.swift; sourceTree = "<group>"; };
 		938CFD161DB46A81000A0675 /* Open.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Open.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		938CFD191DB46A81000A0675 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		938CFD1B1DB46A81000A0675 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +103,27 @@
 		938CFD381DB46A81000A0675 /* OpenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		938CFD3C1DB46A81000A0675 /* OpenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUITests.swift; sourceTree = "<group>"; };
 		938CFD3E1DB46A81000A0675 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		938CFD4A1DB46C29000A0675 /* AvenirLTStd-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Black.otf"; sourceTree = "<group>"; };
+		938CFD4B1DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-BlackOblique.otf"; sourceTree = "<group>"; };
+		938CFD4C1DB46C29000A0675 /* AvenirLTStd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Book.otf"; sourceTree = "<group>"; };
+		938CFD4D1DB46C29000A0675 /* AvenirLTStd-BookOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-BookOblique.otf"; sourceTree = "<group>"; };
+		938CFD4E1DB46C29000A0675 /* AvenirLTStd-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Heavy.otf"; sourceTree = "<group>"; };
+		938CFD4F1DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-HeavyOblique.otf"; sourceTree = "<group>"; };
+		938CFD501DB46C29000A0675 /* AvenirLTStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Light.otf"; sourceTree = "<group>"; };
+		938CFD511DB46C29000A0675 /* AvenirLTStd-LightOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-LightOblique.otf"; sourceTree = "<group>"; };
+		938CFD521DB46C29000A0675 /* AvenirLTStd-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Medium.otf"; sourceTree = "<group>"; };
+		938CFD531DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-MediumOblique.otf"; sourceTree = "<group>"; };
+		938CFD541DB46C29000A0675 /* AvenirLTStd-Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Oblique.otf"; sourceTree = "<group>"; };
+		938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
+		93C510781DBABB9800F35504 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
+		93C5107A1DBB053B00F35504 /* Open.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Open.entitlements; sourceTree = "<group>"; };
+		93DCD8E01DBE570500E2624B /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		93E2A5B11DC2948D00CFBB4F /* HoursButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursButton.swift; sourceTree = "<group>"; };
+		AB4F9900C6BD2C2A01D7FCA0 /* Pods-OpenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenTests/Pods-OpenTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B1E69B6381AB18462E07A92E /* Pods-Open.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Open.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Open/Pods-Open.debug.xcconfig"; sourceTree = "<group>"; };
+		BF7C1E38671A93B6D219A8A6 /* Pods_OpenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1E47470BD685635AD9123C8 /* Pods_OpenUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E38CB26C6E588728D92BD0FB /* Pods-OpenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenTests/Pods-OpenTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AE8ED62A4D263A0D37FC926 /* Pods_Open.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60F7B288ABA718C0E8AC947C /* Pods_OpenTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C2171A3F78382A061D366D6 /* Pods_OpenUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +161,8 @@
 				938CFD301DB46A81000A0675 /* OpenTests */,
 				938CFD3B1DB46A81000A0675 /* OpenUITests */,
 				938CFD171DB46A81000A0675 /* Products */,
+				D6F5B7C27F18219D900924D8 /* Pods */,
+				A3C0CE4DCD42DA8FEBC69A24 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,13 +179,20 @@
 		938CFD181DB46A81000A0675 /* Open */ = {
 			isa = PBXGroup;
 			children = (
+				93C5107A1DBB053B00F35504 /* Open.entitlements */,
+				93C510781DBABB9800F35504 /* Business.swift */,
 				938CFD191DB46A81000A0675 /* AppDelegate.swift */,
 				938CFD1B1DB46A81000A0675 /* ViewController.swift */,
+				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
+				93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */,
+				93E2A5B11DC2948D00CFBB4F /* HoursButton.swift */,
 				938CFD1D1DB46A81000A0675 /* Main.storyboard */,
 				938CFD231DB46A81000A0675 /* Assets.xcassets */,
 				938CFD251DB46A81000A0675 /* LaunchScreen.storyboard */,
 				938CFD281DB46A81000A0675 /* Info.plist */,
+				931F56661DB5307D003B62D5 /* GoogleService-Info.plist */,
 				938CFD201DB46A81000A0675 /* Open.xcdatamodeld */,
+				938CFD7A1DB46C39000A0675 /* Avenir */,
 			);
 			path = Open;
 			sourceTree = "<group>";
@@ -128,6 +215,49 @@
 			path = OpenUITests;
 			sourceTree = "<group>";
 		};
+		938CFD7A1DB46C39000A0675 /* Avenir */ = {
+			isa = PBXGroup;
+			children = (
+				938CFD4A1DB46C29000A0675 /* AvenirLTStd-Black.otf */,
+				938CFD4B1DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf */,
+				938CFD4C1DB46C29000A0675 /* AvenirLTStd-Book.otf */,
+				938CFD4D1DB46C29000A0675 /* AvenirLTStd-BookOblique.otf */,
+				938CFD4E1DB46C29000A0675 /* AvenirLTStd-Heavy.otf */,
+				938CFD4F1DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf */,
+				938CFD501DB46C29000A0675 /* AvenirLTStd-Light.otf */,
+				938CFD511DB46C29000A0675 /* AvenirLTStd-LightOblique.otf */,
+				938CFD521DB46C29000A0675 /* AvenirLTStd-Medium.otf */,
+				938CFD531DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf */,
+				938CFD541DB46C29000A0675 /* AvenirLTStd-Oblique.otf */,
+				938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */,
+				931951151DC0F56400F5346C /* FontAwesome.otf */,
+			);
+			name = Avenir;
+			sourceTree = "<group>";
+		};
+		A3C0CE4DCD42DA8FEBC69A24 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				64D185DDE602F14DACEAEC5A /* Pods_Open.framework */,
+				BF7C1E38671A93B6D219A8A6 /* Pods_OpenTests.framework */,
+				E1E47470BD685635AD9123C8 /* Pods_OpenUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D6F5B7C27F18219D900924D8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B1E69B6381AB18462E07A92E /* Pods-Open.debug.xcconfig */,
+				392779ACCE81932BED6547DB /* Pods-Open.release.xcconfig */,
+				AB4F9900C6BD2C2A01D7FCA0 /* Pods-OpenTests.debug.xcconfig */,
+				E38CB26C6E588728D92BD0FB /* Pods-OpenTests.release.xcconfig */,
+				2E20B7CE9971291397047DDB /* Pods-OpenUITests.debug.xcconfig */,
+				70C631ECFE3195CF183BE0C2 /* Pods-OpenUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +265,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 938CFD411DB46A81000A0675 /* Build configuration list for PBXNativeTarget "Open" */;
 			buildPhases = (
+				B6C547A6D62B2113BAB49FF9 /* [CP] Check Pods Manifest.lock */,
 				938CFD121DB46A81000A0675 /* Sources */,
 				938CFD131DB46A81000A0675 /* Frameworks */,
 				938CFD141DB46A81000A0675 /* Resources */,
+				E468FC87E172F0293EDE030B /* [CP] Embed Pods Frameworks */,
+				E2720DEA1C55072C3B4CA763 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -152,9 +285,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 938CFD441DB46A81000A0675 /* Build configuration list for PBXNativeTarget "OpenTests" */;
 			buildPhases = (
+				EE10536FF38651E1EE3D9EA1 /* [CP] Check Pods Manifest.lock */,
 				938CFD291DB46A81000A0675 /* Sources */,
 				938CFD2A1DB46A81000A0675 /* Frameworks */,
 				938CFD2B1DB46A81000A0675 /* Resources */,
+				391FA17BE0AEA3DE30BE4479 /* [CP] Embed Pods Frameworks */,
+				7C57771CE81A302D25F34EB5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,9 +306,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 938CFD471DB46A81000A0675 /* Build configuration list for PBXNativeTarget "OpenUITests" */;
 			buildPhases = (
+				0E9B4D92F20CB2FAB9CFBA1E /* [CP] Check Pods Manifest.lock */,
 				938CFD341DB46A81000A0675 /* Sources */,
 				938CFD351DB46A81000A0675 /* Frameworks */,
 				938CFD361DB46A81000A0675 /* Resources */,
+				D4C0151BAD7D67CA1AC04B0E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,17 +335,25 @@
 					938CFD151DB46A81000A0675 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 264373799U;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					938CFD2C1DB46A81000A0675 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 264373799U;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 938CFD151DB46A81000A0675;
 					};
 					938CFD371DB46A81000A0675 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 264373799U;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 938CFD151DB46A81000A0675;
 					};
@@ -238,8 +384,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				938CFD651DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf in Resources */,
 				938CFD271DB46A81000A0675 /* LaunchScreen.storyboard in Resources */,
+				938CFD711DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf in Resources */,
+				931951161DC0F56400F5346C /* FontAwesome.otf in Resources */,
 				938CFD241DB46A81000A0675 /* Assets.xcassets in Resources */,
+				938CFD6E1DB46C29000A0675 /* AvenirLTStd-Medium.otf in Resources */,
+				938CFD561DB46C29000A0675 /* AvenirLTStd-Black.otf in Resources */,
+				938CFD5C1DB46C29000A0675 /* AvenirLTStd-Book.otf in Resources */,
+				938CFD6B1DB46C29000A0675 /* AvenirLTStd-LightOblique.otf in Resources */,
+				938CFD771DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */,
+				931F56671DB5307D003B62D5 /* GoogleService-Info.plist in Resources */,
+				938CFD741DB46C29000A0675 /* AvenirLTStd-Oblique.otf in Resources */,
+				938CFD5F1DB46C29000A0675 /* AvenirLTStd-BookOblique.otf in Resources */,
+				938CFD591DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf in Resources */,
+				938CFD681DB46C29000A0675 /* AvenirLTStd-Light.otf in Resources */,
+				938CFD621DB46C29000A0675 /* AvenirLTStd-Heavy.otf in Resources */,
 				938CFD1F1DB46A81000A0675 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,6 +408,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				931F56681DB5307D003B62D5 /* GoogleService-Info.plist in Resources */,
+				938CFD661DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf in Resources */,
+				938CFD6C1DB46C29000A0675 /* AvenirLTStd-LightOblique.otf in Resources */,
+				938CFD781DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */,
+				938CFD691DB46C29000A0675 /* AvenirLTStd-Light.otf in Resources */,
+				938CFD631DB46C29000A0675 /* AvenirLTStd-Heavy.otf in Resources */,
+				938CFD5D1DB46C29000A0675 /* AvenirLTStd-Book.otf in Resources */,
+				938CFD5A1DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf in Resources */,
+				938CFD6F1DB46C29000A0675 /* AvenirLTStd-Medium.otf in Resources */,
+				938CFD571DB46C29000A0675 /* AvenirLTStd-Black.otf in Resources */,
+				938CFD601DB46C29000A0675 /* AvenirLTStd-BookOblique.otf in Resources */,
+				938CFD721DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf in Resources */,
+				938CFD751DB46C29000A0675 /* AvenirLTStd-Oblique.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,10 +428,146 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				931F56691DB5307D003B62D5 /* GoogleService-Info.plist in Resources */,
+				938CFD671DB46C29000A0675 /* AvenirLTStd-HeavyOblique.otf in Resources */,
+				938CFD6D1DB46C29000A0675 /* AvenirLTStd-LightOblique.otf in Resources */,
+				938CFD791DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */,
+				938CFD6A1DB46C29000A0675 /* AvenirLTStd-Light.otf in Resources */,
+				938CFD641DB46C29000A0675 /* AvenirLTStd-Heavy.otf in Resources */,
+				938CFD5E1DB46C29000A0675 /* AvenirLTStd-Book.otf in Resources */,
+				938CFD5B1DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf in Resources */,
+				938CFD701DB46C29000A0675 /* AvenirLTStd-Medium.otf in Resources */,
+				938CFD581DB46C29000A0675 /* AvenirLTStd-Black.otf in Resources */,
+				938CFD611DB46C29000A0675 /* AvenirLTStd-BookOblique.otf in Resources */,
+				938CFD731DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf in Resources */,
+				938CFD761DB46C29000A0675 /* AvenirLTStd-Oblique.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0E9B4D92F20CB2FAB9CFBA1E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		391FA17BE0AEA3DE30BE4479 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenTests/Pods-OpenTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C57771CE81A302D25F34EB5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenTests/Pods-OpenTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6C547A6D62B2113BAB49FF9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D4C0151BAD7D67CA1AC04B0E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenUITests/Pods-OpenUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2720DEA1C55072C3B4CA763 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Open/Pods-Open-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E468FC87E172F0293EDE030B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Open/Pods-Open-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE10536FF38651E1EE3D9EA1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		938CFD121DB46A81000A0675 /* Sources */ = {
@@ -266,6 +575,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				938CFD1C1DB46A81000A0675 /* ViewController.swift in Sources */,
+				93E2A5B21DC2948D00CFBB4F /* HoursButton.swift in Sources */,
+				93C510791DBABB9800F35504 /* Business.swift in Sources */,
+				93366CA61DC8121A001BEA48 /* FirebaseHelpers.swift in Sources */,
+				93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */,
 				938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */,
 				938CFD221DB46A81000A0675 /* Open.xcdatamodeld in Sources */,
 			);
@@ -415,8 +728,11 @@
 		};
 		938CFD421DB46A81000A0675 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1E69B6381AB18462E07A92E /* Pods-Open.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Open/Open.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 264373799U;
 				INFOPLIST_FILE = Open/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -428,8 +744,11 @@
 		};
 		938CFD431DB46A81000A0675 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 392779ACCE81932BED6547DB /* Pods-Open.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Open/Open.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 264373799U;
 				INFOPLIST_FILE = Open/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -441,6 +760,7 @@
 		};
 		938CFD451DB46A81000A0675 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB4F9900C6BD2C2A01D7FCA0 /* Pods-OpenTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -456,6 +776,7 @@
 		};
 		938CFD461DB46A81000A0675 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E38CB26C6E588728D92BD0FB /* Pods-OpenTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -471,6 +792,7 @@
 		};
 		938CFD481DB46A81000A0675 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E20B7CE9971291397047DDB /* Pods-OpenUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 264373799U;
@@ -485,6 +807,7 @@
 		};
 		938CFD491DB46A81000A0675 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70C631ECFE3195CF183BE0C2 /* Pods-OpenUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 264373799U;
@@ -516,6 +839,7 @@
 				938CFD431DB46A81000A0675 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		938CFD441DB46A81000A0675 /* Build configuration list for PBXNativeTarget "OpenTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +848,7 @@
 				938CFD461DB46A81000A0675 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		938CFD471DB46A81000A0675 /* Build configuration list for PBXNativeTarget "OpenUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +857,7 @@
 				938CFD491DB46A81000A0675 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
