@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var ref = FIRDatabase.database().reference(withPath: "open-list")
+    lazy var ref = FIRDatabase.database().reference(withPath: "business-list")
     
     var items : [Business] = []
     
