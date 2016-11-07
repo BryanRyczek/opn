@@ -10,17 +10,7 @@ import UIKit
 import FirebaseDatabase
 import CoreLocation
 
-
-
 class ViewController: UIViewController {
-
-    @IBOutlet weak var businessNameField: UITextField!
-    @IBOutlet weak var businessTypeField: UITextField!
-    @IBOutlet weak var streetNumberField: UITextField!
-    @IBOutlet weak var streetField: UITextField!
-    @IBOutlet weak var addressLineTwoField: UITextField!
-    @IBOutlet weak var stateField: UITextField!
-     @IBOutlet weak var zipField: UITextField!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -33,7 +23,6 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        //saveBusiness()
         for family: String in UIFont.familyNames
         {
             print("\(family)")
@@ -67,41 +56,6 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func saveBusiness() {
-        
-        let businessName : String = "Joule"
-        let businessType : String = "Technology"
-        let latitude : Double = 42.382884
-        let longitude : Double =  -71.071386
-        //let coordinates : Coordinates = Coordinates(latitude: 42.382884, longitude: -71.071386)
-        //let location : CLLocation = CLLocation(latitude: 42.382884, longitude: -71.071386)
-        let streetNumber = 11
-        let street = "Charles Street"
-        let addressLineTwo : String? = nil
-        let city = "Boston"
-        let state = "MA"
-        let zip = "02129"
-        let addedByUser: String = "Bryan"
-        
-//        let business = Business(businessName: businessName,
-//                                businessType: businessType,
-//                                streetNumber: streetNumber,
-//                                      street: street,
-//                              //addressLineTwo: addressLineTwo?,
-//                                        city: city,
-//                                       state: state,
-//                                         zip: zip,
-//                                    latitude: latitude,
-//                                   longitude: longitude,
-//                                   completed: false,
-//                                      isOpen: true,
-//                                 addedByUser: addedByUser)
-        
-        let businessRef = self.ref.child(businessName.lowercased())
-        
-        //businessRef.setValue(business.toAnyObject())
-        
-    }
     
     func deleteBusiness() {
         let businessRef = items[0]
