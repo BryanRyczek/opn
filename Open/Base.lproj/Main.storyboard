@@ -195,7 +195,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GmY-YI-CDE" id="Xs2-k4-QdD">
-                                            <frame key="frameInset" width="375" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -227,7 +227,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="141.59999999999999" y="119.1904047976012"/>
+            <point key="canvasLocation" x="3324" y="89"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="CnK-xx-5Y0">
@@ -871,7 +871,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YT9-7R-UIU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="XlS-um-opa">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XlS-um-opa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
