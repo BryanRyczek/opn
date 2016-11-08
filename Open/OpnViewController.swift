@@ -16,9 +16,10 @@ class OpnViewController: UIViewController {
     @IBOutlet weak var opnTableView: UITableView!
     
     lazy var ref = FIRDatabase.database().reference(withPath: "business-list")
-    lazy var callLogo : UIImage = UIImage(named: "PhoneIcon80x80")!
-    lazy var chatLogo : UIImage = UIImage(named: "ChatIcon80x80")!
-    lazy var newLogo : UIImage = UIImage(named: "SpecialsIcon80x80")!
+    lazy var callLogo : UIImage = UIImage(named: "PhoneIconLabel80x100")!
+    lazy var chatLogo : UIImage = UIImage(named: "ChatIconLabel80x100")!
+    lazy var newLogo : UIImage = UIImage(named: "NewIconLabel80x100")!
+    lazy var orderLogo : UIImage = UIImage(named: "OrderIconLabel80x100")!
     
     var businesses : [Business] = []
     
@@ -82,21 +83,31 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
             }
         
         //var chatButton : MGSwipeButton = MGSwipeButton(title: "", icon: chatLogo, backgroundColor: UIColor.white)
-        let chatButton : MGSwipeButton = MGSwipeButton(title: "", icon: chatLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
+        var chatButton : MGSwipeButton = MGSwipeButton(title: "", icon: chatLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
             print("chat")
             return true
         }
+        chatButton.centerIconOverText(withSpacing: 0.0)
         var callButton : MGSwipeButton = MGSwipeButton(title: "", icon: callLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
             print("call")
             return true
         }
-
+        callButton.centerIconOverText(withSpacing: 0.0)
         let newButton : MGSwipeButton = MGSwipeButton(title: "", icon: newLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
             print("new")
             return true
         }
+        newButton.centerIconOverText(withSpacing: 0.0)
+        let orderButton : MGSwipeButton = MGSwipeButton(title: "", icon: orderLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
+            print("order")
+            return true
+        }
+        orderButton.centerIconOverText(withSpacing: 0.0)
 
-        cell.rightButtons = [chatButton,callButton,newButton]
+        cell.rightSwipeSettings.transition = MGSwipeTransition.static
+        cell.rightButtons = [chatButton,callButton]
+        cell.leftSwipeSettings.transition = MGSwipeTransition.static
+        cell.leftButtons = [newButton, orderButton]
        
         cell.businessName.text = business.businessName
         cell.backgroundColor = UIColor.red
