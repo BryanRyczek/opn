@@ -220,7 +220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3324" y="89"/>
+            <point key="canvasLocation" x="1705" y="762"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="CnK-xx-5Y0">
@@ -230,7 +230,7 @@
                         <viewControllerLayoutGuide type="top" id="tmQ-i3-DtV"/>
                         <viewControllerLayoutGuide type="bottom" id="jLs-Fv-HZa"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Fpc-sy-Cw9">
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="Fpc-sy-Cw9">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -776,7 +776,13 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="TbR-N7-yNr"/>
+                    <navigationItem key="navigationItem" id="TbR-N7-yNr">
+                        <barButtonItem key="leftBarButtonItem" title="Table" id="YYb-89-e9M">
+                            <connections>
+                                <segue destination="PWU-05-P2D" kind="show" identifier="showOpnVC" id="cu4-MG-tnp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="entryFieldFiveOne" destination="yzn-Em-DQj" id="RUh-dB-nan"/>
                         <outlet property="entryFieldFiveTwo" destination="2du-Nr-Xu3" id="JWk-0n-yYK"/>
@@ -871,13 +877,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vbD-6e-S5G">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rQa-oT-Ao9">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="xdf-nm-SdI">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="sLk-1E-ksH">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xdf-nm-SdI" id="VBQ-lD-y9N">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sLk-1E-ksH" id="IPK-27-AwN">
                                             <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
@@ -887,19 +893,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="vbD-6e-S5G" firstAttribute="top" secondItem="VTm-Wc-QYv" secondAttribute="bottom" id="Kwx-h6-UvR"/>
-                            <constraint firstAttribute="trailing" secondItem="vbD-6e-S5G" secondAttribute="trailing" id="kBh-kg-dng"/>
-                            <constraint firstItem="vbD-6e-S5G" firstAttribute="leading" secondItem="3s7-No-Ng8" secondAttribute="leading" id="r3A-eK-8oM"/>
-                            <constraint firstItem="3zC-Qy-Mt2" firstAttribute="top" secondItem="vbD-6e-S5G" secondAttribute="bottom" id="vKe-s6-yDf"/>
+                            <constraint firstItem="rQa-oT-Ao9" firstAttribute="top" secondItem="VTm-Wc-QYv" secondAttribute="bottom" id="Qup-Na-auw"/>
+                            <constraint firstAttribute="trailing" secondItem="rQa-oT-Ao9" secondAttribute="trailing" id="TwH-be-WkV"/>
+                            <constraint firstItem="rQa-oT-Ao9" firstAttribute="leading" secondItem="3s7-No-Ng8" secondAttribute="leading" id="eab-8j-LE7"/>
+                            <constraint firstItem="3zC-Qy-Mt2" firstAttribute="top" secondItem="rQa-oT-Ao9" secondAttribute="bottom" id="moA-CD-ihc"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="opnTableView" destination="vbD-6e-S5G" id="GtC-6h-Yqw"/>
+                        <outlet property="opnTableView" destination="rQa-oT-Ao9" id="xmS-0P-6Cx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hA3-7K-5pj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2604" y="763"/>
+            <point key="canvasLocation" x="3428" y="89"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r6d-J0-x6K">

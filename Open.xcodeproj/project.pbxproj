@@ -61,8 +61,10 @@
 		938CFD781DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */; };
 		938CFD791DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */; };
 		93C510791DBABB9800F35504 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C510781DBABB9800F35504 /* Business.swift */; };
+		93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */; };
+		93DA016A1DD0F24400DF57F7 /* OpnBusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */; };
+		93DA016B1DD0F24400DF57F7 /* OpnBusinessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */; };
 		93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DCD8E01DBE570500E2624B /* SignupViewController.swift */; };
-		93E2A5B21DC2948D00CFBB4F /* HoursButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E2A5B11DC2948D00CFBB4F /* HoursButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,8 +121,10 @@
 		938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
 		93C510781DBABB9800F35504 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		93C5107A1DBB053B00F35504 /* Open.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Open.entitlements; sourceTree = "<group>"; };
+		93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelperMethods.swift; sourceTree = "<group>"; };
+		93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnBusinessCell.swift; sourceTree = "<group>"; };
+		93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpnBusinessCell.xib; sourceTree = "<group>"; };
 		93DCD8E01DBE570500E2624B /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
-		93E2A5B11DC2948D00CFBB4F /* HoursButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursButton.swift; sourceTree = "<group>"; };
 		AB4F9900C6BD2C2A01D7FCA0 /* Pods-OpenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenTests/Pods-OpenTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B1E69B6381AB18462E07A92E /* Pods-Open.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Open.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Open/Pods-Open.debug.xcconfig"; sourceTree = "<group>"; };
 		BF7C1E38671A93B6D219A8A6 /* Pods_OpenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,20 +186,18 @@
 			isa = PBXGroup;
 			children = (
 				93C5107A1DBB053B00F35504 /* Open.entitlements */,
-				93C510781DBABB9800F35504 /* Business.swift */,
-				938CFD191DB46A81000A0675 /* AppDelegate.swift */,
-				938CFD1B1DB46A81000A0675 /* ViewController.swift */,
-				9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */,
-				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
-				93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */,
-				93E2A5B11DC2948D00CFBB4F /* HoursButton.swift */,
 				938CFD1D1DB46A81000A0675 /* Main.storyboard */,
+				938CFD191DB46A81000A0675 /* AppDelegate.swift */,
+				93DA01621DD0E8E600DF57F7 /* Models */,
+				93DA01641DD0E90600DF57F7 /* ViewControllers */,
+				93DA01631DD0E8F200DF57F7 /* CustomCells */,
+				93DA01651DD0E92100DF57F7 /* Helpers */,
+				938CFD7A1DB46C39000A0675 /* Avenir */,
 				938CFD231DB46A81000A0675 /* Assets.xcassets */,
 				938CFD251DB46A81000A0675 /* LaunchScreen.storyboard */,
 				938CFD281DB46A81000A0675 /* Info.plist */,
 				931F56661DB5307D003B62D5 /* GoogleService-Info.plist */,
 				938CFD201DB46A81000A0675 /* Open.xcdatamodeld */,
-				938CFD7A1DB46C39000A0675 /* Avenir */,
 			);
 			path = Open;
 			sourceTree = "<group>";
@@ -236,6 +238,42 @@
 				931951151DC0F56400F5346C /* FontAwesome.otf */,
 			);
 			name = Avenir;
+			sourceTree = "<group>";
+		};
+		93DA01621DD0E8E600DF57F7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				93C510781DBABB9800F35504 /* Business.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		93DA01631DD0E8F200DF57F7 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */,
+				93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */,
+			);
+			name = CustomCells;
+			sourceTree = "<group>";
+		};
+		93DA01641DD0E90600DF57F7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				938CFD1B1DB46A81000A0675 /* ViewController.swift */,
+				9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */,
+				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		93DA01651DD0E92100DF57F7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */,
+				93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		A3C0CE4DCD42DA8FEBC69A24 /* Frameworks */ = {
@@ -396,6 +434,7 @@
 				938CFD561DB46C29000A0675 /* AvenirLTStd-Black.otf in Resources */,
 				938CFD5C1DB46C29000A0675 /* AvenirLTStd-Book.otf in Resources */,
 				938CFD6B1DB46C29000A0675 /* AvenirLTStd-LightOblique.otf in Resources */,
+				93DA016B1DD0F24400DF57F7 /* OpnBusinessCell.xib in Resources */,
 				938CFD771DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */,
 				931F56671DB5307D003B62D5 /* GoogleService-Info.plist in Resources */,
 				938CFD741DB46C29000A0675 /* AvenirLTStd-Oblique.otf in Resources */,
@@ -578,12 +617,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				938CFD1C1DB46A81000A0675 /* ViewController.swift in Sources */,
-				93E2A5B21DC2948D00CFBB4F /* HoursButton.swift in Sources */,
+				93DA016A1DD0F24400DF57F7 /* OpnBusinessCell.swift in Sources */,
 				93C510791DBABB9800F35504 /* Business.swift in Sources */,
 				93366CA61DC8121A001BEA48 /* FirebaseHelpers.swift in Sources */,
 				93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */,
 				938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */,
 				9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */,
+				93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */,
 				938CFD221DB46A81000A0675 /* Open.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
