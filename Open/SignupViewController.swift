@@ -10,7 +10,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import FirebaseDatabase
 
-let openBlue: UIColor = UIColor(red: 38/255, green: 68/255, blue: 232/255, alpha: 1)
+let openBlue: UIColor = UIColor(red: 31/255, green: 54/255, blue: 232/255, alpha: 1)
 let openRed: UIColor = UIColor(red: 226/255, green: 2/255, blue: 64/255, alpha: 1)
 
 let avenir55 = "AvenirLTStd-Roman"
@@ -337,16 +337,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
             break
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+ 
     //MARK: To Handle Formatting of Phone #
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -504,8 +495,10 @@ extension SignupViewController {
         }
     }
 
+    // MARK: - Navigation
+    // override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
+    
 }
-
 
 
 extension SignupViewController { //MARK: Keyboard Buttons extension

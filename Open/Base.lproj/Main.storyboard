@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="YT9-7R-UIU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PWU-05-P2D">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -221,6 +222,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1705" y="762"/>
+        </scene>
+        <!--Modal Business View Controller-->
+        <scene sceneID="3yG-Yn-KeQ">
+            <objects>
+                <viewController id="kMs-JE-mp6" customClass="ModalBusinessViewController" customModule="Open" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ocv-JV-AxS"/>
+                        <viewControllerLayoutGuide type="bottom" id="LwU-aT-8k9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="do0-ke-RWf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJz-f5-bye">
+                                <frame key="frameInset" minX="309" minY="28" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="close:" destination="kMs-JE-mp6" eventType="touchUpInside" id="q8p-vu-Vzx"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CN7-DP-MCs">
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="CN7-DP-MCs" firstAttribute="height" secondItem="do0-ke-RWf" secondAttribute="height" multiplier="0.35" id="Neu-3n-HhA"/>
+                            <constraint firstItem="CN7-DP-MCs" firstAttribute="centerY" secondItem="do0-ke-RWf" secondAttribute="centerY" id="egC-KU-4BK"/>
+                            <constraint firstItem="CN7-DP-MCs" firstAttribute="centerX" secondItem="do0-ke-RWf" secondAttribute="centerX" id="pl1-KP-14k"/>
+                            <constraint firstItem="CN7-DP-MCs" firstAttribute="width" secondItem="do0-ke-RWf" secondAttribute="width" multiplier="0.8" id="rTf-73-pKH"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="A7X-iq-sQz" appends="YES" id="gGW-Ha-Npk"/>
+                        </connections>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OO5-aK-G8d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="A7X-iq-sQz">
+                    <connections>
+                        <action selector="handlePan:" destination="kMs-JE-mp6" id="OSb-Wm-1Ih"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2604" y="850"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="CnK-xx-5Y0">
@@ -868,7 +914,7 @@
         <!--Opn View Controller-->
         <scene sceneID="OMF-UX-9IH">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="PWU-05-P2D" customClass="OpnViewController" customModule="Open" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PWU-05-P2D" customClass="OpnViewController" customModule="Open" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VTm-Wc-QYv"/>
                         <viewControllerLayoutGuide type="bottom" id="3zC-Qy-Mt2"/>
@@ -881,7 +927,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="sLk-1E-ksH">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sLk-1E-ksH" id="IPK-27-AwN">
                                             <frame key="frameInset" width="375" height="43"/>
@@ -890,15 +936,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3o-OF-UV3">
+                                <frame key="frameInset" minX="164" minY="83" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="kMs-JE-mp6" kind="presentation" id="5G6-Ae-IoM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rQa-oT-Ao9" firstAttribute="top" secondItem="VTm-Wc-QYv" secondAttribute="bottom" id="Qup-Na-auw"/>
+                            <constraint firstItem="rQa-oT-Ao9" firstAttribute="top" secondItem="VTm-Wc-QYv" secondAttribute="bottom" constant="80" id="Qup-Na-auw"/>
                             <constraint firstAttribute="trailing" secondItem="rQa-oT-Ao9" secondAttribute="trailing" id="TwH-be-WkV"/>
                             <constraint firstItem="rQa-oT-Ao9" firstAttribute="leading" secondItem="3s7-No-Ng8" secondAttribute="leading" id="eab-8j-LE7"/>
                             <constraint firstItem="3zC-Qy-Mt2" firstAttribute="top" secondItem="rQa-oT-Ao9" secondAttribute="bottom" id="moA-CD-ihc"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="opnTableView" destination="rQa-oT-Ao9" id="xmS-0P-6Cx"/>
                     </connections>

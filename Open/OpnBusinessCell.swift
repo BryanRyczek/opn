@@ -24,4 +24,5 @@ class OpnBusinessCell: MGSwipeTableCell {
         // Configure the view for the selected state
     }
     
+   
 }

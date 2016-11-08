@@ -64,6 +64,9 @@
 		93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */; };
 		93DA016A1DD0F24400DF57F7 /* OpnBusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */; };
 		93DA016B1DD0F24400DF57F7 /* OpnBusinessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */; };
+		93DA016D1DD2177F00DF57F7 /* ModalBusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */; };
+		93DA016F1DD21C0800DF57F7 /* DismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA016E1DD21C0800DF57F7 /* DismissAnimator.swift */; };
+		93DA01731DD22E6700DF57F7 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01721DD22E6700DF57F7 /* Interactor.swift */; };
 		93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DCD8E01DBE570500E2624B /* SignupViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +127,9 @@
 		93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelperMethods.swift; sourceTree = "<group>"; };
 		93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnBusinessCell.swift; sourceTree = "<group>"; };
 		93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpnBusinessCell.xib; sourceTree = "<group>"; };
+		93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalBusinessViewController.swift; sourceTree = "<group>"; };
+		93DA016E1DD21C0800DF57F7 /* DismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DismissAnimator.swift; path = ../DismissAnimator.swift; sourceTree = "<group>"; };
+		93DA01721DD22E6700DF57F7 /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		93DCD8E01DBE570500E2624B /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		AB4F9900C6BD2C2A01D7FCA0 /* Pods-OpenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenTests/Pods-OpenTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B1E69B6381AB18462E07A92E /* Pods-Open.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Open.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Open/Pods-Open.debug.xcconfig"; sourceTree = "<group>"; };
@@ -261,8 +267,11 @@
 			isa = PBXGroup;
 			children = (
 				938CFD1B1DB46A81000A0675 /* ViewController.swift */,
+				93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */,
 				9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */,
 				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
+				93DA01721DD22E6700DF57F7 /* Interactor.swift */,
+				93DA016E1DD21C0800DF57F7 /* DismissAnimator.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -618,9 +627,12 @@
 			files = (
 				938CFD1C1DB46A81000A0675 /* ViewController.swift in Sources */,
 				93DA016A1DD0F24400DF57F7 /* OpnBusinessCell.swift in Sources */,
+				93DA016D1DD2177F00DF57F7 /* ModalBusinessViewController.swift in Sources */,
 				93C510791DBABB9800F35504 /* Business.swift in Sources */,
 				93366CA61DC8121A001BEA48 /* FirebaseHelpers.swift in Sources */,
 				93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */,
+				93DA01731DD22E6700DF57F7 /* Interactor.swift in Sources */,
+				93DA016F1DD21C0800DF57F7 /* DismissAnimator.swift in Sources */,
 				938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */,
 				9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */,
 				93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */,

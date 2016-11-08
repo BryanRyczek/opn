@@ -15,24 +15,29 @@ class OpnViewController: UIViewController {
 
     @IBOutlet weak var opnTableView: UITableView!
     
+    //Interactor for mobile
+    let interactor = Interactor()
+    
+    //Firebase Ref
     lazy var ref = FIRDatabase.database().reference(withPath: "business-list")
+    var businesses : [Business] = []
+    //Icons for Table View cell swipe buttons
     lazy var callLogo : UIImage = UIImage(named: "PhoneIconLabel80x100")!
     lazy var chatLogo : UIImage = UIImage(named: "ChatIconLabel80x100")!
     lazy var newLogo : UIImage = UIImage(named: "NewIconLabel80x100")!
     lazy var orderLogo : UIImage = UIImage(named: "OrderIconLabel80x100")!
     
-    var businesses : [Business] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //set Delegates
         opnTableView.delegate = self
         opnTableView.dataSource = self
         
         //register custom cells to storyboard
         opnTableView.register(UINib(nibName: "OpnBusinessCell", bundle: nil), forCellReuseIdentifier: "opnBusinessCell")
         
-        // Do any additional setup after loading the view.
         //MARK: listener on Firebase database. Listen for add/removed/changed event to .value type
         ref.queryOrdered(byChild: "businessName").observe(.value, with: { snapshot in
             
@@ -48,25 +53,30 @@ class OpnViewController: UIViewController {
             
         })
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let destinationViewController = segue.destination as? ModalBusinessViewController {
+            destinationViewController.transitioningDelegate = self
+            destinationViewController.interactor = interactor
+        }
     }
-    */
 
 }
 
+//MARK: Transitioning Delegate Extension
+extension OpnViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissAnimator()
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+}
+
+//MARK: Table View Extension
 extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,8 +91,7 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
                 dtl.textColor = UIColor.black
                 dtl.text = String(indexPath.row)
             }
-        
-        //var chatButton : MGSwipeButton = MGSwipeButton(title: "", icon: chatLogo, backgroundColor: UIColor.white)
+
         var chatButton : MGSwipeButton = MGSwipeButton(title: "", icon: chatLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
             print("chat")
             return true
@@ -112,8 +121,6 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
         cell.businessName.text = business.businessName
         cell.backgroundColor = UIColor.red
         
-        //toggleCellCheckbox(cell, isCompleted: business.completed)
-        
         return cell
 
     }
@@ -122,66 +129,9 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = opnTableView.cellForRow(at: indexPath) else { return }
         let business = businesses[indexPath.row]
     }
-
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-//        //let call = BGTableView
-//
-//        let cellHeight = (UInt(tableView.cellForRow(at: indexPath)!.frame.height))
-//        let call = BGTableViewRowActionWithImage.rowAction( with: .normal,
-//                                                            title: " Call ",
-//                                                            titleColor: UIColor.black,
-//                                                  backgroundColor: UIColor.white,
-//                                                            image: callLogo,
-//                                                    forCellHeight: cellHeight + 80,
-//                                                   andFittedWidth: false) { (action, indexPath) in
-//                                                    print("call!")
-//        }
-//        
-//        //call.backgroundColor = UIColor(patternImage: UIImage(named: "PhoneIcon")!)
-//        let
-//        let chat = BGTableViewRowActionWithImage.rowAction( with: .normal,
-//                                                            title: " Chat  ",
-//                                                            titleColor: UIColor.black,
-//                                                            backgroundColor: UIColor.white,
-//                                                            image: chatLogo,
-//                                                            forCellHeight: cellHeight + 80,
-//                                                            andFittedWidth: false) { (action, indexPath) in
-//                                                                print("chat!")
-//        }
-//        
-//        let
-//        let specials = BGTableViewRowActionWithImage.rowAction( with: .normal,
-//                                                            title: "  New! ",
-//                                                            titleColor: UIColor.black,
-//                                                            backgroundColor: UIColor.white,
-//                                                            image: specialsLogo,
-//                                                            forCellHeight: cellHeight + 80,
-//                                                            andFittedWidth: false) { (action, indexPath) in
-//                                                                print("specials!")
-//        }
-//
-     return[]
-        
-    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.height * 0.35
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        print(editingStyle)
-//        switch editingStyle {
-//            case .delete:
-//                let business = businesses[indexPath.row]
-//                business.ref?.removeValue()
-//            case .none:
-//                print("none")
-//            case .insert:
-//                 print("insert")
-//            default:
-//                break
-//        }
     }
     
 }
