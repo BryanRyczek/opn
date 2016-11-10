@@ -84,6 +84,11 @@ class OpnViewController: UIViewController {
             //self.label.text = "Ah, maybe next time :)"
         }
         
+        let overlayAppearance = PopupDialogOverlayView.appearance()
+        
+        overlayAppearance.opacity = 0.50
+        overlayAppearance.blurEnabled = false
+        
         // Add buttons to dialog
         //popup.addButtons([buttonOne, buttonTwo, buttonThree])
         
