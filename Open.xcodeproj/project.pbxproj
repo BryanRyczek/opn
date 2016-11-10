@@ -67,6 +67,7 @@
 		93DA016B1DD0F24400DF57F7 /* OpnBusinessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */; };
 		93DA016D1DD2177F00DF57F7 /* ModalBusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */; };
 		93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DCD8E01DBE570500E2624B /* SignupViewController.swift */; };
+		93E1C0D11DD50A5500708CF9 /* IsOpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,7 @@
 		93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpnBusinessCell.xib; sourceTree = "<group>"; };
 		93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalBusinessViewController.swift; sourceTree = "<group>"; };
 		93DCD8E01DBE570500E2624B /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsOpenViewController.swift; sourceTree = "<group>"; };
 		AB4F9900C6BD2C2A01D7FCA0 /* Pods-OpenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenTests/Pods-OpenTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B1E69B6381AB18462E07A92E /* Pods-Open.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Open.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Open/Pods-Open.debug.xcconfig"; sourceTree = "<group>"; };
 		BF7C1E38671A93B6D219A8A6 /* Pods_OpenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -269,6 +271,7 @@
 				9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */,
 				9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */,
 				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
+				93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 				93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */,
 				938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */,
 				9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */,
+				93E1C0D11DD50A5500708CF9 /* IsOpenViewController.swift in Sources */,
 				93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */,
 				938CFD221DB46A81000A0675 /* Open.xcdatamodeld in Sources */,
 			);

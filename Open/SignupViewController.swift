@@ -60,6 +60,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var entryLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
     
+    //Text Entry fields
     @IBOutlet weak var entryFieldOneOne: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var entryFieldOneTwo: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var entryFieldTwoOne: SkyFloatingLabelTextFieldWithIcon!
@@ -76,12 +77,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var entryFieldSevenOne: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var entryFieldSevenTwo: SkyFloatingLabelTextFieldWithIcon!
     
+    
+    //Outlet Collections
     @IBOutlet var entryFields: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet var allFieldsButFirst: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet var nonAddressFields: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet var columnOneEntryFields: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet var columnTwoEntryFields: [SkyFloatingLabelTextFieldWithIcon]!
-    
     @IBOutlet var addressFields: [SkyFloatingLabelTextFieldWithIcon]!
     
     var currentTextField : UITextField?
@@ -362,7 +364,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
             textField.text = formattedString as String
             return false
             
-            } else if phase == 5 {
+    } else if phase == 5 {
             
             let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
             let components = (newString as NSString).components(separatedBy: NSCharacterSet.decimalDigits.inverted)
@@ -456,8 +458,6 @@ extension SignupViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "hh:mm a"
             ctf.text = dateFormatter.string(from: sender.date)
-            print(currentTextField?.text)
-            
             dateFormatter.dateFormat = "hh:mm"
             if (ctf.tag % 2) == 0 {
                 lastOpen = dateFormatter.string(from: sender.date)
@@ -686,18 +686,6 @@ extension SignupViewController { //MARK: Keyboard Buttons extension
     }
 }
 
-extension String {
-    func timeConversion(time: String) -> (String) {
-        var newTime : String = time
-        
-        if time.characters.count == 1 || time.characters.count == 2 {
-            newTime = newTime + ":00"
-            print(newTime)
-        }
-        
-        return newTime
-    }
-}
 
 
 extension String {
