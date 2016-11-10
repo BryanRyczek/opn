@@ -9,12 +9,14 @@
 import UIKit
 
 class ModalBusinessViewController: UIViewController {
-
-    var interactor:Interactor? = nil
+    
+    @IBOutlet weak var businessName: UILabel!
+    @IBOutlet weak var opnLogo: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        businessName.text = "Hello World!"
+        //opnLogo.image = UIImage(named: "OpnIconGrayscale")
         // Do any additional setup after loading the view.
     }
 
@@ -23,7 +25,6 @@ class ModalBusinessViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
     
@@ -33,43 +34,4 @@ class ModalBusinessViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    @IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
-        
-        //How far down to trigger the dismissal of the modal
-        let percentThreshold:CGFloat = 0.3
-        
-        // convert y-position to downward pull progress (percentage)
-        let translation = sender.translation(in: view) //convert pan gesture coordinate to Modal VCs coordinate space
-        let verticalMovement = translation.y / view.bounds.height // vertical distance to %
-        let downwardMovement = fmaxf(Float(verticalMovement), 0.0)// capture movement in downward direction
-        let downwardMovementPercent = fminf(downwardMovement, 1.0)// ensures max downward movement of 100%
-        let progress = CGFloat(downwardMovementPercent) // % as a CGFloat
-        
-        guard let interactor = interactor else { return }
-        
-        switch sender.state {
-        case .began:
-            interactor.hasStarted = true
-            dismiss(animated: true, completion: nil)
-        case .changed:
-            interactor.shouldFinish = progress > percentThreshold
-            interactor.update(progress)
-        case .cancelled:
-            interactor.hasStarted = false
-            interactor.cancel()
-        case .ended:
-            interactor.hasStarted = false
-            interactor.shouldFinish
-                ? interactor.finish()
-                : interactor.cancel()
-        default:
-            break
-        }
-        
-    }
-    
-    @IBAction func close(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-    
 }

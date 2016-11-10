@@ -9,14 +9,11 @@
 import UIKit
 import FirebaseDatabase
 import MGSwipeTableCell
-
+import PopupDialog
 
 class OpnViewController: UIViewController {
 
     @IBOutlet weak var opnTableView: UITableView!
-    
-    //Interactor for mobile
-    let interactor = Interactor()
     
     //Firebase Ref
     lazy var ref = FIRDatabase.database().reference(withPath: "business-list")
@@ -26,7 +23,6 @@ class OpnViewController: UIViewController {
     lazy var chatLogo : UIImage = UIImage(named: "ChatIconLabel80x100")!
     lazy var newLogo : UIImage = UIImage(named: "NewIconLabel80x100")!
     lazy var orderLogo : UIImage = UIImage(named: "OrderIconLabel80x100")!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,26 +50,59 @@ class OpnViewController: UIViewController {
         })
     }
     
+    func showImageDialog() {
+        
+        // Prepare the popup assets
+        let title = "THIS IS THE DIALOG TITLE"
+        let message = "This is the message section of the popup dialog default view"
+        let image = UIImage(named: "pexels-photo-103290")
+        
+        // Create the dialog
+        //let popup = PopupDialog(title: title, message: message, image: image)
+        
+        let businessVc = ModalBusinessViewController(nibName: "ModalBusinessViewController", bundle: nil)
+        
+        let popup = PopupDialog(viewController: businessVc,
+                                buttonAlignment: .vertical,
+                                transitionStyle: .bounceUp,
+                                gestureDismissal: true) { 
+                                    print("done!")
+        }
+        
+        // Create first button
+        let buttonOne = CancelButton(title: "CANCEL") {
+            //self.label.text = "You canceled the car dialog."
+        }
+        
+        // Create second button
+        let buttonTwo = DefaultButton(title: "ADMIRE CAR") {
+            //self.label.text = "What a beauty!"
+        }
+        
+        // Create third button
+        let buttonThree = DefaultButton(title: "BUY CAR") {
+            //self.label.text = "Ah, maybe next time :)"
+        }
+        
+        // Add buttons to dialog
+        //popup.addButtons([buttonOne, buttonTwo, buttonThree])
+        
+        // Present dialog
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // in half a second...
+            self.present(popup, animated: true, completion: nil)
+        }
+        
+    }
+    
+    @IBAction func showPopover(_ sender: AnyObject) {
+        showImageDialog()
+    }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationViewController = segue.destination as? ModalBusinessViewController {
-            destinationViewController.transitioningDelegate = self
-            destinationViewController.interactor = interactor
-        }
+       
     }
 
-}
-
-//MARK: Transitioning Delegate Extension
-extension OpnViewController: UIViewControllerTransitioningDelegate {
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return DismissAnimator()
-    }
-    
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactor.hasStarted ? interactor : nil
-    }
 }
 
 //MARK: Table View Extension

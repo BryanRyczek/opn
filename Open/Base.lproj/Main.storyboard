@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PWU-05-P2D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="YT9-7R-UIU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -223,15 +223,15 @@
             </objects>
             <point key="canvasLocation" x="1705" y="762"/>
         </scene>
-        <!--Modal Business View Controller-->
+        <!--Pop Up Demo-->
         <scene sceneID="3yG-Yn-KeQ">
             <objects>
-                <viewController id="kMs-JE-mp6" customClass="ModalBusinessViewController" customModule="Open" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kMs-JE-mp6" customClass="PopUpDemo" customModule="Open" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ocv-JV-AxS"/>
                         <viewControllerLayoutGuide type="bottom" id="LwU-aT-8k9"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="do0-ke-RWf">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="do0-ke-RWf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -243,10 +243,9 @@
                                     <action selector="close:" destination="kMs-JE-mp6" eventType="touchUpInside" id="q8p-vu-Vzx"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CN7-DP-MCs">
-                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CN7-DP-MCs"/>
                         </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="CN7-DP-MCs" firstAttribute="height" secondItem="do0-ke-RWf" secondAttribute="height" multiplier="0.35" id="Neu-3n-HhA"/>
@@ -267,6 +266,24 @@
                 </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2604" y="850"/>
+        </scene>
+        <!--Pop Up Demo-->
+        <scene sceneID="7Lr-pZ-YVF">
+            <objects>
+                <viewController id="lMX-XH-Xb5" customClass="PopUpDemo" customModule="Open" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yhh-i0-cmf"/>
+                        <viewControllerLayoutGuide type="bottom" id="hCl-Eh-YjN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UTS-JW-xId">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sPa-yf-arJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3298" y="851"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="CnK-xx-5Y0">
@@ -941,7 +958,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <segue destination="kMs-JE-mp6" kind="presentation" id="5G6-Ae-IoM"/>
+                                    <action selector="showPopover:" destination="PWU-05-P2D" eventType="touchUpInside" id="NN0-1P-3wd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -966,7 +983,7 @@
         <!--Navigation Controller-->
         <scene sceneID="r6d-J0-x6K">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YT9-7R-UIU" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overCurrentContext" id="YT9-7R-UIU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="XlS-um-opa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
