@@ -25,14 +25,28 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBg-X5-4c0">
+                        <attributedString key="attributedText">
+                            <fragment content="OPEN">
+                                <attributes>
+                                    <font key="NSFont" size="48" name="AvenirLTStd-Heavy"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="pIu-IB-4C2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="00T-OF-cjy"/>
                     <constraint firstItem="pIu-IB-4C2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Spz-RK-USX"/>
+                    <constraint firstItem="yBg-X5-4c0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="l3r-lH-eR7"/>
+                    <constraint firstItem="yBg-X5-4c0" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="yu9-wN-Ihz"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="businessName" destination="pIu-IB-4C2" id="uvg-ll-Got"/>
+                <outlet property="openLabel" destination="yBg-X5-4c0" id="pur-N2-oqE"/>
             </connections>
             <point key="canvasLocation" x="210" y="77"/>
         </tableViewCell>

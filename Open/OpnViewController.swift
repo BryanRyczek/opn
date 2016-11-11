@@ -24,8 +24,16 @@ class OpnViewController: UIViewController {
     lazy var newLogo : UIImage = UIImage(named: "NewIconLabel80x100")!
     lazy var orderLogo : UIImage = UIImage(named: "OrderIconLabel80x100")!
     
+    lazy var todayOpen = String()
+    lazy var todayClose = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let open = ref.child("open")
+        let opn = open.child("wednesdayOpen")
+        print(open)
+        print(opn.key)
         
         //set Delegates
         opnTableView.delegate = self
@@ -100,6 +108,7 @@ class OpnViewController: UIViewController {
     }
     
     @IBAction func showPopover(_ sender: AnyObject) {
+        opnTableView.reloadData()
         showImageDialog()
     }
     
@@ -155,6 +164,27 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
         cell.businessName.text = business.businessName
         cell.backgroundColor = UIColor.red
         
+        
+        let openClose: [Date] = getOpenClose(business: business)
+        print(openClose)
+//        do {
+//            try checkTime(business: business, completion: { string in
+//                print("super cali\(string)")
+//            })
+//            //openClose = try checkTime(business: business, completion: <#T##(String) -> Void#>)
+//        } catch {
+//            print("F*** how we gonna know if this business is open?")
+//        }
+//        print(openClose)
+//        
+//        print("TV OPEN\(openClose[0]) TV CLOSE \(openClose[1])")
+        switch isDateWithinInverval(open: openClose[0], close: openClose[1]) {
+        case true:
+            cell.openLabel.text = "OPEN"
+        case false:
+            cell.openLabel.text = "$#!T WE'RE CLOSED!"
+        }
+        
         return cell
 
     }
@@ -170,3 +200,232 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+extension OpnViewController {
+            
+    enum TimeError: Error {
+        case couldNotConvert
+    }
+    
+    func getOpenClose(business: Business) -> [Date] {
+        
+        let date : [Date] = []
+        
+        var openTime: String = ""
+        var closingTime: String = ""
+        
+        if let today = Date().dayOfWeek() {
+            switch today {
+                case "monday":
+                    openTime = business.mondayOpen
+                    closingTime = business.mondayClose
+                case "tuesday":
+                    openTime = business.tuesdayOpen
+                    closingTime = business.tuesdayClose
+                case"wednesday":
+                    openTime = business.wednesdayOpen
+                    closingTime = business.wednesdayClose
+                case"thursday":
+                    openTime = business.thursdayOpen
+                    closingTime = business.thursdayClose
+                case"friday":
+                    openTime = business.fridayOpen
+                    closingTime = business.fridayClose
+                case"saturday":
+                    openTime = business.saturdayOpen
+                    closingTime = business.saturdayClose
+                case"sunday":
+                    openTime = business.sundayOpen
+                    closingTime = business.sundayClose
+                default:
+                    break
+            }
+        }
+        
+        let todayOpenDate = convertFirebaseTimeStringToDate(firebaseString: openTime)
+        let todayCloseDate = convertFirebaseTimeStringToDate(firebaseString: closingTime)
+
+        return [todayOpenDate, todayCloseDate]
+    }
+    
+    func convertFirebaseTimeStringToDate (firebaseString: String) -> Date {
+        
+        let dateFormatter = DateFormatter()
+        let count = firebaseString.characters.count
+        
+        if count == 5 {
+            dateFormatter.dateFormat = "HH:mm"
+        } else if count == 8 {
+            dateFormatter.dateFormat = "hh:mm a"
+        }
+        
+        guard let date = dateFormatter.date(from: firebaseString) else {
+            return Date()
+        }
+        
+        let newDate =  currentDateCustomTime(dateWithTime: date)
+        
+        return newDate
+    }
+    
+    func currentDateCustomTime(dateWithTime: Date)  -> Date {
+        
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        var dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .timeZone], from: currentDate)
+        let timeComponents = calendar.dateComponents([.hour, .minute], from: dateWithTime)
+        dateComponents.hour = timeComponents.hour
+        dateComponents.minute = timeComponents.minute
+        
+        guard let newDate = calendar.date(from: dateComponents) else {
+            return Date()
+        }
+        
+        return newDate
+    }
+    
+    func isDateWithinInverval(open: Date, close: Date) -> Bool {
+        var isOpen : Bool = false
+        let currentDate = Date()
+        
+        if currentDate > open && close > currentDate {
+            isOpen = true
+        }
+        
+        return isOpen
+    }
+    
+//    func setOpenClose(business: Business) throws -> [Date] {
+//        
+//        guard let today = Date().dayOfWeek() else {
+//            throw  TimeError.couldNotConvert }
+//        let todayPlusOpen: String = today + "Open"
+//        let todayPlusClose: String = today + "Close"
+//        
+//        let businessName = business.businessName.lowercased()
+//
+//        ref.child(businessName).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            let value = snapshot.value as? NSDictionary
+//            self.todayOpen = value?[todayPlusOpen] as! String
+//                
+//                //value?[todayPlusOpen] as? String ?? ""
+//            self.todayClose = value?[todayPlusClose] as! String
+//            
+//            print("bn1 \(businessName) tO \(self.todayOpen) tC \(self.todayClose)")
+//            //let user = User.init(username: username)
+//            // ...
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
+//        
+//        print("bn2 \(businessName) t0 \(todayOpen) tc \(todayClose)")
+//        
+//        let todayOpenDate = try convertFirebaseTimeStringToDate(firebaseString: todayOpen)
+//        let todayCloseDate = try convertFirebaseTimeStringToDate(firebaseString: todayClose)
+//        
+//         print("\(todayOpenDate) \(todayCloseDate)")
+//        return[todayOpenDate, todayCloseDate]
+//        
+//    }
+    
+//    func checkAM(business: Business, completion:@escaping (String) -> Void) throws {
+//        
+//        guard let today = Date().dayOfWeek() else {
+//            throw  TimeError.couldNotConvert }
+//        let todayPlusOpen: String = today + "Open"
+//        let todayPlusClose: String = today + "Close"
+//        let businessName = business.businessName.lowercased()
+//        
+//        ref.child(businessName).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            if let value = snapshot.value as? [String:AnyObject] {
+//                completion(value[todayPlusOpen] as! String)
+//            } else {
+//                completion("DIE")
+//            }
+//
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
+//        
+//    }
+//    
+//    func checkPM(business: Business, completion:@escaping (String) -> Void) throws {
+//        
+//        guard let today = Date().dayOfWeek() else {
+//            throw  TimeError.couldNotConvert }
+//        let todayPlusClose: String = today + "Close"
+//        let businessName = business.businessName.lowercased()
+//        
+//        ref.child(businessName).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            if let value = snapshot.value as? [String:AnyObject] {
+//                completion(value[todayPlusOpen] as! String)
+//            } else {
+//                completion("DIE")
+//            }
+//            
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
+//        
+//    }
+
+    
+        
+//    //TO DO: FIX THROWS METHOD
+//    func convertFirebaseTimeStringToDate (firebaseString: String) throws -> Date {
+//        
+//        let dateFormatter = DateFormatter()
+//        //dateFormatter.dateStyle = .short
+//        let count = firebaseString.characters.count
+//        
+//        if count == 5 {
+//            dateFormatter.dateFormat = "HH:mm"
+//        } else if count == 8 {
+//            dateFormatter.dateFormat = "hh:mm a"
+//        }
+//        
+//        guard let date = dateFormatter.date(from: firebaseString) else {
+//            throw  TimeError.couldNotConvert }
+//        
+//        let newDate = try currentDateCustomTime(dateWithTime: date)
+//        
+//        return newDate
+//    }
+    
+    
+//    func currentDateCustomTime(dateWithTime: Date) throws -> Date {
+//        
+//        let currentDate = Date()
+//        let calendar = Calendar.current
+//        
+//        var dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .timeZone], from: currentDate)
+//        let timeComponents = calendar.dateComponents([.hour, .minute], from: dateWithTime)
+//        dateComponents.hour = timeComponents.hour
+//        dateComponents.minute = timeComponents.minute
+//        
+//        guard let newDate = calendar.date(from: dateComponents) else {
+//            throw TimeError.couldNotConvert
+//        }
+//        
+//        return newDate
+//    }
+    
+}
+
+extension Date {
+    
+    func dayNumberOfWeek() -> Int? {
+        return Calendar.current.dateComponents([.weekday], from: self).weekday
+    }
+    
+    func dayOfWeek() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: self).lowercased()
+        // or use lowercaseed(with: locale)
+    }
+    
+}

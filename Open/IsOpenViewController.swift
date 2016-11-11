@@ -75,11 +75,6 @@ class IsOpenViewController: UIViewController {
             throw  TimeError.couldNotConvert }
         
         let newDate = try currentDateCustomTime(dateWithTime: date)
-//        do {
-//            try currentDateCustomTime(dateWithTime: date)
-//        } catch {
-//            print("$#!T")
-//        }
         
         return newDate
     }
@@ -114,17 +109,17 @@ class IsOpenViewController: UIViewController {
     
 }
 
-extension Date {
-    
-    func dayNumberOfWeek() -> Int? {
-        return Calendar.current.dateComponents([.weekday], from: self).weekday
-    }
-    
-    func dayOfWeek() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self).lowercased()
-        // or use lowercaseed(with: locale)
-    }
-    
-}
+//extension Date {
+//    
+//    func dayNumberOfWeek() -> Int? {
+//        return Calendar.current.dateComponents([.weekday], from: self).weekday
+//    }
+//    
+//    func dayOfWeek() -> String? {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "EEEE"
+//        return dateFormatter.string(from: self).lowercased()
+//        // or use lowercaseed(with: locale)
+//    }
+//    
+//}

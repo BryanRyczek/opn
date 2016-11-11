@@ -12,6 +12,7 @@ import MGSwipeTableCell
 class OpnBusinessCell: MGSwipeTableCell {
 
     @IBOutlet weak var businessName: UILabel!
+    @IBOutlet weak var openLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
