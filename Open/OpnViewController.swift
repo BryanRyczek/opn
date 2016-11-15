@@ -77,20 +77,29 @@ class OpnViewController: UIViewController {
         
         let vc = popup.viewController as! ModalBusinessViewController
         vc.businessName.text = business.businessName
-        vc.mondayOpen.text = business.mondayOpen
-        vc.mondayClose.text = business.mondayClose
-        vc.tuesdayOpen.text = business.tuesdayOpen
-        vc.tuesdayClose.text = business.tuesdayClose
-        vc.wednesdayOpen.text = business.wednesdayOpen
-        vc.wednesdayClose.text = business.wednesdayClose
-        vc.thursdayOpen.text = business.thursdayOpen
-        vc.thursdayClose.text = business.thursdayClose
-        vc.fridayOpen.text = business.fridayOpen
-        vc.fridayClose.text = business.fridayClose
-        vc.saturdayOpen.text = business.saturdayOpen
-        vc.saturdayClose.text = business.saturdayClose
-        vc.sundayOpen.text = business.sundayOpen
-        vc.sundayClose.text = business.sundayClose
+        
+        let mondayOpen = firebaseTimeStringToDate(string: business.mondayOpen)
+        let mondayClose = firebaseTimeStringToDate(string: business.mondayClose)
+        let tuesdayOpen = firebaseTimeStringToDate(string: business.tuesdayOpen)
+        let tuesdayClose = firebaseTimeStringToDate(string: business.tuesdayClose)
+        let wednesdayOpen = firebaseTimeStringToDate(string: business.wednesdayOpen)
+        let wednesdayClose = firebaseTimeStringToDate(string: business.wednesdayClose)
+        let thursdayOpen = firebaseTimeStringToDate(string: business.thursdayOpen)
+        let thursdayClose = firebaseTimeStringToDate(string: business.thursdayClose)
+        let fridayOpen = firebaseTimeStringToDate(string: business.fridayOpen)
+        let fridayClose = firebaseTimeStringToDate(string: business.fridayClose)
+        let saturdayOpen = firebaseTimeStringToDate(string: business.saturdayOpen)
+        let saturdayClose = firebaseTimeStringToDate(string: business.saturdayClose)
+        let sundayOpen = firebaseTimeStringToDate(string: business.sundayOpen)
+        let sundayClose = firebaseTimeStringToDate(string: business.sundayClose)
+            
+        vc.mondayOpen.text = mondayOpen.stringify() == mondayClose.stringify() ? "CLOSED!" : "\(mondayOpen.stringify()) - \(mondayClose.stringify())"
+        vc.tuesdayOpen.text = tuesdayOpen.stringify() == tuesdayClose.stringify() ? "CLOSED!" :"\(tuesdayOpen.stringify()) - \(tuesdayClose.stringify())"
+        vc.wednesdayOpen.text = wednesdayOpen.stringify() == wednesdayClose.stringify() ? "CLOSED!" :"\(wednesdayOpen.stringify()) - \(wednesdayClose.stringify())"
+        vc.thursdayOpen.text = thursdayOpen.stringify() == thursdayClose.stringify() ? "CLOSED!" :"\(thursdayOpen.stringify()) - \(thursdayClose.stringify())"
+        vc.fridayOpen.text = fridayOpen.stringify() == fridayClose.stringify() ? "CLOSED!" :"\(fridayOpen.stringify()) - \(fridayClose.stringify())"
+        vc.saturdayOpen.text = saturdayOpen.stringify() == saturdayClose.stringify() ? "CLOSED!" :"\(saturdayOpen.stringify()) - \(saturdayClose.stringify())"
+        vc.sundayOpen.text = sundayOpen.stringify() == sundayClose.stringify() ? "CLOSED!" :"\(sundayOpen.stringify()) - \(sundayClose.stringify())"
         
         let overlayAppearance = PopupDialogOverlayView.appearance()
         
@@ -253,7 +262,7 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
 //        print(openClose)
 //        
 //        print("TV OPEN\(openClose[0]) TV CLOSE \(openClose[1])")
-        switch isDateWithinInverval(open: openClose[0], close: openClose[1]) {
+        switch business.isOpen {
         case true:
             cell.openLabel.text = "\(business.businessName) is OPEN!"
             cell.backgroundColor = openBlue
@@ -284,95 +293,7 @@ extension OpnViewController {
         case couldNotConvert
     }
     
-    func getOpenClose(business: Business) -> [Date] {
         
-        let date : [Date] = []
-        
-        var openTime: String = ""
-        var closingTime: String = ""
-        
-        if let today = Date().dayOfWeek() {
-            switch today {
-                case "monday":
-                    openTime = business.mondayOpen
-                    closingTime = business.mondayClose
-                case "tuesday":
-                    openTime = business.tuesdayOpen
-                    closingTime = business.tuesdayClose
-                case"wednesday":
-                    openTime = business.wednesdayOpen
-                    closingTime = business.wednesdayClose
-                case"thursday":
-                    openTime = business.thursdayOpen
-                    closingTime = business.thursdayClose
-                case"friday":
-                    openTime = business.fridayOpen
-                    closingTime = business.fridayClose
-                case"saturday":
-                    openTime = business.saturdayOpen
-                    closingTime = business.saturdayClose
-                case"sunday":
-                    openTime = business.sundayOpen
-                    closingTime = business.sundayClose
-                default:
-                    break
-            }
-        }
-        
-        let todayOpenDate = convertFirebaseTimeStringToDate(firebaseString: openTime)
-        let todayCloseDate = convertFirebaseTimeStringToDate(firebaseString: closingTime)
-
-        return [todayOpenDate, todayCloseDate]
-    }
-    
-    func convertFirebaseTimeStringToDate (firebaseString: String) -> Date {
-        
-        let dateFormatter = DateFormatter()
-        let count = firebaseString.characters.count
-        
-        if count == 5 {
-            dateFormatter.dateFormat = "HH:mm"
-        } else if count == 8 {
-            dateFormatter.dateFormat = "hh:mm a"
-        }
-        
-        guard let date = dateFormatter.date(from: firebaseString) else {
-            return Date()
-        }
-        
-        let newDate =  currentDateCustomTime(dateWithTime: date)
-        
-        return newDate
-    }
-    
-    func currentDateCustomTime(dateWithTime: Date)  -> Date {
-        
-        let currentDate = Date()
-        let calendar = Calendar.current
-        
-        var dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .timeZone], from: currentDate)
-        let timeComponents = calendar.dateComponents([.hour, .minute], from: dateWithTime)
-        dateComponents.hour = timeComponents.hour
-        dateComponents.minute = timeComponents.minute
-        
-        guard let newDate = calendar.date(from: dateComponents) else {
-            return Date()
-        }
-        
-        return newDate
-    }
-    
-    func isDateWithinInverval(open: Date, close: Date) -> Bool {
-        var isOpen : Bool = false
-        let currentDate = Date()
-        
-        if currentDate > open && close > currentDate {
-            isOpen = true
-        }
-        
-        return isOpen
-    }
-    
 //    func setOpenClose(business: Business) throws -> [Date] {
 //        
 //        guard let today = Date().dayOfWeek() else {
@@ -493,17 +414,4 @@ extension OpnViewController {
     
 }
 
-extension Date {
-    
-    func dayNumberOfWeek() -> Int? {
-        return Calendar.current.dateComponents([.weekday], from: self).weekday
-    }
-    
-    func dayOfWeek() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self).lowercased()
-        // or use lowercaseed(with: locale)
-    }
-    
-}
+

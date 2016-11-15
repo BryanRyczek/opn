@@ -89,12 +89,12 @@ struct Business {
     
     var isOpen: Bool {
         get {
-            return self.isOpen
+            let dates = getOpenClose(business: self)
+            return isDateWithinInverval(open: dates[0], close: dates[1])
         }
-        set {
-            let day = getDayOfWeek()
-            dump(day)
-        }
+//        set {
+//           //self.isOpen = newValue
+//        }
     }
     
     var location : CLLocation {
@@ -255,3 +255,7 @@ func getDayOfWeek() -> DayOfWeek {
     let weekday = calendar.component(.weekday, from: date)
     return (DayOfWeek(rawValue: weekday))!
 }
+
+//extension Business {
+//    func getOpenTimeForDay
+//}
