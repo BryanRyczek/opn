@@ -10,8 +10,22 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ModalBusinessViewController" customModule="Open" customModuleProvider="target">
             <connections>
                 <outlet property="businessName" destination="IGc-df-8gQ" id="716-F6-SIW"/>
-                <outlet property="opnLogo" destination="1ND-a5-3AO" id="4xC-nh-cdE"/>
+                <outlet property="fridayClose" destination="sJU-WS-bPo" id="Wwm-bf-CQW"/>
+                <outlet property="fridayOpen" destination="1H9-4w-Gm9" id="ccV-F5-Tdz"/>
+                <outlet property="mondayClose" destination="BUt-bI-eh8" id="Ttr-ii-5y0"/>
+                <outlet property="mondayOpen" destination="U1S-rm-nda" id="JQs-PO-8SJ"/>
+                <outlet property="opnLogo" destination="1ND-a5-3AO" id="tEv-yP-TL4"/>
+                <outlet property="saturdayClose" destination="Egs-L5-RVl" id="I1M-b9-k6h"/>
+                <outlet property="saturdayOpen" destination="TMs-4t-ug0" id="fan-CA-ika"/>
+                <outlet property="sundayClose" destination="yaJ-Xh-qgb" id="w6j-c6-G4s"/>
+                <outlet property="sundayOpen" destination="4tI-VC-8Xo" id="BOa-Ie-5Me"/>
+                <outlet property="thursdayClose" destination="36V-iL-fYF" id="tVF-Ry-cTO"/>
+                <outlet property="thursdayOpen" destination="8OP-yb-Ggb" id="NvC-ka-bsr"/>
+                <outlet property="tuesdayClose" destination="Cqo-SN-HgJ" id="utO-ev-G42"/>
+                <outlet property="tuesdayOpen" destination="5fm-2n-4pG" id="GtD-XJ-3Ty"/>
                 <outlet property="view" destination="iN0-l3-epB" id="08K-SN-Xdr"/>
+                <outlet property="wednesdayClose" destination="492-c3-RCP" id="Ud2-Ua-H70"/>
+                <outlet property="wednesdayOpen" destination="FhU-ax-JPg" id="VuV-Wj-CVk"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -36,14 +50,286 @@
                     </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Dlq-v2-0JJ">
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="hIl-Vv-aY0">
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Mpw-r9-V7C">
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvb-9v-8h1">
+                                            <attributedString key="attributedText">
+                                                <fragment content="M">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EjE-vN-XO2">
+                                            <attributedString key="attributedText">
+                                                <fragment content="Tu">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tE-xx-MQ6">
+                                            <attributedString key="attributedText">
+                                                <fragment content="W">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRf-Z4-HxN">
+                                            <attributedString key="attributedText">
+                                                <fragment content="Th">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9U-ct-Q4Y">
+                                            <attributedString key="attributedText">
+                                                <fragment content="F">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4s-3R-5Eb">
+                                            <attributedString key="attributedText">
+                                                <fragment content="Sa">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJP-Li-aqx">
+                                            <attributedString key="attributedText">
+                                                <fragment content="Su">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0N5-kT-nuh">
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5c-Bq-z8d">
+                                            <attributedString key="attributedText">
+                                                <fragment content="Hours">
+                                                    <attributes>
+                                                        <font key="NSFont" size="36" name="AvenirLTStd-Roman"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="FXg-rT-EhV">
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Hhy-iO-uNf">
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1S-rm-nda">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="M">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fm-2n-4pG">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Tu">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FhU-ax-JPg">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="W">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OP-yb-Ggb">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Th">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1H9-4w-Gm9">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="F">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMs-4t-ug0">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Sa">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tI-VC-8Xo">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Su">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="I6W-3s-jIj">
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUt-bI-eh8">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="M">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqo-SN-HgJ">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Tu">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="492-c3-RCP">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="W">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36V-iL-fYF">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Th">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJU-WS-bPo">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="F">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egs-L5-RVl">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Sa">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaJ-Xh-qgb">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Su">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="IGc-df-8gQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="36Y-Ov-Hsm"/>
+                <constraint firstItem="Dlq-v2-0JJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3l5-vG-b2J"/>
                 <constraint firstItem="1ND-a5-3AO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="IGq-df-9fo"/>
+                <constraint firstItem="Dlq-v2-0JJ" firstAttribute="top" secondItem="IGc-df-8gQ" secondAttribute="bottom" constant="60" id="Lf7-VZ-zzV"/>
                 <constraint firstItem="IGc-df-8gQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="ZZX-n8-Nsg"/>
                 <constraint firstAttribute="trailing" secondItem="1ND-a5-3AO" secondAttribute="trailing" constant="16" id="xxQ-Ou-iog"/>
-                <constraint firstAttribute="bottom" secondItem="1ND-a5-3AO" secondAttribute="bottom" constant="16" id="znD-dy-uge"/>
+                <constraint firstAttribute="bottom" secondItem="Dlq-v2-0JJ" secondAttribute="bottom" constant="16" id="y3K-yE-j8e"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

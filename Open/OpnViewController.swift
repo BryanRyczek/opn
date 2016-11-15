@@ -6,6 +6,12 @@
 //
 //
 
+extension UIView {
+    class func fromNib<T : UIView>() -> T {
+        return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
+    }
+}
+
 import UIKit
 import FirebaseDatabase
 import MGSwipeTableCell
@@ -58,6 +64,46 @@ class OpnViewController: UIViewController {
         })
     }
     
+    func showPopoverForBusiness(business: Business) {
+        
+        let businessVc = ModalBusinessViewController(nibName: "ModalBusinessViewController", bundle: nil)
+        
+        let popup = PopupDialog(viewController: businessVc,
+                                buttonAlignment: .vertical,
+                                transitionStyle: .bounceUp,
+                                gestureDismissal: true) {
+                                    print("done!")
+        }
+        
+        let vc = popup.viewController as! ModalBusinessViewController
+        vc.businessName.text = business.businessName
+        vc.mondayOpen.text = business.mondayOpen
+        vc.mondayClose.text = business.mondayClose
+        vc.tuesdayOpen.text = business.tuesdayOpen
+        vc.tuesdayClose.text = business.tuesdayClose
+        vc.wednesdayOpen.text = business.wednesdayOpen
+        vc.wednesdayClose.text = business.wednesdayClose
+        vc.thursdayOpen.text = business.thursdayOpen
+        vc.thursdayClose.text = business.thursdayClose
+        vc.fridayOpen.text = business.fridayOpen
+        vc.fridayClose.text = business.fridayClose
+        vc.saturdayOpen.text = business.saturdayOpen
+        vc.saturdayClose.text = business.saturdayClose
+        vc.sundayOpen.text = business.sundayOpen
+        vc.sundayClose.text = business.sundayClose
+        
+        let overlayAppearance = PopupDialogOverlayView.appearance()
+        
+        overlayAppearance.opacity = 0.50
+        overlayAppearance.blurEnabled = false
+
+        // Present dialog
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // in half a second...
+            self.present(popup, animated: true, completion: nil)
+        }
+        
+    }
+    
     func showImageDialog() {
         
         // Prepare the popup assets
@@ -107,9 +153,28 @@ class OpnViewController: UIViewController {
         
     }
     
-    @IBAction func showPopover(_ sender: AnyObject) {
-        opnTableView.reloadData()
-        showImageDialog()
+    func showPopover(business: Business) {
+        let businessVc = ModalBusinessViewController(nibName: "ModalBusinessViewController", bundle: nil)
+        
+        //businessVc.businessName.text = "$#!T"
+        
+        let popup = PopupDialog(viewController: businessVc,
+                                buttonAlignment: .vertical,
+                                transitionStyle: .bounceUp,
+                                gestureDismissal: true) {
+                                    print("done!")
+        }
+        
+        let overlayAppearance = PopupDialogOverlayView.appearance()
+        
+        overlayAppearance.opacity = 0.50
+        overlayAppearance.blurEnabled = false
+        
+        // Present dialog
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // in half a second...
+            self.present(popup, animated: true, completion: nil)
+        }
+
     }
     
     // MARK: - Navigation
@@ -140,8 +205,21 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
             return true
         }
         chatButton.centerIconOverText(withSpacing: 0.0)
+        
         var callButton : MGSwipeButton = MGSwipeButton(title: "", icon: callLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
-            print("call")
+            
+            let phoneNumber = business.phoneNumber
+            
+            if let phoneCallURL = NSURL(string: "tel:\(phoneNumber)") {
+                let application = UIApplication.shared
+                if application.canOpenURL(phoneCallURL as URL) {
+                    application.openURL(phoneCallURL as URL)
+                }
+                else{
+                    print("failed")
+                }
+            }
+            
             return true
         }
         callButton.centerIconOverText(withSpacing: 0.0)
@@ -160,13 +238,10 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
         cell.rightButtons = [chatButton,callButton]
         cell.leftSwipeSettings.transition = MGSwipeTransition.static
         cell.leftButtons = [newButton, orderButton]
-       
-        cell.businessName.text = business.businessName
-        cell.backgroundColor = UIColor.red
-        
+        cell.descriptionLabel.text = business.businessName
+        //cell.businessName.text = business.businessName
         
         let openClose: [Date] = getOpenClose(business: business)
-        print(openClose)
 //        do {
 //            try checkTime(business: business, completion: { string in
 //                print("super cali\(string)")
@@ -180,9 +255,11 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
 //        print("TV OPEN\(openClose[0]) TV CLOSE \(openClose[1])")
         switch isDateWithinInverval(open: openClose[0], close: openClose[1]) {
         case true:
-            cell.openLabel.text = "OPEN"
+            cell.openLabel.text = "\(business.businessName) is OPEN!"
+            cell.backgroundColor = openBlue
         case false:
-            cell.openLabel.text = "$#!T WE'RE CLOSED!"
+            cell.openLabel.text = "\(business.businessName) is CLOSED!"
+            cell.backgroundColor = openRed
         }
         
         return cell
@@ -192,10 +269,11 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = opnTableView.cellForRow(at: indexPath) else { return }
         let business = businesses[indexPath.row]
+        showPopoverForBusiness(business: business)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * 0.35
+        return self.view.frame.height * 0.24
     }
     
 }
