@@ -92,9 +92,6 @@ struct Business {
             let dates = getOpenClose(business: self)
             return isDateWithinInverval(open: dates[0], close: dates[1])
         }
-//        set {
-//           //self.isOpen = newValue
-//        }
     }
     
     var location : CLLocation {

@@ -70,7 +70,7 @@ class OpnViewController: UIViewController {
         
         let popup = PopupDialog(viewController: businessVc,
                                 buttonAlignment: .vertical,
-                                transitionStyle: .bounceUp,
+                                transitionStyle: .fadeIn,
                                 gestureDismissal: true) {
                                     print("done!")
         }
@@ -107,7 +107,7 @@ class OpnViewController: UIViewController {
         overlayAppearance.blurEnabled = false
 
         // Present dialog
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // in half a second...
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // in half a second...
             self.present(popup, animated: true, completion: nil)
         }
         
