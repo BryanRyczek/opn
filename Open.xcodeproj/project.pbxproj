@@ -61,6 +61,8 @@
 		938CFD771DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */; };
 		938CFD781DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */; };
 		938CFD791DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */; };
+		939E39AE1DDCAD260093FF2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E39AD1DDCAD260093FF2C /* LoginViewController.swift */; };
+		939E39B01DDCD81C0093FF2C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E39AF1DDCD81C0093FF2C /* User.swift */; };
 		93C510791DBABB9800F35504 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C510781DBABB9800F35504 /* Business.swift */; };
 		93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */; };
 		93DA016A1DD0F24400DF57F7 /* OpnBusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */; };
@@ -123,6 +125,8 @@
 		938CFD531DB46C29000A0675 /* AvenirLTStd-MediumOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-MediumOblique.otf"; sourceTree = "<group>"; };
 		938CFD541DB46C29000A0675 /* AvenirLTStd-Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Oblique.otf"; sourceTree = "<group>"; };
 		938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
+		939E39AD1DDCAD260093FF2C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		939E39AF1DDCD81C0093FF2C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93C510781DBABB9800F35504 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		93C5107A1DBB053B00F35504 /* Open.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Open.entitlements; sourceTree = "<group>"; };
 		93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelperMethods.swift; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				93C510781DBABB9800F35504 /* Business.swift */,
+				939E39AF1DDCD81C0093FF2C /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -257,6 +262,8 @@
 		93DA01631DD0E8F200DF57F7 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
+				93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */,
+				9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */,
 				93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */,
 				93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */,
 			);
@@ -266,12 +273,11 @@
 		93DA01641DD0E90600DF57F7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				939E39AD1DDCAD260093FF2C /* LoginViewController.swift */,
 				938CFD1B1DB46A81000A0675 /* ViewController.swift */,
-				93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */,
-				9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */,
+				93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */,
 				9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */,
 				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
-				93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -390,6 +396,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -642,6 +651,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				939E39B01DDCD81C0093FF2C /* User.swift in Sources */,
+				939E39AE1DDCAD260093FF2C /* LoginViewController.swift in Sources */,
 				938CFD1C1DB46A81000A0675 /* ViewController.swift in Sources */,
 				93DA016A1DD0F24400DF57F7 /* OpnBusinessCell.swift in Sources */,
 				93DA016D1DD2177F00DF57F7 /* ModalBusinessViewController.swift in Sources */,

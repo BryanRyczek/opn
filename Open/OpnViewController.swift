@@ -14,6 +14,7 @@ extension UIView {
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 import MGSwipeTableCell
 import PopupDialog
 
@@ -21,8 +22,11 @@ class OpnViewController: UIViewController {
 
     @IBOutlet weak var opnTableView: UITableView!
     
-    //Firebase Ref
+    //Firebase Refs
     lazy var ref = FIRDatabase.database().reference(withPath: "business-list")
+    lazy var usersRef = FIRDatabase.database().reference(withPath: "online")
+    //Current Firebase User
+    var currentUser : User!
     var businesses : [Business] = []
     //Icons for Table View cell swipe buttons
     lazy var callLogo : UIImage = UIImage(named: "PhoneIconLabel80x100")!
@@ -48,7 +52,7 @@ class OpnViewController: UIViewController {
         //register custom cells to storyboard
         opnTableView.register(UINib(nibName: "OpnBusinessCell", bundle: nil), forCellReuseIdentifier: "opnBusinessCell")
         
-        //MARK: listener on Firebase database. Listen for add/removed/changed event to .value type
+        //MARK: Firebase Listener for Businesses. Listen for add/removed/changed event to .value type
         ref.queryOrdered(byChild: "businessName").observe(.value, with: { snapshot in
             
             var newBusiness: [Business] = []
@@ -62,6 +66,16 @@ class OpnViewController: UIViewController {
             self.opnTableView.reloadData()
             
         })
+        
+        //MARK: Firebase Listener for Users.
+        FIRAuth.auth()!.addStateDidChangeListener { auth, user in
+            guard let user = user else { return }
+            self.currentUser = User(authData: user)
+            
+            let currentUserRef = self.usersRef.child(self.currentUser.uid)
+            currentUserRef.setValue(self.currentUser.email)
+            currentUserRef.onDisconnectRemoveValue()
+        }
     }
     
     func showPopoverForBusiness(business: Business) {
