@@ -279,10 +279,10 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
         switch business.isOpen {
         case true:
             cell.openLabel.text = "\(business.businessName) is OPEN!"
-            cell.backgroundColor = openBlue
+            cell.backgroundColor = opnBlue
         case false:
             cell.openLabel.text = "\(business.businessName) is CLOSED!"
-            cell.backgroundColor = openRed
+            cell.backgroundColor = opnRed
         }
         
         return cell

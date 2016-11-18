@@ -10,8 +10,8 @@ import UIKit
 import SkyFloatingLabelTextField
 import FirebaseDatabase
 
-let openBlue: UIColor = UIColor(red: 31/255, green: 54/255, blue: 232/255, alpha: 1)
-let openRed: UIColor = UIColor(red: 226/255, green: 2/255, blue: 64/255, alpha: 1)
+let opnBlue: UIColor = UIColor(red: 31/255, green: 54/255, blue: 232/255, alpha: 1)
+let opnRed: UIColor = UIColor(red: 226/255, green: 2/255, blue: 64/255, alpha: 1)
 
 let avenir55 = "AvenirLTStd-Roman"
 let avenir65 = "AvenirLTStd-Medium"
