@@ -15,6 +15,8 @@ class AddBusinessViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //let email = ValidationRulePattern(pattern: Email)
+        
         LabelRow.defaultCellUpdate = { cell, row in
             cell.contentView.backgroundColor = opnRed
             cell.textLabel?.textColor = .white
@@ -22,12 +24,7 @@ class AddBusinessViewController: FormViewController {
             cell.textLabel?.textAlignment = .right
             
         }
-        
         TextRow.defaultCellUpdate = { cell, row in
-            cell.textLabel?.font = UIFont(name: avenir65, size: 18)
-            defaultTextFieldCellUpdate(cell: cell, row:row)
-        }
-        TextAreaRow.defaultCellUpdate = { cell, row in
             cell.textLabel?.font = UIFont(name: avenir65, size: 18)
             defaultTextFieldCellUpdate(cell: cell, row:row)
         }
@@ -50,6 +47,11 @@ class AddBusinessViewController: FormViewController {
         EmailRow.defaultCellUpdate = { cell, row in
             cell.textLabel?.font = UIFont(name: avenir65, size: 18)
              defaultTextFieldCellUpdate(cell: cell, row:row)
+        }
+        ButtonRow.defaultCellUpdate = { cell, row in
+            cell.textLabel?.font = UIFont(name: avenir65, size: 30)
+            cell.textLabel?.textColor = UIColor.white
+            cell.backgroundColor = opnBlue
         }
         
         form = Section("Section1")
@@ -284,10 +286,13 @@ class AddBusinessViewController: FormViewController {
 //            }
             +++ TextAreaRow("BusinessCategory") {
                 $0.title = "Business Category"
-                $0.placeholder = "Write "
+                $0.placeholder = "Let Customers know what type of business you have."
         }
-        
-//            <<< EmailRow() {
+            +++ ButtonRow("DoneRow") {
+                $0.title = "Finished!"
+                $0.validationOptions = .validatesOnBlur
+        }
+                //            <<< EmailRow() {
 //                $0.title = "Email Rule"
 //                $0.add(rule: RuleRequired())
 //                $0.add(rule: RuleEmail())
