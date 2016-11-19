@@ -7,6 +7,15 @@
 //
 
 import UIKit
+//MARK: COLORS!
+let opnBlue: UIColor = UIColor(red: 31/255, green: 54/255, blue: 232/255, alpha: 1)
+let opnRed: UIColor = UIColor(red: 226/255, green: 2/255, blue: 64/255, alpha: 1)
+
+//MARK: FONTS
+let avenir55 = "AvenirLTStd-Roman"
+let avenir65 = "AvenirLTStd-Medium"
+let avenir85 = "AvenirLTStd-Heavy"
+let fontAwesome = "FontAwesome"
 
 extension Date {
     

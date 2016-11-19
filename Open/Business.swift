@@ -74,7 +74,7 @@ struct Business {
     let website : String
     let email : String
     //etc.
-    let userDescription : String
+    let businessDescription : String
     
 //    let streetNumber: Int
 //    let street : String
@@ -139,7 +139,7 @@ struct Business {
           website : String,
           email : String,
         //etc.
-          userDescription : String ) {
+          businessDescription : String ) {
         
         self.key = key
         self.businessName = businessName
@@ -169,7 +169,7 @@ struct Business {
         self.phoneNumber = phoneNumber
         self.website = website
         self.email = email
-        self.userDescription = userDescription
+        self.businessDescription = businessDescription
         self.ref = nil
         
     }
@@ -206,7 +206,7 @@ struct Business {
         phoneNumber = snapshotValue["phoneNumber"] as! String
         website = snapshotValue["website"] as! String
         email = snapshotValue["email"] as! String
-        userDescription = snapshotValue["userDescription"] as! String
+        businessDescription = snapshotValue["businessDescription"] as! String
         ref = snapshot.ref
     }
     
@@ -240,7 +240,7 @@ struct Business {
              "phoneNumber" : phoneNumber,
                  "website" : website,
                    "email" : email,
-         "userDescription" : userDescription,
+     "businessDescription" : businessDescription,
             ]
     }
     

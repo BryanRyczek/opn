@@ -17,6 +17,7 @@
 		93366CA61DC8121A001BEA48 /* FirebaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */; };
 		9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */; };
 		93685F741DDE4C3A00DD557B /* AddBusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93685F731DDE4C3A00DD557B /* AddBusinessViewController.swift */; };
+		93685F7B1DDF8FAD00DD557B /* WeekDaysCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93685F7A1DDF8FAD00DD557B /* WeekDaysCell.xib */; };
 		9376CE871DD3DA1900785556 /* ModalBusinessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */; };
 		938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD191DB46A81000A0675 /* AppDelegate.swift */; };
 		938CFD1C1DB46A81000A0675 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD1B1DB46A81000A0675 /* ViewController.swift */; };
@@ -100,6 +101,7 @@
 		93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseHelpers.swift; sourceTree = "<group>"; };
 		9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnViewController.swift; sourceTree = "<group>"; };
 		93685F731DDE4C3A00DD557B /* AddBusinessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBusinessViewController.swift; sourceTree = "<group>"; };
+		93685F7A1DDF8FAD00DD557B /* WeekDaysCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekDaysCell.xib; sourceTree = "<group>"; };
 		9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalBusinessViewController.xib; sourceTree = "<group>"; };
 		938CFD161DB46A81000A0675 /* Open.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Open.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		938CFD191DB46A81000A0675 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 		93DA01631DD0E8F200DF57F7 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
+				93685F7A1DDF8FAD00DD557B /* WeekDaysCell.xib */,
 				93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */,
 				9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */,
 				93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */,
@@ -465,6 +468,7 @@
 				938CFD591DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf in Resources */,
 				938CFD681DB46C29000A0675 /* AvenirLTStd-Light.otf in Resources */,
 				938CFD621DB46C29000A0675 /* AvenirLTStd-Heavy.otf in Resources */,
+				93685F7B1DDF8FAD00DD557B /* WeekDaysCell.xib in Resources */,
 				938CFD1F1DB46A81000A0675 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

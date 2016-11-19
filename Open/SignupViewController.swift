@@ -10,14 +10,6 @@ import UIKit
 import SkyFloatingLabelTextField
 import FirebaseDatabase
 
-let opnBlue: UIColor = UIColor(red: 31/255, green: 54/255, blue: 232/255, alpha: 1)
-let opnRed: UIColor = UIColor(red: 226/255, green: 2/255, blue: 64/255, alpha: 1)
-
-let avenir55 = "AvenirLTStd-Roman"
-let avenir65 = "AvenirLTStd-Medium"
-let avenir85 = "AvenirLTStd-Heavy"
-let fontAwesome = "FontAwesome"
-
 class SignupViewController: UIViewController, UITextFieldDelegate{
 
     //Mark: Firebase components
@@ -52,7 +44,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     lazy var phoneNumber = String()
     lazy var website = String()
     lazy var email = String()
-    lazy var userDescription = String()
+    lazy var businessDescription = String()
     
     //MARK: UI components
     @IBOutlet weak var scrollView: UIScrollView!
@@ -167,7 +159,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                                 phoneNumber: phoneNumber,
                                 website: website,
                                 email: email,
-                                userDescription: userDescription)
+                                businessDescription: businessDescription)
         
         let businessRef = self.ref.child(businessName.lowercased())
         businessRef.setValue(business.toAnyObject())
@@ -673,7 +665,7 @@ extension SignupViewController { //MARK: Keyboard Buttons extension
             }
             email = text2.makeFirebaseString()
         case 7:
-            userDescription = text.makeFirebaseString()
+            businessDescription = text.makeFirebaseString()
             saveBusiness()
             
         default:
@@ -688,15 +680,4 @@ extension SignupViewController { //MARK: Keyboard Buttons extension
 
 
 
-extension String {
-    func makeFirebaseString() -> String{
-        let arrCharacterToReplace = [".","#","$","[","]"]
-        var finalString = self
-        
-        for character in arrCharacterToReplace{
-            finalString = finalString.replacingOccurrences(of: character, with: " ")
-        }
-        
-        return finalString
-    }
-}
+

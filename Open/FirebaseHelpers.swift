@@ -8,6 +8,19 @@
 
 import Foundation
 
+extension String {
+    func makeFirebaseString() -> String{
+        let arrCharacterToReplace = [".","#","$","[","]"]
+        var finalString = self
+        
+        for character in arrCharacterToReplace{
+            finalString = finalString.replacingOccurrences(of: character, with: " ")
+        }
+        
+        return finalString
+    }
+}
+
 func firebaseTimeStringToDate (string: String) -> Date {
     
     let dateFormatter = DateFormatter()
