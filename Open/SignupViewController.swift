@@ -19,6 +19,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     //MARK: vars for storing information to send to Firebase when all is complete :)
     lazy var businessName = String()
     lazy var contactName = String()
+    lazy var password = String()
     lazy var businessTypeOne = String()
     lazy var businessTypeTwo = String()
     lazy var businessTypeThree = String()
@@ -134,6 +135,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     func saveBusiness() {
         let business = Business(businessName: businessName,
                                 contactName: contactName,
+                                password: password,
                                 businessTypeOne: businessTypeOne,
                                 businessTypeTwo: businessTypeTwo,
                                 businessTypeThree: businessTypeThree,

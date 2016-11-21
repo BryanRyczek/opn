@@ -44,6 +44,8 @@ struct Business {
     //Name
     let businessName : String
     let contactName : String
+    //Security
+    let password : String
     //Tags
     let businessTypeOne : String
     let businessTypeTwo : String
@@ -109,6 +111,8 @@ struct Business {
          //Name
           businessName : String,
           contactName : String,
+          //Security
+          password : String,
         //Tags
           businessTypeOne : String,
           businessTypeTwo : String,
@@ -144,6 +148,7 @@ struct Business {
         self.key = key
         self.businessName = businessName
         self.contactName = contactName
+        self.password = password
         self.businessTypeOne = businessTypeOne
         self.businessTypeTwo = businessTypeTwo
         self.businessTypeThree = businessTypeThree
@@ -181,6 +186,7 @@ struct Business {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         businessName = snapshotValue["businessName"] as! String
         contactName = snapshotValue["contactName"] as! String
+        password = snapshotValue["password"] as! String
         businessTypeOne = snapshotValue["businessTypeOne"] as! String
         businessTypeTwo = snapshotValue["businessTypeTwo"] as! String
         businessTypeThree = snapshotValue["businessTypeThree"] as! String
@@ -215,6 +221,7 @@ struct Business {
                   //"isOpen" : isOpen,
              "businessName": businessName,
              "contactName" : contactName,
+                "password" : password,
          "businessTypeOne" : businessTypeOne,
          "businessTypeTwo" : businessTypeTwo,
        "businessTypeThree" : businessTypeThree,

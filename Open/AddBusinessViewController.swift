@@ -22,6 +22,7 @@ class AddBusinessViewController: FormViewController {
     //MARK: vars for storing information to send to Firebase when all is complete :)
     lazy var businessName = String()
     lazy var contactName = String()
+    lazy var password = String()
     lazy var businessTypeOne = String()
     lazy var businessTypeTwo = String()
     lazy var businessTypeThree = String()
@@ -84,6 +85,10 @@ class AddBusinessViewController: FormViewController {
         EmailRow.defaultCellUpdate = { cell, row in
             cell.textLabel?.font = UIFont(name: avenir65, size: 18)
              defaultTextFieldCellUpdate(cell: cell, row:row)
+        }
+        PasswordRow.defaultCellUpdate = { cell, row in
+            cell.textLabel?.font = UIFont(name: avenir65, size: 18)
+            defaultTextFieldCellUpdate(cell: cell, row:row)
         }
         ButtonRow.defaultCellUpdate = { cell, row in
             cell.textLabel?.font = UIFont(name: avenir65, size: 30)
@@ -148,7 +153,15 @@ class AddBusinessViewController: FormViewController {
                         }
                     }
             }
-
+            <<< PasswordRow("password") {
+                $0.title = "Password"
+                $0.placeholder = "Password"
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnBlur
+            }
+            
+            
+            
             //MARK:
             +++ Section("Entering accurate information helps customers find your business"){
                 $0.tag = "1"
@@ -298,9 +311,9 @@ class AddBusinessViewController: FormViewController {
                 $0.placeholder = "555.555.5555"
             }
             //MARK:
-            <<< URLRow("website") {
+            <<< EmailRow("website") {
                 $0.title = "Website"
-                $0.add(rule: RuleURL())
+                //$0.add(rule: RuleURL())
                 $0.validationOptions = .validatesOnBlur
                 }
                 .cellUpdate { cell, row in
@@ -324,13 +337,10 @@ class AddBusinessViewController: FormViewController {
                     }
             }
 
-//            <<< LocationRow("Location") {
-//                $0.title = "
-//            }
             <<< TextAreaRow("businessCategory") {
                 $0.title = "Business Category"
                 $0.placeholder = "Let Customers know what type of business you have."
-        }
+            }
             +++ Section("Let Customers know what days you are open.") {
                 $0.tag = "2"
                 $0.hidden = true
@@ -525,52 +535,54 @@ class AddBusinessViewController: FormViewController {
             print(valuesDictionary)
             switch self.phase {
                 case 0:
-//                    //If let handling for optionals
+                    //If let handling for optionals
 //                    if let sa2 = valuesDictionary["streetAddressTwo"] as? String ?? nil {
-//                        self.streetAddressTwo = sa2
+//                        self.streetAddressTwo = sa2.makeFirebaseString()
 //                    } else {
 //                        self.streetAddressTwo = ""
 //                    }
 //                    
 //                    if let ph = valuesDictionary["businessNumber"] as? String ?? nil {
-//                        self.phoneNumber = ph
+//                        self.phoneNumber = ph.makeFirebaseString()
 //                    } else {
 //                        self.phoneNumber = ""
 //                    }
-//                    
-//                    if let w = valuesDictionary["website"] as? String ?? nil {
-//                        self.website = w
-//                    } else {
-//                        self.website = ""
-//                    }
-//                    
-//                    if let des = valuesDictionary["businessCategory"] as? String ?? nil {
-//                        self.businessDescription = des
-//                    } else {
-//                        self.businessDescription = ""
-//                    }
-//                    
-//                    guard let cn = valuesDictionary["contactName"] as? String ?? nil,
-//                        let em = valuesDictionary["email"] as? String ?? nil,
-//                        let bn = valuesDictionary["businessName"] as? String ?? nil,
-//                        let sa1 = valuesDictionary["streetAddressOne"] as? String ?? nil,
-//                        let cty = valuesDictionary["city"] as? String ?? nil,
-//                        let st = valuesDictionary["state"] as? String ?? nil,
-//                        let z = valuesDictionary["zipCode"] as? String ?? nil
-//                        else {
-//                            let alert = UIAlertController(title: "More Information Needed!", message: "Please fill out all the required fields!", preferredStyle: UIAlertControllerStyle.alert)
-//                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-//                            self.show(alert, sender: self)
-//                            return
-//                    }
-//                    
-//                    self.contactName = cn
-//                    self.email = em
-//                    self.businessName = bn
-//                    self.streetAddressOne = sa1
-//                    self.city = cty
-//                    self.state = st
-//                    self.zipCode = z
+                    
+                    if let w = valuesDictionary["website"] as? String ?? nil {
+                        self.website = w.makeFirebaseString()
+                    } else {
+                        self.website = ""
+                    }
+                    
+                    if let des = valuesDictionary["businessCategory"] as? String ?? nil {
+                        self.businessDescription = des.makeFirebaseString()
+                    } else {
+                        self.businessDescription = ""
+                    }
+                    
+                    guard let cn = valuesDictionary["contactName"] as? String ?? nil,
+                        let pw = valuesDictionary["password"] as? String ?? nil,
+                        let em = valuesDictionary["email"] as? String ?? nil,
+                        let bn = valuesDictionary["businessName"] as? String ?? nil,
+                        let sa1 = valuesDictionary["streetAddressOne"] as? String ?? nil,
+                        let cty = valuesDictionary["city"] as? String ?? nil,
+                        let st = valuesDictionary["state"] as? String ?? nil,
+                        let z = valuesDictionary["zipCode"] as? String ?? nil
+                        else {
+                            let alert = UIAlertController(title: "More Information Needed!", message: "Please fill out all the required fields!", preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                            self.show(alert, sender: self)
+                            return
+                    }
+                    
+                    self.contactName = cn.makeFirebaseString()
+                    self.password = pw.makeFirebaseString()
+                    self.email = em.makeFirebaseString()
+                    self.businessName = bn.makeFirebaseString()
+                    self.streetAddressOne = sa1.makeFirebaseString()
+                    self.city = cty.makeFirebaseString()
+                    self.state = st.makeFirebaseString()
+                    self.zipCode = z.makeFirebaseString()
             
                     let section0 = self.form.sectionBy(tag: "0")
                     section0?.hidden = true
@@ -589,88 +601,87 @@ class AddBusinessViewController: FormViewController {
                     self.phase += 1
             case 1:
                     //If let handling for optionals
-                    let type = valuesDictionary["mondayOpen"]
-                    dump(type)
+                   
                     if let suO = valuesDictionary["sundayOpen"] as? Date ?? nil {
-                        self.sundayOpen = suO.stringify()
+                        self.sundayOpen = suO.stringify().makeFirebaseString()
                     } else {
                         self.sundayOpen = ""
                     }
 
                     if let suC = valuesDictionary["sundayClose"] as? Date ?? nil {
-                        self.sundayClose = suC.stringify()
+                        self.sundayClose = suC.stringify().makeFirebaseString()
                     } else {
                         self.sundayClose = ""
                     }
 
                     if let mO = valuesDictionary["mondayOpen"] as? Date ?? nil {
-                        self.mondayOpen = mO.stringify()
+                        self.mondayOpen = mO.stringify().makeFirebaseString()
                     } else {
                         self.mondayOpen = ""
                     }
 
                     if let mC = valuesDictionary["mondayClose"] as? Date ?? nil {
-                        self.mondayClose = mC.stringify()
+                        self.mondayClose = mC.stringify().makeFirebaseString()
                     } else {
                         self.mondayClose = ""
                     }
-                    //If let handling for optionals
+                    
                     if let tuO = valuesDictionary["tuesdayOpen"] as? Date ?? nil {
-                        self.tuesdayOpen = tuO.stringify()
+                        self.tuesdayOpen = tuO.stringify().makeFirebaseString()
                     } else {
                         self.tuesdayOpen = ""
                     }
 
                     if let tuC = valuesDictionary["tuesdayClose"] as? Date ?? nil {
-                        self.tuesdayClose = tuC.stringify()
+                        self.tuesdayClose = tuC.stringify().makeFirebaseString()
                     } else {
                         self.tuesdayClose = ""
                     }
 
                     if let wO = valuesDictionary["wednesdayOpen"] as? Date ?? nil {
-                        self.wednesdayOpen = wO.stringify()
+                        self.wednesdayOpen = wO.stringify().makeFirebaseString()
                     } else {
                         self.wednesdayOpen = ""
                     }
 
                     if let wC = valuesDictionary["wednesdayClose"] as? Date ?? nil {
-                        self.wednesdayClose = wC.stringify()
+                        self.wednesdayClose = wC.stringify().makeFirebaseString()
                     } else {
                         self.wednesdayClose = ""
                     }
-                    //If let handling for optionals
+                    
                     if let thO = valuesDictionary["thursdayOpen"] as? Date ?? nil {
-                        self.thursdayOpen = thO.stringify()
+                        self.thursdayOpen = thO.stringify().makeFirebaseString()
                     } else {
                         self.thursdayOpen = ""
                     }
 
                     if let thC = valuesDictionary["thursdayClose"] as? Date ?? nil {
-                        self.thursdayClose = thC.stringify()
+                        self.thursdayClose = thC.stringify().makeFirebaseString()
                     } else {
                         self.thursdayClose = ""
                     }
 
                     if let fO = valuesDictionary["fridayOpen"] as? Date ?? nil {
-                        self.fridayOpen = fO.stringify()
+                        self.fridayOpen = fO.stringify().makeFirebaseString()
                     } else {
                         self.fridayOpen = ""
                     }
 
                     if let fC = valuesDictionary["fridayClose"] as? Date ?? nil {
-                        self.fridayClose = fC.stringify()
+                        self.fridayClose = fC.stringify().makeFirebaseString()
                     } else {
                         self.fridayClose = ""
                     }
-                    //If let handling for optionals
+                    
                     if let saO = valuesDictionary["saturdayOpen"] as? Date ?? nil {
-                        self.saturdayOpen = saO.stringify()
+                        self.saturdayOpen = saO.stringify().makeFirebaseString()
                     } else {
                         self.saturdayOpen = ""
                     }
 
                     if let saC = valuesDictionary["saturdayClose"] as? Date ?? nil {
-                        self.saturdayClose = saC.stringify()
+                        self.saturdayClose = saC.stringify().makeFirebaseString()
                     } else {
                         self.saturdayClose = ""
                     }
@@ -684,7 +695,8 @@ class AddBusinessViewController: FormViewController {
                     let button = self.form.rowBy(tag: "done")
                     button?.title = "Add My Business to Opn!"
                     self.phase += 1
-                
+                    self.saveBusiness()
+                    self.performSegue(withIdentifier: "addBizShowOpn", sender: self)
             case 2:
                 print("Hey hey")
             default:
@@ -721,22 +733,48 @@ class AddBusinessViewController: FormViewController {
         // Do any additional setup after loading the view.
     }
 
+    func saveBusiness() {
+                let business = Business(businessName: businessName,
+                                        contactName: contactName,
+                                        password: password,
+                                        businessTypeOne: businessTypeOne,
+                                        businessTypeTwo: businessTypeTwo,
+                                        businessTypeThree: businessTypeThree,
+                                        mondayOpen: mondayOpen,
+                                        mondayClose: mondayClose,
+                                        tuesdayOpen: tuesdayOpen,
+                                        tuesdayClose: tuesdayClose,
+                                        wednesdayOpen: wednesdayOpen,
+                                        wednesdayClose: wednesdayClose,
+                                        thursdayOpen: thursdayOpen,
+                                        thursdayClose: thursdayClose,
+                                        fridayOpen: fridayOpen,
+                                        fridayClose: fridayClose,
+                                        saturdayOpen: saturdayOpen,
+                                        saturdayClose: saturdayClose,
+                                        sundayOpen: sundayOpen,
+                                        sundayClose: sundayClose,
+                                        addressLineOne: streetAddressOne,
+                                        addressLineTwo: streetAddressTwo,
+                                        city: city,
+                                        state: state,
+                                        zip: zipCode,
+                                        phoneNumber: phoneNumber,
+                                        website: website,
+                                        email: email,
+                                        businessDescription: businessDescription)
+        
+        let businessRef = self.ref.child(businessName.lowercased())
+        businessRef.setValue(business.toAnyObject())
+        
+    }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 func defaultTextFieldCellUpdate<T0: TextFieldCell, T1:FieldRowConformance>(cell: T0, row: T1) -> () {
@@ -904,6 +942,7 @@ public class WeekDayCell : Cell<Set<WeekDay>>, CellType {
         let titleSize = title.size(attributes: [NSFontAttributeName: titleLabel.font])
         button.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0, 0, -titleSize.width)
     }
+    
 }
 
 public final class WeekDayRow: Row<WeekDayCell>, RowType {
