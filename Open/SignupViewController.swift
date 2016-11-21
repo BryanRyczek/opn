@@ -10,14 +10,6 @@ import UIKit
 import SkyFloatingLabelTextField
 import FirebaseDatabase
 
-let openBlue: UIColor = UIColor(red: 38/255, green: 68/255, blue: 232/255, alpha: 1)
-let openRed: UIColor = UIColor(red: 226/255, green: 2/255, blue: 64/255, alpha: 1)
-
-let avenir55 = "AvenirLTStd-Roman"
-let avenir65 = "AvenirLTStd-Medium"
-let avenir85 = "AvenirLTStd-Heavy"
-let fontAwesome = "FontAwesome"
-
 class SignupViewController: UIViewController, UITextFieldDelegate{
 
     //Mark: Firebase components
@@ -27,6 +19,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     //MARK: vars for storing information to send to Firebase when all is complete :)
     lazy var businessName = String()
     lazy var contactName = String()
+    lazy var password = String()
     lazy var businessTypeOne = String()
     lazy var businessTypeTwo = String()
     lazy var businessTypeThree = String()
@@ -52,7 +45,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     lazy var phoneNumber = String()
     lazy var website = String()
     lazy var email = String()
-    lazy var userDescription = String()
+    lazy var businessDescription = String()
     
     //MARK: UI components
     @IBOutlet weak var scrollView: UIScrollView!
@@ -60,6 +53,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var entryLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
     
+    //Text Entry fields
     @IBOutlet weak var entryFieldOneOne: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var entryFieldOneTwo: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var entryFieldTwoOne: SkyFloatingLabelTextFieldWithIcon!
@@ -76,12 +70,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var entryFieldSevenOne: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet weak var entryFieldSevenTwo: SkyFloatingLabelTextFieldWithIcon!
     
+    
+    //Outlet Collections
     @IBOutlet var entryFields: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet var allFieldsButFirst: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet var nonAddressFields: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet var columnOneEntryFields: [SkyFloatingLabelTextFieldWithIcon]!
     @IBOutlet var columnTwoEntryFields: [SkyFloatingLabelTextFieldWithIcon]!
-    
     @IBOutlet var addressFields: [SkyFloatingLabelTextFieldWithIcon]!
     
     var currentTextField : UITextField?
@@ -140,6 +135,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     func saveBusiness() {
         let business = Business(businessName: businessName,
                                 contactName: contactName,
+                                password: password,
                                 businessTypeOne: businessTypeOne,
                                 businessTypeTwo: businessTypeTwo,
                                 businessTypeThree: businessTypeThree,
@@ -165,7 +161,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                                 phoneNumber: phoneNumber,
                                 website: website,
                                 email: email,
-                                userDescription: userDescription)
+                                businessDescription: businessDescription)
         
         let businessRef = self.ref.child(businessName.lowercased())
         businessRef.setValue(business.toAnyObject())
@@ -337,16 +333,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
             break
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+ 
     //MARK: To Handle Formatting of Phone #
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -371,7 +358,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
             textField.text = formattedString as String
             return false
             
-            } else if phase == 5 {
+    } else if phase == 5 {
             
             let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
             let components = (newString as NSString).components(separatedBy: NSCharacterSet.decimalDigits.inverted)
@@ -465,8 +452,6 @@ extension SignupViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "hh:mm a"
             ctf.text = dateFormatter.string(from: sender.date)
-            print(currentTextField?.text)
-            
             dateFormatter.dateFormat = "hh:mm"
             if (ctf.tag % 2) == 0 {
                 lastOpen = dateFormatter.string(from: sender.date)
@@ -504,8 +489,10 @@ extension SignupViewController {
         }
     }
 
+    // MARK: - Navigation
+    // override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
+    
 }
-
 
 
 extension SignupViewController { //MARK: Keyboard Buttons extension
@@ -680,7 +667,7 @@ extension SignupViewController { //MARK: Keyboard Buttons extension
             }
             email = text2.makeFirebaseString()
         case 7:
-            userDescription = text.makeFirebaseString()
+            businessDescription = text.makeFirebaseString()
             saveBusiness()
             
         default:
@@ -693,29 +680,6 @@ extension SignupViewController { //MARK: Keyboard Buttons extension
     }
 }
 
-extension String {
-    func timeConversion(time: String) -> (String) {
-        var newTime : String = time
-        
-        if time.characters.count == 1 || time.characters.count == 2 {
-            newTime = newTime + ":00"
-            print(newTime)
-        }
-        
-        return newTime
-    }
-}
 
 
-extension String {
-    func makeFirebaseString() -> String{
-        let arrCharacterToReplace = [".","#","$","[","]"]
-        var finalString = self
-        
-        for character in arrCharacterToReplace{
-            finalString = finalString.replacingOccurrences(of: character, with: " ")
-        }
-        
-        return finalString
-    }
-}
+

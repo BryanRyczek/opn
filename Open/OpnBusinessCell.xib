@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="opnBusinessCell" rowHeight="134" id="KGk-i7-Jjw" customClass="OpnBusinessCell" customModule="Open" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="424" height="134"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <frame key="frameInset" width="424" height="133"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBg-X5-4c0">
+                        <attributedString key="attributedText">
+                            <fragment content="\(business) OPEN">
+                                <attributes>
+                                    <font key="NSFont" size="36" name="AvenirLTStd-Heavy"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILm-FJ-wKk">
+                        <attributedString key="attributedText">
+                            <fragment content="Label">
+                                <attributes>
+                                    <font key="NSFont" size="19" name="AvenirLTStd-Medium"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yBg-X5-4c0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="16" id="U3z-ub-zCo"/>
+                    <constraint firstItem="yBg-X5-4c0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="Uw4-gh-dA6"/>
+                    <constraint firstAttribute="bottom" secondItem="ILm-FJ-wKk" secondAttribute="bottom" constant="16" id="YIz-FT-VC6"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="yBg-X5-4c0" secondAttribute="trailing" constant="16" id="aKT-Oq-CrH"/>
+                    <constraint firstItem="ILm-FJ-wKk" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bfY-Nr-bO8"/>
+                    <constraint firstItem="ILm-FJ-wKk" firstAttribute="top" secondItem="yBg-X5-4c0" secondAttribute="bottom" constant="16" id="cxF-tF-APj"/>
+                    <constraint firstItem="ILm-FJ-wKk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ffJ-zt-keQ"/>
+                    <constraint firstAttribute="trailing" secondItem="ILm-FJ-wKk" secondAttribute="trailing" constant="16" id="lmo-Wr-DwV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="descriptionLabel" destination="ILm-FJ-wKk" id="dkM-WF-4WF"/>
+                <outlet property="openLabel" destination="yBg-X5-4c0" id="pur-N2-oqE"/>
+            </connections>
+            <point key="canvasLocation" x="210" y="77"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -44,6 +44,8 @@ struct Business {
     //Name
     let businessName : String
     let contactName : String
+    //Security
+    let password : String
     //Tags
     let businessTypeOne : String
     let businessTypeTwo : String
@@ -74,7 +76,7 @@ struct Business {
     let website : String
     let email : String
     //etc.
-    let userDescription : String
+    let businessDescription : String
     
 //    let streetNumber: Int
 //    let street : String
@@ -89,11 +91,8 @@ struct Business {
     
     var isOpen: Bool {
         get {
-            return self.isOpen
-        }
-        set {
-            let day = getDayOfWeek()
-            dump(day)
+            let dates = getOpenClose(business: self)
+            return isDateWithinInverval(open: dates[0], close: dates[1])
         }
     }
     
@@ -112,6 +111,8 @@ struct Business {
          //Name
           businessName : String,
           contactName : String,
+          //Security
+          password : String,
         //Tags
           businessTypeOne : String,
           businessTypeTwo : String,
@@ -142,11 +143,12 @@ struct Business {
           website : String,
           email : String,
         //etc.
-          userDescription : String ) {
+          businessDescription : String ) {
         
         self.key = key
         self.businessName = businessName
         self.contactName = contactName
+        self.password = password
         self.businessTypeOne = businessTypeOne
         self.businessTypeTwo = businessTypeTwo
         self.businessTypeThree = businessTypeThree
@@ -172,7 +174,7 @@ struct Business {
         self.phoneNumber = phoneNumber
         self.website = website
         self.email = email
-        self.userDescription = userDescription
+        self.businessDescription = businessDescription
         self.ref = nil
         
     }
@@ -184,6 +186,7 @@ struct Business {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         businessName = snapshotValue["businessName"] as! String
         contactName = snapshotValue["contactName"] as! String
+        password = snapshotValue["password"] as! String
         businessTypeOne = snapshotValue["businessTypeOne"] as! String
         businessTypeTwo = snapshotValue["businessTypeTwo"] as! String
         businessTypeThree = snapshotValue["businessTypeThree"] as! String
@@ -209,7 +212,7 @@ struct Business {
         phoneNumber = snapshotValue["phoneNumber"] as! String
         website = snapshotValue["website"] as! String
         email = snapshotValue["email"] as! String
-        userDescription = snapshotValue["userDescription"] as! String
+        businessDescription = snapshotValue["businessDescription"] as! String
         ref = snapshot.ref
     }
     
@@ -218,6 +221,7 @@ struct Business {
                   //"isOpen" : isOpen,
              "businessName": businessName,
              "contactName" : contactName,
+                "password" : password,
          "businessTypeOne" : businessTypeOne,
          "businessTypeTwo" : businessTypeTwo,
        "businessTypeThree" : businessTypeThree,
@@ -243,7 +247,7 @@ struct Business {
              "phoneNumber" : phoneNumber,
                  "website" : website,
                    "email" : email,
-         "userDescription" : userDescription,
+     "businessDescription" : businessDescription,
             ]
     }
     
@@ -255,3 +259,7 @@ func getDayOfWeek() -> DayOfWeek {
     let weekday = calendar.component(.weekday, from: date)
     return (DayOfWeek(rawValue: weekday))!
 }
+
+//extension Business {
+//    func getOpenTimeForDay
+//}

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ModalBusinessViewController" customModule="Open" customModuleProvider="target">
+            <connections>
+                <outlet property="businessName" destination="IGc-df-8gQ" id="716-F6-SIW"/>
+                <outlet property="fridayOpen" destination="1H9-4w-Gm9" id="ccV-F5-Tdz"/>
+                <outlet property="mondayOpen" destination="U1S-rm-nda" id="JQs-PO-8SJ"/>
+                <outlet property="opnLogo" destination="1ND-a5-3AO" id="tEv-yP-TL4"/>
+                <outlet property="saturdayOpen" destination="TMs-4t-ug0" id="fan-CA-ika"/>
+                <outlet property="sundayOpen" destination="4tI-VC-8Xo" id="BOa-Ie-5Me"/>
+                <outlet property="thursdayOpen" destination="8OP-yb-Ggb" id="NvC-ka-bsr"/>
+                <outlet property="tuesdayOpen" destination="5fm-2n-4pG" id="GtD-XJ-3Ty"/>
+                <outlet property="view" destination="iN0-l3-epB" id="08K-SN-Xdr"/>
+                <outlet property="wednesdayOpen" destination="FhU-ax-JPg" id="VuV-Wj-CVk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="364" height="273"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="opnLogo" translatesAutoresizingMaskIntoConstraints="NO" id="1ND-a5-3AO">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="1ND-a5-3AO" secondAttribute="height" multiplier="77:51" id="ad0-pe-QIv"/>
+                        <constraint firstAttribute="height" constant="51" id="jt1-IP-HdH"/>
+                        <constraint firstAttribute="width" constant="77" id="vVv-1X-POO"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGc-df-8gQ">
+                    <attributedString key="attributedText">
+                        <fragment content="Business Name">
+                            <attributes>
+                                <font key="NSFont" size="24" name="AvenirLTStd-Roman"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Dlq-v2-0JJ">
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="RB3-fR-YO8">
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvb-9v-8h1">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="BNt-o5-7Qh"/>
+                                    </constraints>
+                                    <attributedString key="attributedText">
+                                        <fragment content="M">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1S-rm-nda">
+                                    <attributedString key="attributedText">
+                                        <fragment content="CLOSED!">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Auj-eq-MgB">
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EjE-vN-XO2">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="WGE-d6-vwK"/>
+                                    </constraints>
+                                    <attributedString key="attributedText">
+                                        <fragment content="Tu">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fm-2n-4pG">
+                                    <attributedString key="attributedText">
+                                        <fragment content="CLOSED!">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="6Ma-eO-Rv7">
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tE-xx-MQ6">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="JZk-nB-Yy2"/>
+                                    </constraints>
+                                    <attributedString key="attributedText">
+                                        <fragment content="W">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FhU-ax-JPg">
+                                    <attributedString key="attributedText">
+                                        <fragment content="CLOSED!">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ix1-Kk-MZg">
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRf-Z4-HxN">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="49a-6a-qxO"/>
+                                    </constraints>
+                                    <attributedString key="attributedText">
+                                        <fragment content="Th">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OP-yb-Ggb">
+                                    <attributedString key="attributedText">
+                                        <fragment content="CLOSED!">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="FmK-71-BEv">
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9U-ct-Q4Y">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="Do8-UI-eV8"/>
+                                    </constraints>
+                                    <attributedString key="attributedText">
+                                        <fragment content="F">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1H9-4w-Gm9">
+                                    <attributedString key="attributedText">
+                                        <fragment content="CLOSED!">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                    <tabStops>
+                                                        <textTab alignment="left" location="28">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="56">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="84">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="112">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="140">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="168">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="196">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="224">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="252">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="280">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="308">
+                                                            <options/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="336">
+                                                            <options/>
+                                                        </textTab>
+                                                    </tabStops>
+                                                </paragraphStyle>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gcU-vD-G2G">
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4s-3R-5Eb">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="I8c-IZ-328"/>
+                                    </constraints>
+                                    <attributedString key="attributedText">
+                                        <fragment content="Sa">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMs-4t-ug0">
+                                    <attributedString key="attributedText">
+                                        <fragment content="CLOSED!">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="wZO-yi-DH2">
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJP-Li-aqx">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="wBC-wd-TjI"/>
+                                    </constraints>
+                                    <attributedString key="attributedText">
+                                        <fragment content="Su">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tI-VC-8Xo">
+                                    <attributedString key="attributedText">
+                                        <fragment content="06:00 AM - 07:00 PM">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="AvenirLTStd-Medium"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5c-Bq-z8d">
+                    <attributedString key="attributedText">
+                        <fragment content="Hours">
+                            <attributes>
+                                <font key="NSFont" size="36" name="AvenirLTStd-Roman"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="IGc-df-8gQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="36Y-Ov-Hsm"/>
+                <constraint firstItem="Dlq-v2-0JJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3l5-vG-b2J"/>
+                <constraint firstItem="g5c-Bq-z8d" firstAttribute="centerX" secondItem="U1S-rm-nda" secondAttribute="centerX" id="FQW-SR-ZeX"/>
+                <constraint firstItem="1ND-a5-3AO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="IGq-df-9fo"/>
+                <constraint firstItem="U1S-rm-nda" firstAttribute="top" secondItem="g5c-Bq-z8d" secondAttribute="bottom" constant="8" id="IZk-mf-wG3"/>
+                <constraint firstItem="Dlq-v2-0JJ" firstAttribute="top" secondItem="IGc-df-8gQ" secondAttribute="bottom" constant="60" id="Lf7-VZ-zzV"/>
+                <constraint firstItem="IGc-df-8gQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="ZZX-n8-Nsg"/>
+                <constraint firstAttribute="trailing" secondItem="1ND-a5-3AO" secondAttribute="trailing" constant="16" id="xxQ-Ou-iog"/>
+                <constraint firstAttribute="bottom" secondItem="Dlq-v2-0JJ" secondAttribute="bottom" constant="16" id="y3K-yE-j8e"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="20" y="237.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="opnLogo" width="317" height="210"/>
+    </resources>
+</document>
