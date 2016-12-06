@@ -14,6 +14,10 @@ import GooglePlaces
 
 class AddBusinessViewController: FormViewController {
 
+    //MARK: URL Request
+    let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
+    var dataTask: URLSessionDataTask?
+    
     var phase = 0
     
     lazy var selectedPlace = GMSPlace()
@@ -59,10 +63,38 @@ class AddBusinessViewController: FormViewController {
         present(autocompleteController, animated: true, completion: nil)
     }
     
+    func jsonForGooglePlaceID (place: GMSPlace) {
+        if dataTask != nil {
+            dataTask?.cancel()
+        }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        let placeID = place.placeID
+    
+        let appKey = "AIzaSyDZTCAf9pXnDcMGHu1Qan8cSk68sTVQPm4" //MARK: This is the webservice Google Key, NOT the iOS app key!
+        let urlString : String = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.placeID + "&key=" + appKey
+        let url = NSURL(string: urlString)
+        
+        dataTask = defaultSession.dataTask(with: url! as URL, completionHandler: {
+            (data, response, error) in
+           
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    print("data \(data)")
+                }
+            }
+        })
+        
+        dataTask?.resume()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-               //let email = ValidationRulePattern(pattern: Email)
         
         LabelRow.defaultCellUpdate = { cell, row in
             cell.contentView.backgroundColor = opnRed
@@ -232,6 +264,7 @@ class AddBusinessViewController: FormViewController {
             <<< TextRow("streetAddressOne") {
                 $0.title = "Street Address"
                 $0.placeholder = "Street Address"
+                $0.tag = "streetAddressOne"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnBlur
             }
@@ -258,12 +291,14 @@ class AddBusinessViewController: FormViewController {
             //MARK:
             <<< TextRow("streetAddressTwo") {
                 $0.title = "Street Address 2"
+                $0.tag = "streetAddressTwo"
                 $0.placeholder = "Optional"
             }
             //MARK:
             <<< TextRow("city") {
                 $0.title = "City"
                 $0.placeholder = "City"
+                $0.tag = "city"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnBlur
             }
@@ -290,6 +325,7 @@ class AddBusinessViewController: FormViewController {
             //MARK:
             <<< TextRow("state") {
                 $0.title = "State"
+                $0.tag = "state"
                 $0.placeholder = "State"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnBlur
@@ -318,6 +354,7 @@ class AddBusinessViewController: FormViewController {
             <<< ZipCodeRow("zipCode") {
                 $0.title = "Zip Code"
                 $0.placeholder = "Zip Code"
+                $0.tag = "zipCode"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnBlur
             }
@@ -344,11 +381,13 @@ class AddBusinessViewController: FormViewController {
             //MARK:
             <<< PhoneRow("businessNumber") {
                 $0.title = "Business Number 📞"
+                $0.tag = "businessNumber"
                 $0.placeholder = "555.555.5555"
             }
             //MARK:
-            <<< EmailRow("website") {
+            <<< URLRow("website") {
                 $0.title = "Website"
+                $0.tag = "website"
                 //$0.add(rule: RuleURL())
                 $0.validationOptions = .validatesOnBlur
                 }
@@ -375,6 +414,7 @@ class AddBusinessViewController: FormViewController {
 
             <<< TextAreaRow("businessCategory") {
                 $0.title = "Business Category"
+                $0.tag = "description"
                 $0.placeholder = "Let Customers know what type of business you have."
             }
             +++ Section("Let Customers know what days you are open.") {
@@ -391,6 +431,7 @@ class AddBusinessViewController: FormViewController {
             }
             <<< TimeRow("sundayOpen") {
                     $0.title = "Sunday Open"
+                    $0.tag = "sundayOpen"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -403,6 +444,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("sundayClose") {
                     $0.title = "Sunday Close"
+                    $0.tag = "sundayClose"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -415,6 +457,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("mondayOpen") {
                     $0.title = "Monday Open"
+                    $0.tag = "mondayOpen"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -428,6 +471,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("mondayClose") {
                     $0.title = "Monday Close"
+                    $0.tag = "mondayClose"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -440,6 +484,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("tuesdayOpen") {
                     $0.title = "Tuesday Open"
+                    $0.tag = "tuesdayOpen"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -452,6 +497,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("tuesdayClose") {
                     $0.title = "Tuesday Close"
+                    $0.tag = "tuesdayClose"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -464,6 +510,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("wednesdayOpen") {
                     $0.title = "Wednesday Open"
+                    $0.tag = "wednesdayOpen"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -476,6 +523,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("wednesdayClose") {
                     $0.title = "Wednesday Close"
+                    $0.tag = "wednesdayClose"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -488,6 +536,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("thursdayOpen") {
                     $0.title = "Thursday Open"
+                    $0.tag = "thursdayOpen"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -500,6 +549,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("thursdayClose") {
                     $0.title = "Thursday Close"
+                    $0.tag = "thursdayClose"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -512,6 +562,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("fridayOpen") {
                     $0.title = "Friday Open"
+                    $0.tag = "fridayOpen"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -524,6 +575,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("fridayClose") {
                     $0.title = "Friday Close"
+                    $0.tag = "fridayClose"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -536,6 +588,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("saturdayOpen") {
                     $0.title = "Saturday Open"
+                    $0.tag = "saturdayOpen"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -548,6 +601,7 @@ class AddBusinessViewController: FormViewController {
                 }
                 <<< TimeRow("saturdayClose") {
                     $0.title = "Saturday Close"
+                    $0.tag = "saturdayClose"
                     $0.minuteInterval = 5
                     $0.hidden = Condition.function(["weekDayRow"], { form in
                         let values = (form.rowBy(tag: "weekDayRow") as? WeekDayRow)?.value
@@ -998,13 +1052,9 @@ extension AddBusinessViewController: GMSAutocompleteViewControllerDelegate {
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         selectedPlace = place
-        print("Place name: \(place.name)")
-        print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")
-        dismiss(animated: true, completion: nil)
         
         let section99 = self.form.sectionBy(tag: "99")
-        section99?.hidden = true
+        section99?.hidden = false
         section99?.evaluateHidden()
         let section0 = self.form.sectionBy(tag: "0")
         section0?.hidden = false
@@ -1015,30 +1065,87 @@ extension AddBusinessViewController: GMSAutocompleteViewControllerDelegate {
         let section4 = self.form.sectionBy(tag: "4")
         section4?.hidden = false
         section4?.evaluateHidden()
+        
         let businessNameRow : TextRow? = self.form.rowBy(tag: "businessName")
+        let streetAddressOneRow : TextRow? = self.form.rowBy(tag: "streetAddressOne")
+        let streetAddressTwoRow : TextRow? = self.form.rowBy(tag: "streetAddressTwo")
+        let cityRow : TextRow? = self.form.rowBy(tag: "city")
+        let stateRow : TextRow? = self.form.rowBy(tag: "state")
+        let zipCodeRow : ZipCodeRow? = self.form.rowBy(tag: "zipCode")
+        let businessNumberRow : PhoneRow? = self.form.rowBy(tag: "businessNumber")
+        let websiteRow : URLRow? = self.form.rowBy(tag: "website")
+        let descriptionRow : TextRow? = self.form.rowBy(tag: "description")
+        let mondayOpenRow : TimeRow? = self.form.rowBy(tag: "mondayOpen")
+        let mondayCloseRow : TimeRow? = self.form.rowBy(tag: "mondayClose")
+        let tuesdayOpenRow : TimeRow? = self.form.rowBy(tag: "tuesdayOpen")
+        let tuesdayCloseRow : TimeRow? = self.form.rowBy(tag: "tuesdayClose")
+        let wednesdayOpenRow : TimeRow? = self.form.rowBy(tag: "wednesdayOpen")
+        let wednesdayCloseRow : TimeRow? = self.form.rowBy(tag: "wednesdayClose")
+        let thursdayOpenRow : TimeRow? = self.form.rowBy(tag: "thursdayOpen")
+        let thursdayCloseRow : TimeRow? = self.form.rowBy(tag: "thursdayClose")
+        let fridayOpenRow : TimeRow? = self.form.rowBy(tag: "fridayOpen")
+        let fridayCloseRow : TimeRow? = self.form.rowBy(tag: "fridayClose")
+        let saturdayOpenRow : TimeRow? = self.form.rowBy(tag: "saturdayOpen")
+        let saturdayCloseRow : TimeRow? = self.form.rowBy(tag: "saturdayClose")
+        let sundayOpenRow : TimeRow? = self.form.rowBy(tag: "sundayOpen")
+        let sundayCloseRow : TimeRow? = self.form.rowBy(tag: "sundayClose")
+        
+        
+        var streetNumber : String = ""
+        var street : String = ""
+        
+        for component in place.addressComponents! {
+                switch component.type {
+                case "street_number":
+                    streetNumber = component.name
+                case "route":
+                    street = component.name
+                case "locality":
+                    cityRow?.value = component.name
+                    cityRow?.updateCell()
+                case "administrative_area_level_1":
+                    stateRow?.value = component.name
+                    stateRow?.updateCell()
+                case "postal_code":
+                    zipCodeRow?.value = component.name
+                    zipCodeRow?.updateCell()
+                default:
+                    break
+            }
+            streetAddressOneRow?.value = streetNumber + " " + street
+            streetAddressOneRow?.updateCell()
+            print("\(component.type) \(component.name)")
+            jsonForGooglePlaceID(place: place)
+        }
+       
+        var addressArray = place.formattedAddress?.components(separatedBy: ",")
+        
+        if streetAddressOneRow?.value == " " {
+            streetAddressOneRow?.value = addressArray?[0]
+            streetAddressOneRow?.updateCell()
+        }
+        
+        
+        if let city = cityRow?.value, let array = addressArray {
+            if city == array[2].trimmingCharacters(in: .whitespaces) {
+                streetAddressTwoRow?.value = addressArray?[1]
+                streetAddressTwoRow?.updateCell()
+            }
+        }
+        
         businessNameRow?.value = place.name
         businessNameRow?.updateCell()
-//        let xRow : TextRow? = self.form.rowBy(tag: "x")
-//        xRow?.value = place.y
-//        xRow?.updateCell()
-//        let xRow : TextRow? = self.form.rowBy(tag: "x")
-//        xRow?.value = place.y
-//        xRow?.updateCell()
-//        let xRow : TextRow? = self.form.rowBy(tag: "x")
-//        xRow?.value = place.y
-//        xRow?.updateCell()
-//        let xRow : TextRow? = self.form.rowBy(tag: "x")
-//        xRow?.value = place.y
-//        xRow?.updateCell()
-//        let xRow : TextRow? = self.form.rowBy(tag: "x")
-//        xRow?.value = place.y
-//        xRow?.updateCell()
-//        let xRow : TextRow? = self.form.rowBy(tag: "x")
-//        xRow?.value = place.y
-//        xRow?.updateCell()
-//        let xRow : TextRow? = self.form.rowBy(tag: "x")
-//        xRow?.value = place.y
-//        xRow?.updateCell()
+        
+        businessNumberRow?.value = place.phoneNumber
+        businessNumberRow?.updateCell()
+        
+        websiteRow?.value = place.website
+        websiteRow?.updateCell()
+        
+        descriptionRow?.value = place.types[0]
+        descriptionRow?.updateCell()
+        
+        dismiss(animated: true, completion: nil)
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
