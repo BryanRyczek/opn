@@ -10,10 +10,13 @@ import UIKit
 import Eureka
 import PostalAddressRow
 import FirebaseDatabase
+import GooglePlaces
 
 class AddBusinessViewController: FormViewController {
 
     var phase = 0
+    
+    lazy var selectedPlace = GMSPlace()
     
     //Mark: Firebase components
     lazy var ref = FIRDatabase.database().reference(withPath: "business-list")
@@ -49,6 +52,12 @@ class AddBusinessViewController: FormViewController {
     lazy var website = String()
     lazy var email = String()
     lazy var businessDescription = String()
+    
+    func autocompleteClicked() {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        present(autocompleteController, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,8 +105,33 @@ class AddBusinessViewController: FormViewController {
             cell.backgroundColor = opnBlue
         }
         
-        form = Section("Help Opn stay in touch with you") {
+        form = Section ("Save time by searching for your business, or enter your business's information manually.") {
+            $0.tag = "99"
+            }
+            <<< ButtonRow("SearchForBusiness") {
+                $0.tag = "search"
+                $0.title = "Search For Your Business"
+                $0.validationOptions = .validatesOnBlur
+            }
+                .onCellSelection({ cell, row in
+                    self.autocompleteClicked()
+                    
+            })
+            <<< ButtonRow("Enter") {
+                $0.tag = "manual"
+                $0.title = "Enter Manually"
+                $0.validationOptions = .validatesOnBlur
+                }
+                .onCellSelection({ cell, row in
+                    print("Search")
+                    
+                })
+
+
+            
+            +++ Section("Help Opn stay in touch with you") {
             $0.tag = "0"
+            $0.hidden = true
             }
             //MARK:
             <<< NameRow("contactName") {
@@ -165,10 +199,12 @@ class AddBusinessViewController: FormViewController {
             //MARK:
             +++ Section("Entering accurate information helps customers find your business"){
                 $0.tag = "1"
+                $0.hidden = true
             }
             <<< TextRow("businessName") {
                 $0.title = "Business Name"
                 $0.placeholder = "Business Name"
+                $0.tag = "businessName"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnBlur
             }
@@ -522,14 +558,17 @@ class AddBusinessViewController: FormViewController {
                         }
                     })
                 }
-            
-            +++ ButtonRow("DoneRow") {
-                $0.tag = "done"
-                $0.title = "Add Info!"
-                $0.validationOptions = .validatesOnBlur
-        }
+       +++ Section {
+            $0.tag = "4"
+            $0.hidden = true
+            }
+        <<< ButtonRow("EnterButtonRow") {
+            $0.tag = "enterButton"
+            $0.hidden = false
+            $0.title = "Add Info!"
+            $0.validationOptions = .validatesOnBlur
+            }
         .onCellSelection({ cell, row in
-            
             
             let valuesDictionary = self.form.values()
             print(valuesDictionary)
@@ -596,7 +635,7 @@ class AddBusinessViewController: FormViewController {
                     let section3 = self.form.sectionBy(tag: "3")
                     section3?.hidden = false
                     section3?.evaluateHidden()
-                    let button = self.form.rowBy(tag: "done")
+                    let button = self.form.rowBy(tag: "enterButton")
                     button?.title = "Add Hours!"
                     self.phase += 1
             case 1:
@@ -692,7 +731,7 @@ class AddBusinessViewController: FormViewController {
                     let section3 = self.form.sectionBy(tag: "3")
                     section3?.hidden = true
                     section3?.evaluateHidden()
-                    let button = self.form.rowBy(tag: "done")
+                    let button = self.form.rowBy(tag: "enterButton")
                     button?.title = "Add My Business to Opn!"
                     self.phase += 1
                     self.saveBusiness()
@@ -954,3 +993,71 @@ public final class WeekDayRow: Row<WeekDayCell>, RowType {
     }
 }
 
+extension AddBusinessViewController: GMSAutocompleteViewControllerDelegate {
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        selectedPlace = place
+        print("Place name: \(place.name)")
+        print("Place address: \(place.formattedAddress)")
+        print("Place attributions: \(place.attributions)")
+        dismiss(animated: true, completion: nil)
+        
+        let section99 = self.form.sectionBy(tag: "99")
+        section99?.hidden = true
+        section99?.evaluateHidden()
+        let section0 = self.form.sectionBy(tag: "0")
+        section0?.hidden = false
+        section0?.evaluateHidden()
+        let section1 = self.form.sectionBy(tag: "1")
+        section1?.hidden = false
+        section1?.evaluateHidden()
+        let section4 = self.form.sectionBy(tag: "4")
+        section4?.hidden = false
+        section4?.evaluateHidden()
+        let businessNameRow : TextRow? = self.form.rowBy(tag: "businessName")
+        businessNameRow?.value = place.name
+        businessNameRow?.updateCell()
+//        let xRow : TextRow? = self.form.rowBy(tag: "x")
+//        xRow?.value = place.y
+//        xRow?.updateCell()
+//        let xRow : TextRow? = self.form.rowBy(tag: "x")
+//        xRow?.value = place.y
+//        xRow?.updateCell()
+//        let xRow : TextRow? = self.form.rowBy(tag: "x")
+//        xRow?.value = place.y
+//        xRow?.updateCell()
+//        let xRow : TextRow? = self.form.rowBy(tag: "x")
+//        xRow?.value = place.y
+//        xRow?.updateCell()
+//        let xRow : TextRow? = self.form.rowBy(tag: "x")
+//        xRow?.value = place.y
+//        xRow?.updateCell()
+//        let xRow : TextRow? = self.form.rowBy(tag: "x")
+//        xRow?.value = place.y
+//        xRow?.updateCell()
+//        let xRow : TextRow? = self.form.rowBy(tag: "x")
+//        xRow?.value = place.y
+//        xRow?.updateCell()
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
+}
