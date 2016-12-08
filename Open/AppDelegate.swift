@@ -11,6 +11,7 @@ import CoreData
 import Firebase
 import FirebaseDatabase
 import GooglePlaces
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

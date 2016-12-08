@@ -8,9 +8,10 @@
 
 import UIKit
 import Eureka
-import PostalAddressRow
+//import PostalAddressRow
 import FirebaseDatabase
 import GooglePlaces
+import SwiftyJSON
 
 class AddBusinessViewController: FormViewController {
 
@@ -64,9 +65,13 @@ class AddBusinessViewController: FormViewController {
     }
     
     func jsonForGooglePlaceID (place: GMSPlace) {
+        
+       
+        
         if dataTask != nil {
             dataTask?.cancel()
         }
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let placeID = place.placeID
@@ -75,23 +80,50 @@ class AddBusinessViewController: FormViewController {
         let urlString : String = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.placeID + "&key=" + appKey
         let url = NSURL(string: urlString)
         
-        dataTask = defaultSession.dataTask(with: url! as URL, completionHandler: {
+        dataTask = defaultSession.dataTask(with: url! as URL) {
             (data, response, error) in
            
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 200 {
-                    print("data \(data)")
-                }
+            // check for any errors
+            guard error == nil else {
+                print("error calling GET on /todos/1")
+                print(error)
+                return
             }
-        })
+            // make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: AnyObject] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+                
+                // now we have the todo, let's just print it to prove we can access it
+                //print("The todo is: " + todo.description)
+                
+                let  json = JSON(data: data!)
+                
+                DispatchQueue.main.async(){
+                   self.setValuesFromGooglePlaceAndJSON(place: place, json: json)
+                }
+
+                
+                // the todo object is a dictionary
+        
+            } catch {
+                print("error trying to convert data to JSON")
+                return
+            }
+            
+        }
         
         dataTask?.resume()
-        
-    }
+}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -425,7 +457,7 @@ class AddBusinessViewController: FormViewController {
                     $0.value = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
                     $0.title = "YEEHAW"
                 }
-            +++ Section("Let customers know what times you are open.") {
+            +++ Section("Let customers know your business hours.") {
                 $0.tag = "3"
                 $0.hidden = true
             }
@@ -1047,11 +1079,8 @@ public final class WeekDayRow: Row<WeekDayCell>, RowType {
     }
 }
 
-extension AddBusinessViewController: GMSAutocompleteViewControllerDelegate {
-    
-    // Handle the user's selection.
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        selectedPlace = place
+extension AddBusinessViewController {
+    func setValuesFromGooglePlaceAndJSON (place: GMSPlace, json: JSON) {
         
         let section99 = self.form.sectionBy(tag: "99")
         section99?.hidden = false
@@ -1091,39 +1120,41 @@ extension AddBusinessViewController: GMSAutocompleteViewControllerDelegate {
         let sundayCloseRow : TimeRow? = self.form.rowBy(tag: "sundayClose")
         
         
-        var streetNumber : String = ""
-        var street : String = ""
+        var streetNumber : String?
+        var route : String?
         
-        for component in place.addressComponents! {
-                switch component.type {
-                case "street_number":
-                    streetNumber = component.name
-                case "route":
-                    street = component.name
-                case "locality":
-                    cityRow?.value = component.name
-                    cityRow?.updateCell()
-                case "administrative_area_level_1":
-                    stateRow?.value = component.name
-                    stateRow?.updateCell()
-                case "postal_code":
-                    zipCodeRow?.value = component.name
-                    zipCodeRow?.updateCell()
-                default:
-                    break
-            }
-            streetAddressOneRow?.value = streetNumber + " " + street
-            streetAddressOneRow?.updateCell()
-            print("\(component.type) \(component.name)")
-            jsonForGooglePlaceID(place: place)
-        }
-       
         var addressArray = place.formattedAddress?.components(separatedBy: ",")
         
-        if streetAddressOneRow?.value == " " {
-            streetAddressOneRow?.value = addressArray?[0]
-            streetAddressOneRow?.updateCell()
+        for component in place.addressComponents! {
+            switch component.type {
+            case "street_number":
+                streetNumber = component.name
+            case "route":
+                route = component.name
+            case "locality":
+                cityRow?.value = component.name
+                cityRow?.updateCell()
+            case "administrative_area_level_1":
+                stateRow?.value = component.name
+                stateRow?.updateCell()
+            case "postal_code":
+                zipCodeRow?.value = component.name
+                zipCodeRow?.updateCell()
+            default:
+                break
+            }
+            
+            if let num = streetNumber, let rt = route {
+                streetAddressOneRow?.value = num + " " + rt
+                streetAddressOneRow?.updateCell()
+            } else {
+                streetAddressOneRow?.value = addressArray?[0]
+                streetAddressOneRow?.updateCell()
+            }
+            print("\(component.type) \(component.name)")
+            
         }
+        
         
         
         if let city = cityRow?.value, let array = addressArray {
@@ -1144,6 +1175,91 @@ extension AddBusinessViewController: GMSAutocompleteViewControllerDelegate {
         
         descriptionRow?.value = place.types[0]
         descriptionRow?.updateCell()
+        
+        
+        if let suo = json["result"]["opening_hours"]["periods"][0]["open"]["time"].string {
+            let string = addColonToGoogleTimeString(string: suo)
+            sundayOpenRow?.value = firebaseTimeStringToDate(string: string!)
+            sundayOpenRow?.updateCell()
+        }
+        if let suc = json["result"]["opening_hours"]["periods"][0]["close"]["time"].string {
+            let string = addColonToGoogleTimeString(string: suc)
+            sundayCloseRow?.value = firebaseTimeStringToDate(string: string!)
+            sundayCloseRow?.updateCell()
+        }
+        if let mo = json["result"]["opening_hours"]["periods"][1]["open"]["time"].string {
+            let string = addColonToGoogleTimeString(string: mo)
+            mondayOpenRow?.value = firebaseTimeStringToDate(string: string!)
+            mondayOpenRow?.updateCell()
+        }
+        if let mc = json["result"]["opening_hours"]["periods"][1]["close"]["time"].string {
+            let string = addColonToGoogleTimeString(string: mc)
+            mondayCloseRow?.value = firebaseTimeStringToDate(string: string!)
+            mondayCloseRow?.updateCell()
+        }
+        if let tuo = json["result"]["opening_hours"]["periods"][2]["open"]["time"].string {
+            let string = addColonToGoogleTimeString(string: tuo)
+            tuesdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
+            tuesdayOpenRow?.updateCell()
+        }
+        if let tuc = json["result"]["opening_hours"]["periods"][2]["close"]["time"].string {
+            let string = addColonToGoogleTimeString(string: tuc)
+            tuesdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
+            tuesdayCloseRow?.updateCell()
+        }
+        if let wo = json["result"]["opening_hours"]["periods"][3]["open"]["time"].string {
+            let string = addColonToGoogleTimeString(string: wo)
+            wednesdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
+            wednesdayOpenRow?.updateCell()
+        }
+        if let wc = json["result"]["opening_hours"]["periods"][3]["close"]["time"].string {
+            let string = addColonToGoogleTimeString(string: wc)
+            wednesdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
+            wednesdayCloseRow?.updateCell()
+        }
+
+        if let tho = json["result"]["opening_hours"]["periods"][4]["open"]["time"].string {
+            let string = addColonToGoogleTimeString(string: tho)
+            thursdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
+            thursdayOpenRow?.updateCell()
+        }
+        if let thc = json["result"]["opening_hours"]["periods"][4]["close"]["time"].string {
+            let string = addColonToGoogleTimeString(string: thc)
+            thursdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
+            thursdayCloseRow?.updateCell()
+        }
+
+        if let fo = json["result"]["opening_hours"]["periods"][5]["open"]["time"].string {
+            let string = addColonToGoogleTimeString(string: fo)
+            fridayOpenRow?.value = firebaseTimeStringToDate(string: string!)
+            fridayOpenRow?.updateCell()
+        }
+        if let fc = json["result"]["opening_hours"]["periods"][5]["close"]["time"].string {
+            let string = addColonToGoogleTimeString(string: fc)
+            fridayCloseRow?.value = firebaseTimeStringToDate(string: string!)
+            fridayCloseRow?.updateCell()
+        }
+
+        if let sao = json["result"]["opening_hours"]["periods"][6]["open"]["time"].string {
+            let string = addColonToGoogleTimeString(string: sao)
+            saturdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
+            saturdayOpenRow?.updateCell()
+        }
+        if let sac = json["result"]["opening_hours"]["periods"][6]["close"]["time"].string {
+            let string = addColonToGoogleTimeString(string: sac)
+            saturdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
+            saturdayCloseRow?.updateCell()
+        }
+
+    }
+}
+
+extension AddBusinessViewController: GMSAutocompleteViewControllerDelegate {
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        
+        jsonForGooglePlaceID(place: place)
         
         dismiss(animated: true, completion: nil)
     }

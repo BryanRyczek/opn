@@ -42,6 +42,16 @@ func firebaseTimeStringToDate (string: String) -> Date {
     return newDate
 }
 
+func addColonToGoogleTimeString (string: String) -> String? {
+    if string.characters.count != 4 { return nil }
+    
+    var newString = string
+    let idx = newString.index(newString.startIndex, offsetBy: 2)
+    newString.insert(":", at: idx)
+    return newString
+    
+}
+
 func currentDateCustomTime(dateWithTime: Date)  -> Date {
     
     let currentDate = Date()
