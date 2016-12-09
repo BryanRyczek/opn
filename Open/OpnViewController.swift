@@ -232,8 +232,9 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
         var callButton : MGSwipeButton = MGSwipeButton(title: "", icon: callLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
             
             let phoneNumber = business.phoneNumber
+            let numOnly = String(phoneNumber.characters.filter { String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
             
-            if let phoneCallURL = NSURL(string: "tel:\(phoneNumber)") {
+            if let phoneCallURL = NSURL(string: "tel:\(numOnly)") {
                 let application = UIApplication.shared
                 if application.canOpenURL(phoneCallURL as URL) {
                     application.openURL(phoneCallURL as URL)

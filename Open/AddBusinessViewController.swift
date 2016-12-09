@@ -667,11 +667,11 @@ class AddBusinessViewController: FormViewController {
 //                        self.streetAddressTwo = ""
 //                    }
 //                    
-//                    if let ph = valuesDictionary["businessNumber"] as? String ?? nil {
-//                        self.phoneNumber = ph.makeFirebaseString()
-//                    } else {
-//                        self.phoneNumber = ""
-//                    }
+                    if let ph = valuesDictionary["businessNumber"] as? String ?? nil {
+                        self.phoneNumber = ph.makeFirebaseString()
+                    } else {
+                        self.phoneNumber = ""
+                    }
                     
                     if let w = valuesDictionary["website"] as? String ?? nil {
                         self.website = w.makeFirebaseString()
@@ -1286,80 +1286,7 @@ extension AddBusinessViewController {
                 break
             }
         }
-        
-//        if let suo = json["result"]["opening_hours"]["periods"][0]["open"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: suo)
-//            sundayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-//            sundayOpenRow?.updateCell()
-//        }
-//        if let suc = json["result"]["opening_hours"]["periods"][0]["close"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: suc)
-//            sundayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-//            sundayCloseRow?.updateCell()
-//        }
-//        if let mo = json["result"]["opening_hours"]["periods"][1]["open"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: mo)
-//            mondayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-//            mondayOpenRow?.updateCell()
-//        }
-//        if let mc = json["result"]["opening_hours"]["periods"][1]["close"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: mc)
-//            mondayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-//            mondayCloseRow?.updateCell()
-//        }
-//        if let tuo = json["result"]["opening_hours"]["periods"][2]["open"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: tuo)
-//            tuesdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-//            tuesdayOpenRow?.updateCell()
-//        }
-//        if let tuc = json["result"]["opening_hours"]["periods"][2]["close"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: tuc)
-//            tuesdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-//            tuesdayCloseRow?.updateCell()
-//        }
-//        if let wo = json["result"]["opening_hours"]["periods"][3]["open"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: wo)
-//            wednesdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-//            wednesdayOpenRow?.updateCell()
-//        }
-//        if let wc = json["result"]["opening_hours"]["periods"][3]["close"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: wc)
-//            wednesdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-//            wednesdayCloseRow?.updateCell()
-//        }
-//
-//        if let tho = json["result"]["opening_hours"]["periods"][4]["open"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: tho)
-//            thursdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-//            thursdayOpenRow?.updateCell()
-//        }
-//        if let thc = json["result"]["opening_hours"]["periods"][4]["close"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: thc)
-//            thursdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-//            thursdayCloseRow?.updateCell()
-//        }
-//
-//        if let fo = json["result"]["opening_hours"]["periods"][5]["open"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: fo)
-//            fridayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-//            fridayOpenRow?.updateCell()
-//        }
-//        if let fc = json["result"]["opening_hours"]["periods"][5]["close"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: fc)
-//            fridayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-//            fridayCloseRow?.updateCell()
-//        }
-//
-//        if let sao = json["result"]["opening_hours"]["periods"][6]["open"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: sao)
-//            saturdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-//            saturdayOpenRow?.updateCell()
-//        }
-//        if let sac = json["result"]["opening_hours"]["periods"][6]["close"]["time"].string {
-//            let string = addColonToGoogleTimeString(string: sac)
-//            saturdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-//            saturdayCloseRow?.updateCell()
-//        }
+
 
     }
 }
