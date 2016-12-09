@@ -66,6 +66,7 @@
 		939E39AE1DDCAD260093FF2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E39AD1DDCAD260093FF2C /* LoginViewController.swift */; };
 		939E39B01DDCD81C0093FF2C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E39AF1DDCD81C0093FF2C /* User.swift */; };
 		93C510791DBABB9800F35504 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C510781DBABB9800F35504 /* Business.swift */; };
+		93D1AEC41DFB591C00F48911 /* WeekDaysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D1AEC31DFB591C00F48911 /* WeekDaysCell.swift */; };
 		93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */; };
 		93DA016A1DD0F24400DF57F7 /* OpnBusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */; };
 		93DA016B1DD0F24400DF57F7 /* OpnBusinessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */; };
@@ -134,6 +135,7 @@
 		939E39AF1DDCD81C0093FF2C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93C510781DBABB9800F35504 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		93C5107A1DBB053B00F35504 /* Open.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Open.entitlements; sourceTree = "<group>"; };
+		93D1AEC31DFB591C00F48911 /* WeekDaysCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekDaysCell.swift; sourceTree = "<group>"; };
 		93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelperMethods.swift; sourceTree = "<group>"; };
 		93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnBusinessCell.swift; sourceTree = "<group>"; };
 		93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpnBusinessCell.xib; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 		93DA01631DD0E8F200DF57F7 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
+				93D1AEC31DFB591C00F48911 /* WeekDaysCell.swift */,
 				93685F7A1DDF8FAD00DD557B /* WeekDaysCell.xib */,
 				93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */,
 				9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */,
@@ -671,6 +674,7 @@
 				93C510791DBABB9800F35504 /* Business.swift in Sources */,
 				93366CA61DC8121A001BEA48 /* FirebaseHelpers.swift in Sources */,
 				93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */,
+				93D1AEC41DFB591C00F48911 /* WeekDaysCell.swift in Sources */,
 				938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */,
 				9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */,
 				93E1C0D11DD50A5500708CF9 /* IsOpenViewController.swift in Sources */,

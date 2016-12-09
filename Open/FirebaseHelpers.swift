@@ -105,9 +105,21 @@ func getOpenClose(business: Business) -> [Date] {
     }
     
     let todayOpenDate = firebaseTimeStringToDate(string: openTime)
-    let todayCloseDate = firebaseTimeStringToDate(string: closingTime)
+    var todayCloseDate = firebaseTimeStringToDate(string: closingTime)
+    
+    todayCloseDate = openBeforeClose(open: todayOpenDate, close: todayCloseDate)
     
     return [todayOpenDate, todayCloseDate]
+}
+
+func openBeforeClose (open: Date, close: Date) -> Date {
+    if open > close {
+        let calendar = Calendar.current
+        let newClose = calendar.date(byAdding: .day, value: 1, to: close)
+        return newClose!
+    } else {
+        return close
+    }
 }
 
 func isDateWithinInverval(open: Date, close: Date) -> Bool {
