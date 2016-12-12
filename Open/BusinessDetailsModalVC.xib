@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11761" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BusinessDetailsModalVC" customModule="Open" customModuleProvider="target">
+            <connections>
+                <outlet property="staticMapImage" destination="0Z4-iZ-4qC" id="4T9-k3-S9v"/>
+                <outlet property="topLabel" destination="JwN-Ft-SbU" id="ihU-ZR-0iQ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="378" height="475"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Z4-iZ-4qC">
+                    <rect key="frame" x="20" y="124" width="338" height="240"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="240" id="nFQ-Ex-2XI"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JwN-Ft-SbU">
+                    <rect key="frame" x="105" y="24" width="169" height="84"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Is this your Business?">
+                            <attributes>
+                                <font key="NSFont" size="18" name="AvenirLTStd-Book"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="evv-wT-a3p">
+                    <rect key="frame" x="0.0" y="404" width="378" height="71"/>
+                    <color key="backgroundColor" red="0.086274509799999996" green="0.078431372550000003" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal">
+                        <attributedString key="attributedTitle">
+                            <fragment content="Yes, this is my Business!">
+                                <attributes>
+                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="24" name="AvenirLTStd-Book"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="0Z4-iZ-4qC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="03m-J2-rbW"/>
+                <constraint firstItem="evv-wT-a3p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DAh-JG-JVw"/>
+                <constraint firstItem="JwN-Ft-SbU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="LZP-vN-Ttq"/>
+                <constraint firstItem="0Z4-iZ-4qC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Nth-QQ-GBF"/>
+                <constraint firstAttribute="trailing" secondItem="evv-wT-a3p" secondAttribute="trailing" id="PF0-TC-zkc"/>
+                <constraint firstAttribute="trailing" secondItem="0Z4-iZ-4qC" secondAttribute="trailing" constant="20" id="QFc-YU-kUl"/>
+                <constraint firstItem="evv-wT-a3p" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.15" id="epl-0c-Ywj"/>
+                <constraint firstAttribute="bottom" secondItem="evv-wT-a3p" secondAttribute="bottom" id="jLb-rO-g3N"/>
+                <constraint firstItem="JwN-Ft-SbU" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qke-BV-BxY"/>
+                <constraint firstItem="0Z4-iZ-4qC" firstAttribute="top" secondItem="JwN-Ft-SbU" secondAttribute="bottom" constant="16" id="to8-lA-N7r"/>
+                <constraint firstItem="evv-wT-a3p" firstAttribute="top" secondItem="0Z4-iZ-4qC" secondAttribute="bottom" constant="40" id="xKF-QX-0mP"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-86" y="-10.5"/>
+        </view>
+    </objects>
+</document>

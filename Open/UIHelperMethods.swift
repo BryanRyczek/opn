@@ -34,7 +34,7 @@ extension Date {
 
 //type inference functions so we can add stored properties to extenstions
 func associatedObject<ValueType: AnyObject>(
-    base: AnyObject,
+    _ base: AnyObject,
     key: UnsafePointer<UInt8>,
     initialiser: () -> ValueType)
     -> ValueType {
@@ -47,7 +47,7 @@ func associatedObject<ValueType: AnyObject>(
 }
 
 func associateObject<ValueType: AnyObject>(
-    base: AnyObject,
+    _ base: AnyObject,
     key: UnsafePointer<UInt8>,
     value: ValueType) {
     objc_setAssociatedObject(base, key, value,
@@ -67,7 +67,7 @@ class NibLoadingView: UIView {
         nibSetup()
     }
     
-    private func nibSetup() {
+    fileprivate func nibSetup() {
         backgroundColor = .clear
         
         view = loadViewFromNib()
@@ -78,7 +78,7 @@ class NibLoadingView: UIView {
         addSubview(view)
     }
     
-    private func loadViewFromNib() -> UIView {
+    fileprivate func loadViewFromNib() -> UIView {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: String(describing: type(of: self)), bundle: bundle)
         let nibView = nib.instantiate(withOwner: self, options: nil).first as! UIView
@@ -106,7 +106,7 @@ class CIRoundedImageView: UIImageView {
 
 extension Array {
     
-    func filterDuplicates( includeElement: (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element]{
+    func filterDuplicates( _ includeElement: (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element]{
         var results = [Element]()
         
         forEach { (element) in
@@ -161,7 +161,7 @@ extension String {
 
 //Enable / Disable UITableViewCell
 extension UITableViewCell {
-    func enable(on: Bool) {
+    func enable(_ on: Bool) {
         self.isUserInteractionEnabled = on
         for view in contentView.subviews {
             view.isUserInteractionEnabled = on
@@ -187,22 +187,22 @@ extension UIColor {
     }
 }
 
-public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs === rhs || lhs.compare(rhs as Date) == .orderedSame
-}
-
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.compare(rhs as Date) == .orderedAscending
-}
-
-extension NSDate: Comparable { }
-
-func addTimeToCurrentDate(addMinutes: Int, addHours: Int) -> Date {
-    
-    let calendar = Calendar.current
-    let addMin = calendar.date(byAdding: .minute, value: addMinutes, to: Date())
-    let addHrs = calendar.date(byAdding: .hour, value: addHours, to: addMin!)
-    return addHrs!
+//public func ==(lhs: Date, rhs: Date) -> Bool {
+//    return lhs === rhs || lhs.compare(rhs as Date) == .orderedSame
+//}
+//
+//public func <(lhs: Date, rhs: Date) -> Bool {
+//    return lhs.compare(rhs as Date) == .orderedAscending
+//}
+//
+//extension Date: Comparable { }
+//
+//func addTimeToCurrentDate(_ addMinutes: Int, addHours: Int) -> Date {
+//    
+//    let calendar = Calendar.current
+//    let addMin = calendar.date(byAdding: .minute, value: addMinutes, to: Date())
+//    let addHrs = calendar.date(byAdding: .hour, value: addHours, to: addMin!)
+//    return addHrs!
     
 //    let formatter = DateFormatter()
 //    formatter.amSymbol = "AM"
@@ -223,10 +223,10 @@ func addTimeToCurrentDate(addMinutes: Int, addHours: Int) -> Date {
 //        let militaryTime = formatter.string(from: addHours!)
 //        return "\(militaryTime)"
 //    }
-}
+//}
 
 
-func addTimeToCurrentDateString(addMinutes: Int, addHours: Int) -> String {
+func addTimeToCurrentDateString(_ addMinutes: Int, addHours: Int) -> String {
     
     let calendar = Calendar.current
     let addMin = calendar.date(byAdding: .minute, value: addMinutes, to: Date())
@@ -248,7 +248,7 @@ func addTimeToCurrentDateString(addMinutes: Int, addHours: Int) -> String {
     }
 }
 
-func formatGMTDate(date: Date) -> String {
+func formatGMTDate(_ date: Date) -> String {
     
     let formatter = DateFormatter()
     formatter.amSymbol = "AM"
@@ -318,22 +318,6 @@ func printFonts() {
     }
 }
 
-extension String {
-    
-    subscript (i: Int) -> Character {
-        return self[self.characters.index(self.startIndex, offsetBy: i)]
-    }
-    
-    subscript (i: Int) -> String {
-        return String(self[i] as Character)
-    }
-    
-//    subscript (r: Range<Int>) -> String {
-//        let start = characters.index(startIndex, offsetBy: r.lowerBound)
-//        let end = <#T##String.CharacterView corresponding to `start`##String.CharacterView#>.index(start, offsetBy: r.upperBound - r.lowerBound)
-//        return self[Range(start ..< end)]
-//    }
-}
 
 //remove whitespaces from string
 extension String {
@@ -351,20 +335,33 @@ func randomAngle() -> Int {
     return Int(360 * Int(arc4random_uniform(UInt32(1))))
 }
 
-func randomInt(min: Int, max: Int) -> Int {
+func randomInt(_ min: Int, max: Int) -> Int {
     if max < min { return min }
     return Int(arc4random_uniform(UInt32((max - min) + 1))) + min
 }
 
 //apply corner radius
 extension UIView{
-    func setCornerRadius(radius: CGFloat? = nil){
+    func setCornerRadius(_ radius: CGFloat? = nil){
         self.layer.cornerRadius = radius ?? self.frame.width / 2
         self.layer.masksToBounds = true
     }
 }
 
-
+extension String {
+    subscript(i: Int) -> String {
+        guard i >= 0 && i < characters.count else { return "" }
+        return String(self[index(startIndex, offsetBy: i)])
+    }
+    subscript(range: CountableRange<Int>) -> String {
+        let lowerIndex = index(startIndex, offsetBy: max(0,range.lowerBound), limitedBy: endIndex) ?? endIndex
+        return self[lowerIndex..<(index(lowerIndex, offsetBy: range.upperBound - range.lowerBound, limitedBy: endIndex) ?? endIndex)]
+    }
+    subscript(range: ClosedRange<Int>) -> String {
+        let lowerIndex = index(startIndex, offsetBy: max(0,range.lowerBound), limitedBy: endIndex) ?? endIndex
+        return self[lowerIndex..<(index(lowerIndex, offsetBy: range.upperBound - range.lowerBound + 1, limitedBy: endIndex) ?? endIndex)]
+    }
+}
 
 //MARK: Storyboard methods
 //this method will allow the developer to 

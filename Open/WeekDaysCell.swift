@@ -14,7 +14,7 @@ public enum WeekDay {
     case monday, tuesday, wednesday, thursday, friday, saturday, sunday
 }
 
-public class WeekDayCell : Cell<Set<WeekDay>>, CellType {
+open class WeekDayCell : Cell<Set<WeekDay>>, CellType {
     
     @IBOutlet var sundayButton: UIButton!
     @IBOutlet var mondayButton: UIButton!
@@ -72,7 +72,7 @@ public class WeekDayCell : Cell<Set<WeekDay>>, CellType {
         dayTapped(sender, day: getDayFromButton(sender))
     }
     
-    private func getDayFromButton(_ button: UIButton) -> WeekDay{
+    fileprivate func getDayFromButton(_ button: UIButton) -> WeekDay{
         switch button{
         case sundayButton:
             return .sunday
@@ -91,7 +91,7 @@ public class WeekDayCell : Cell<Set<WeekDay>>, CellType {
         }
     }
     
-    private func dayTapped(_ button: UIButton, day: WeekDay){
+    fileprivate func dayTapped(_ button: UIButton, day: WeekDay){
         button.isSelected = !button.isSelected
         if button.isSelected{
             row.value?.insert(day)
@@ -138,7 +138,7 @@ public class WeekDayCell : Cell<Set<WeekDay>>, CellType {
         }
     }
     
-    private func imageTopTitleBottom(_ button : UIButton){
+    fileprivate func imageTopTitleBottom(_ button : UIButton){
         
         guard let imageSize = button.imageView?.image?.size else { return }
         let spacing : CGFloat = 3.0

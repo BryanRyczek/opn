@@ -12,20 +12,27 @@ import Eureka
 import FirebaseDatabase
 import GooglePlaces
 import SwiftyJSON
+import Kingfisher
+import Foundation
+import PopupDialog
 
 class AddBusinessViewController: FormViewController {
 
-    //MARK: URL Request
+    var returnImage : UIImage?
+    var phase = 0
+    
+    //MARK: URL Request properties
     let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
     var dataTask: URLSessionDataTask?
     
-    var phase = 0
-    
+    //MARK: GooglePlaces properties
     lazy var selectedPlace = GMSPlace()
     
-    //Mark: Firebase components
+    //MARK: Firebase components properties
     lazy var ref = FIRDatabase.database().reference(withPath: "business-list")
     var items : [Business] = []
+    
+    lazy var autocompleteController = GMSAutocompleteViewController()
     
     //MARK: vars for storing information to send to Firebase when all is complete :)
     lazy var businessName = String()
@@ -58,76 +65,10 @@ class AddBusinessViewController: FormViewController {
     lazy var email = String()
     lazy var businessDescription = String()
     
-    func autocompleteClicked() {
-        let autocompleteController = GMSAutocompleteViewController()
-        autocompleteController.delegate = self
-        present(autocompleteController, animated: true, completion: nil)
-    }
-    
-    func jsonForGooglePlaceID (place: GMSPlace) {
-        
-       
-        
-        if dataTask != nil {
-            dataTask?.cancel()
-        }
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
-        let placeID = place.placeID
-    
-        let appKey = "AIzaSyDZTCAf9pXnDcMGHu1Qan8cSk68sTVQPm4" //MARK: This is the webservice Google Key, NOT the iOS app key!
-        let urlString : String = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.placeID + "&key=" + appKey
-        let url = NSURL(string: urlString)
-        
-        dataTask = defaultSession.dataTask(with: url! as URL) {
-            (data, response, error) in
-           
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            
-            // check for any errors
-            guard error == nil else {
-                print("error calling GET on /todos/1")
-                print(error)
-                return
-            }
-            // make sure we got data
-            guard let responseData = data else {
-                print("Error: did not receive data")
-                return
-            }
-            // parse the result as JSON, since that's what the API provides
-            do {
-                guard let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: AnyObject] else {
-                    print("error trying to convert data to JSON")
-                    return
-                }
-                
-                // now we have the todo, let's just print it to prove we can access it
-                //print("The todo is: " + todo.description)
-                
-                let  json = JSON(data: data!)
-                
-                DispatchQueue.main.async(){
-                   self.setValuesFromGooglePlaceAndJSON(place: place, json: json)
-                }
-
-                
-                // the todo object is a dictionary
-        
-            } catch {
-                print("error trying to convert data to JSON")
-                return
-            }
-            
-        }
-        
-        dataTask?.resume()
-}
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //MARK: Set font and other Eureka Row properties
         LabelRow.defaultCellUpdate = { cell, row in
             cell.contentView.backgroundColor = opnRed
             cell.textLabel?.textColor = .white
@@ -169,8 +110,10 @@ class AddBusinessViewController: FormViewController {
             cell.backgroundColor = opnBlue
         }
         
+        //MARK: Begin Eureka Form
+        //MARK: Section 0
         form = Section ("Save time by searching for your business, or enter your business's information manually.") {
-            $0.tag = "99"
+            $0.tag = "0"
             }
             <<< ButtonRow("SearchForBusiness") {
                 $0.tag = "search"
@@ -191,76 +134,7 @@ class AddBusinessViewController: FormViewController {
                     
                 })
 
-
-            
-            +++ Section("Help Opn stay in touch with you") {
-            $0.tag = "0"
-            $0.hidden = true
-            }
-            //MARK:
-            <<< NameRow("contactName") {
-                $0.title = "Contact Name"
-                $0.placeholder = "Contact Name"
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnBlur
-                }
-                .cellUpdate { cell, row in
-                    if !row.isValid {
-                        cell.titleLabel?.textColor = opnRed
-                    }
-                }
-                .onRowValidationChanged { cell, row in
-                    let rowIndex = row.indexPath!.row
-                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
-                        row.section?.remove(at: rowIndex + 1)
-                    }
-                    if !row.isValid {
-                        for (index, validationMsg) in row.validationErrors.map({ $0.msg }).enumerated() {
-                            let labelRow = LabelRow() {
-                                $0.title = validationMsg
-                                $0.cell.height = { 30 }
-                            }
-                            row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
-                        }
-                    }
-            }
-            //MARK:
-            <<< EmailRow("email") {
-                $0.title = "Contact Email"
-                $0.placeholder = "Contact Email"
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnBlur
-                }
-                .cellUpdate { cell, row in
-                    if !row.isValid {
-                        cell.titleLabel?.textColor = opnRed
-                    }
-                }
-                .onRowValidationChanged { cell, row in
-                    let rowIndex = row.indexPath!.row
-                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
-                        row.section?.remove(at: rowIndex + 1)
-                    }
-                    if !row.isValid {
-                        for (index, validationMsg) in row.validationErrors.map({ $0.msg }).enumerated() {
-                            let labelRow = LabelRow() {
-                                $0.title = validationMsg
-                                $0.cell.height = { 30 }
-                            }
-                            row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
-                        }
-                    }
-            }
-            <<< PasswordRow("password") {
-                $0.title = "Password"
-                $0.placeholder = "Password"
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnBlur
-            }
-            
-            
-            
-            //MARK:
+        //MARK: Section 1 - Business Information
             +++ Section("Entering accurate information helps customers find your business"){
                 $0.tag = "1"
                 $0.hidden = true
@@ -292,7 +166,6 @@ class AddBusinessViewController: FormViewController {
                     }
                 }
             }
-                       //MARK:
             <<< TextRow("streetAddressOne") {
                 $0.title = "Street Address"
                 $0.placeholder = "Street Address"
@@ -320,13 +193,13 @@ class AddBusinessViewController: FormViewController {
                         }
                     }
             }
-            //MARK:
+         
             <<< TextRow("streetAddressTwo") {
                 $0.title = "Street Address 2"
                 $0.tag = "streetAddressTwo"
                 $0.placeholder = "Optional"
             }
-            //MARK:
+           
             <<< TextRow("city") {
                 $0.title = "City"
                 $0.placeholder = "City"
@@ -354,7 +227,7 @@ class AddBusinessViewController: FormViewController {
                         }
                     }
             }
-            //MARK:
+           
             <<< TextRow("state") {
                 $0.title = "State"
                 $0.tag = "state"
@@ -382,7 +255,7 @@ class AddBusinessViewController: FormViewController {
                         }
                     }
                 }
-            //MARK:
+         
             <<< ZipCodeRow("zipCode") {
                 $0.title = "Zip Code"
                 $0.placeholder = "Zip Code"
@@ -410,13 +283,13 @@ class AddBusinessViewController: FormViewController {
                         }
                     }
             }
-            //MARK:
+            
             <<< PhoneRow("businessNumber") {
                 $0.title = "Business Number 📞"
                 $0.tag = "businessNumber"
                 $0.placeholder = "555.555.5555"
             }
-            //MARK:
+          
             <<< URLRow("website") {
                 $0.title = "Website"
                 $0.tag = "website"
@@ -449,6 +322,7 @@ class AddBusinessViewController: FormViewController {
                 $0.tag = "description"
                 $0.placeholder = "Let Customers know what type of business you have."
             }
+        //MARK: Section 2 - Days of Week Open
             +++ Section("Let Customers know what days you are open.") {
                 $0.tag = "2"
                 $0.hidden = true
@@ -457,6 +331,7 @@ class AddBusinessViewController: FormViewController {
                     $0.value = []
                     $0.title = "YEEHAW"
                 }
+        //MARK: Section 3 - Daily Hours
             +++ Section("Let customers know your business hours.") {
                 $0.tag = "3"
                 $0.hidden = true
@@ -644,8 +519,73 @@ class AddBusinessViewController: FormViewController {
                         }
                     })
                 }
+        //MARK: Section 4 - Contact Info / Password
+            +++ Section("Help Opn stay in touch with you") {
+                $0.tag = "4"
+                $0.hidden = true
+            }
+            <<< NameRow("contactName") {
+                $0.title = "Contact Name"
+                $0.placeholder = "Contact Name"
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnBlur
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = opnRed
+                    }
+                }
+                .onRowValidationChanged { cell, row in
+                    let rowIndex = row.indexPath!.row
+                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                        row.section?.remove(at: rowIndex + 1)
+                    }
+                    if !row.isValid {
+                        for (index, validationMsg) in row.validationErrors.map({ $0.msg }).enumerated() {
+                            let labelRow = LabelRow() {
+                                $0.title = validationMsg
+                                $0.cell.height = { 30 }
+                            }
+                            row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
+                        }
+                    }
+            }
+            <<< EmailRow("email") {
+                $0.title = "Contact Email"
+                $0.placeholder = "Contact Email"
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnBlur
+                }
+                .cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = opnRed
+                    }
+                }
+                .onRowValidationChanged { cell, row in
+                    let rowIndex = row.indexPath!.row
+                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
+                        row.section?.remove(at: rowIndex + 1)
+                    }
+                    if !row.isValid {
+                        for (index, validationMsg) in row.validationErrors.map({ $0.msg }).enumerated() {
+                            let labelRow = LabelRow() {
+                                $0.title = validationMsg
+                                $0.cell.height = { 30 }
+                            }
+                            row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
+                        }
+                    }
+            }
+            <<< PasswordRow("password") {
+                $0.title = "Password"
+                $0.placeholder = "Password"
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnBlur
+            }
+            
+    //MARK: Section 5 - Enter Button
        +++ Section {
-            $0.tag = "4"
+            $0.tag = "5"
             $0.hidden = true
             }
         <<< ButtonRow("EnterButtonRow") {
@@ -657,16 +597,17 @@ class AddBusinessViewController: FormViewController {
         .onCellSelection({ cell, row in
             
             let valuesDictionary = self.form.values()
-            print(valuesDictionary)
+        //    print(valuesDictionary)
             switch self.phase {
                 case 0:
+                    //MARK: Set Business Info
                     //If let handling for optionals
-//                    if let sa2 = valuesDictionary["streetAddressTwo"] as? String ?? nil {
-//                        self.streetAddressTwo = sa2.makeFirebaseString()
-//                    } else {
-//                        self.streetAddressTwo = ""
-//                    }
-//                    
+                    if let sa2 = valuesDictionary["streetAddressTwo"] as? String ?? nil {
+                        self.streetAddressTwo = sa2.makeFirebaseString()
+                    } else {
+                        self.streetAddressTwo = ""
+                    }
+                    
                     if let ph = valuesDictionary["businessNumber"] as? String ?? nil {
                         self.phoneNumber = ph.makeFirebaseString()
                     } else {
@@ -685,10 +626,8 @@ class AddBusinessViewController: FormViewController {
                         self.businessDescription = ""
                     }
                     
-                    guard let cn = valuesDictionary["contactName"] as? String ?? nil,
-                        let pw = valuesDictionary["password"] as? String ?? nil,
-                        let em = valuesDictionary["email"] as? String ?? nil,
-                        let bn = valuesDictionary["businessName"] as? String ?? nil,
+                    
+                    guard let bn = valuesDictionary["businessName"] as? String ?? nil,
                         let sa1 = valuesDictionary["streetAddressOne"] as? String ?? nil,
                         let cty = valuesDictionary["city"] as? String ?? nil,
                         let st = valuesDictionary["state"] as? String ?? nil,
@@ -700,18 +639,12 @@ class AddBusinessViewController: FormViewController {
                             return
                     }
                     
-                    self.contactName = cn.makeFirebaseString()
-                    self.password = pw.makeFirebaseString()
-                    self.email = em.makeFirebaseString()
                     self.businessName = bn.makeFirebaseString()
                     self.streetAddressOne = sa1.makeFirebaseString()
                     self.city = cty.makeFirebaseString()
                     self.state = st.makeFirebaseString()
                     self.zipCode = z.makeFirebaseString()
             
-                    let section0 = self.form.sectionBy(tag: "0")
-                    section0?.hidden = true
-                    section0?.evaluateHidden()
                     let section1 = self.form.sectionBy(tag: "1")
                     section1?.hidden = true
                     section1?.evaluateHidden()
@@ -725,7 +658,7 @@ class AddBusinessViewController: FormViewController {
                     button?.title = "Add Hours!"
                     self.phase += 1
             case 1:
-                    //If let handling for optionals
+                    //MARK: Set Hours Info
                    
                     if let suO = valuesDictionary["sundayOpen"] as? Date ?? nil {
                         self.sundayOpen = suO.stringify().makeFirebaseString()
@@ -817,45 +750,37 @@ class AddBusinessViewController: FormViewController {
                     let section3 = self.form.sectionBy(tag: "3")
                     section3?.hidden = true
                     section3?.evaluateHidden()
+                    let section4 = self.form.sectionBy(tag: "4")
+                    section4?.hidden = false
+                    section4?.evaluateHidden()
                     let button = self.form.rowBy(tag: "enterButton")
                     button?.title = "Add My Business to Opn!"
                     self.phase += 1
-                    self.saveBusiness()
-                    self.performSegue(withIdentifier: "addBizShowOpn", sender: self)
             case 2:
-                print("Hey hey")
+                
+                //MARK: Set Contact / PW info
+                guard let cn = valuesDictionary["contactName"] as? String ?? nil,
+                    let pw = valuesDictionary["password"] as? String ?? nil,
+                    let em = valuesDictionary["email"] as? String ?? nil
+                else {
+                        let alert = UIAlertController(title: "More Information Needed!", message: "Please fill out all the required fields!", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                        self.show(alert, sender: self)
+                        return
+                }
+                
+                self.contactName = cn.makeFirebaseString()
+                self.password = pw.makeFirebaseString()
+                self.email = em.makeFirebaseString()
+                
+                self.saveBusiness()
+                self.performSegue(withIdentifier: "addBizShowOpn", sender: self)
+
             default:
                 break
             }
-                   })
-                //            <<< EmailRow() {
-//                $0.title = "Email Rule"
-//                $0.add(rule: RuleRequired())
-//                $0.add(rule: RuleEmail())
-//                $0.validationOptions = .validatesOnChangeAfterBlurred
-//                }
-//                .cellUpdate { cell, row in
-//                    if !row.isValid {
-//                        cell.titleLabel?.textColor = opnRed
-//                    }
-//                }
-//                .onRowValidationChanged { cell, row in
-//                    let rowIndex = row.indexPath!.row
-//                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
-//                        row.section?.remove(at: rowIndex + 1)
-//                    }
-//                    if !row.isValid {
-//                        for (index, validationMsg) in row.validationErrors.map({ $0.msg }).enumerated() {
-//                            let labelRow = LabelRow() {
-//                                $0.title = validationMsg
-//                                $0.cell.height = { 30 }
-//                            }
-//                            row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
-//                        }
-//                    }
-//        }
-        
-        // Do any additional setup after loading the view.
+        })
+
     }
 
     func saveBusiness() {
@@ -893,7 +818,6 @@ class AddBusinessViewController: FormViewController {
         businessRef.setValue(business.toAnyObject())
         
     }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -902,6 +826,7 @@ class AddBusinessViewController: FormViewController {
     
 }
 
+//MARK: Setting custom fonts for rows
 func defaultTextFieldCellUpdate<T0: TextFieldCell, T1:FieldRowConformance>(cell: T0, row: T1) -> () {
     let title = (row as! BaseRow).title
     
@@ -932,20 +857,185 @@ func defaultTextFieldCellUpdate<T0: TextFieldCell, T1:FieldRowConformance>(cell:
 
 
 extension AddBusinessViewController {
+    
+    func mapPopover(place: GMSPlace) {
+        
+        //let mapVc = ModalBusinessViewController(nibName: "ModalBusinessViewController", bundle: nil)
+        let mapVc = BusinessDetailsModalVC(nibName: "BusinessDetailsModalVC", bundle: nil)
+        
+        let popup = PopupDialog(viewController: mapVc,
+                                buttonAlignment: .vertical,
+                                transitionStyle: .fadeIn,
+                                gestureDismissal: false) {
+                                    print("done!")
+        }
+        
+       
+        
+        let vc = popup.viewController as! BusinessDetailsModalVC
+        
+        
+        
+        vc.staticMapImage.kf.setImage(with: staticMapURL(place: place))
+//        vc.businessName.text = business.businessName
+//        
+//        let mondayOpen = firebaseTimeStringToDate( business.mondayOpen)
+//        let mondayClose = firebaseTimeStringToDate( business.mondayClose)
+//        let tuesdayOpen = firebaseTimeStringToDate( business.tuesdayOpen)
+//        let tuesdayClose = firebaseTimeStringToDate( business.tuesdayClose)
+//        let wednesdayOpen = firebaseTimeStringToDate( business.wednesdayOpen)
+//        let wednesdayClose = firebaseTimeStringToDate( business.wednesdayClose)
+//        let thursdayOpen = firebaseTimeStringToDate(business.thursdayOpen)
+//        let thursdayClose = firebaseTimeStringToDate( business.thursdayClose)
+//        let fridayOpen = firebaseTimeStringToDate(business.fridayOpen)
+//        let fridayClose = firebaseTimeStringToDate( business.fridayClose)
+//        let saturdayOpen = firebaseTimeStringToDate( business.saturdayOpen)
+//        let saturdayClose = firebaseTimeStringToDate( business.saturdayClose)
+//        let sundayOpen = firebaseTimeStringToDate( business.sundayOpen)
+//        let sundayClose = firebaseTimeStringToDate( business.sundayClose)
+        
+//        vc.mondayOpen.text = mondayOpen.stringify() == mondayClose.stringify() ? "CLOSED!" : "\(mondayOpen.stringify()) - \(mondayClose.stringify())"
+//        vc.tuesdayOpen.text = tuesdayOpen.stringify() == tuesdayClose.stringify() ? "CLOSED!" :"\(tuesdayOpen.stringify()) - \(tuesdayClose.stringify())"
+//        vc.wednesdayOpen.text = wednesdayOpen.stringify() == wednesdayClose.stringify() ? "CLOSED!" :"\(wednesdayOpen.stringify()) - \(wednesdayClose.stringify())"
+//        vc.thursdayOpen.text = thursdayOpen.stringify() == thursdayClose.stringify() ? "CLOSED!" :"\(thursdayOpen.stringify()) - \(thursdayClose.stringify())"
+//        vc.fridayOpen.text = fridayOpen.stringify() == fridayClose.stringify() ? "CLOSED!" :"\(fridayOpen.stringify()) - \(fridayClose.stringify())"
+//        vc.saturdayOpen.text = saturdayOpen.stringify() == saturdayClose.stringify() ? "CLOSED!" :"\(saturdayOpen.stringify()) - \(saturdayClose.stringify())"
+//        vc.sundayOpen.text = sundayOpen.stringify() == sundayClose.stringify() ? "CLOSED!" :"\(sundayOpen.stringify()) - \(sundayClose.stringify())"
+        
+        let overlayAppearance = PopupDialogOverlayView.appearance()
+        
+        overlayAppearance.opacity = 0.50
+        overlayAppearance.blurEnabled = false
+        
+        let buttonOne = DefaultButton(title: "YES!") {
+            self.autocompleteController.dismiss(animated: true, completion: {
+                self.jsonForGooglePlaceID(place: place)
+            })
+        }
+        buttonOne.backgroundColor = opnBlue
+        buttonOne.titleFont = UIFont(name: avenir85, size: 24)
+        buttonOne.titleColor = UIColor.white
+        popup.addButton(buttonOne)
+        
+        let buttonTwo = DefaultButton(title: "No, let's go back.") {
+            print("go")
+          //  self.autocompleteController
+        }
+        buttonTwo.backgroundColor = opnRed
+        buttonTwo.titleFont = UIFont(name: avenir85, size: 24)
+        buttonTwo.titleColor = UIColor.white
+        popup.addButton(buttonTwo)
+        
+        // Present dialog
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // in half a second...
+            self.autocompleteController.present(popup, animated: true, completion: nil)
+        }
+        
+    }
+    
+    func staticMapURL(place: GMSPlace) -> URL {
+        
+        var bizInitial = place.name[0]
+        let lat = place.coordinate.latitude
+        let long = place.coordinate.longitude
+        let latString : String = "\(lat)"
+        let longString : String = "\(long)"
+        
+        let staticMapPrefix : String = "https://maps.googleapis.com/maps/api/staticmap?"
+        let center : String = "center=\(latString),\(longString)"
+        let zoom : String = "zoom=18"
+        let size : String = "size=300x200"
+        let type : String = "maptype=roadmap"
+        let marker1 : String = "markers=color:blue%7Clabel:\(bizInitial)%7C\(latString),\(longString)"
+        let key : String = "key=AIzaSyCiUyiGQcPxaMDnFJNhSijrr1dZq2XQeuA"
+        
+        let staticMapURLString : String = staticMapPrefix + center + "&" + zoom + "&" + size + "&" + type + "&" + marker1 + "&" + key
+        let url : URL = URL(string: staticMapURLString)!
+        
+        return url
+        
+    }
+    
+    func autocompleteClicked() {
+        autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        present(autocompleteController, animated: true, completion: nil)
+    }
+    
+    func jsonForGooglePlaceID (place: GMSPlace) {
+        
+        if dataTask != nil {
+            dataTask?.cancel()
+        }
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        let placeID = place.placeID
+        
+        let appKey = "AIzaSyDZTCAf9pXnDcMGHu1Qan8cSk68sTVQPm4" //MARK: This is the webservice Google Key, NOT the iOS app key!
+        let urlString : String = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.placeID + "&key=" + appKey
+        let url = NSURL(string: urlString)
+        
+        dataTask = defaultSession.dataTask(with: url! as URL) {
+            (data, response, error) in
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
+            // check for any errors
+            guard error == nil else {
+                print("error calling GET on /todos/1")
+                print(error)
+                return
+            }
+            // make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: AnyObject] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+                
+                // now we have the todo, let's just print it to prove we can access it
+                //print("The todo is: " + todo.description)
+                
+                let  json = JSON(data: data!)
+                
+                DispatchQueue.main.async(){
+                    self.setValuesFromGooglePlaceAndJSON(place: place, json: json)
+                }
+                
+                
+                // the todo object is a dictionary
+                
+            } catch {
+                print("error trying to convert data to JSON")
+                return
+            }
+            
+            
+        }
+        
+        dataTask?.resume()
+    }
+
     func setValuesFromGooglePlaceAndJSON (place: GMSPlace, json: JSON) {
         
-        let section99 = self.form.sectionBy(tag: "99")
-        section99?.hidden = false
-        section99?.evaluateHidden()
         let section0 = self.form.sectionBy(tag: "0")
-        section0?.hidden = false
+        section0?.hidden = true
         section0?.evaluateHidden()
         let section1 = self.form.sectionBy(tag: "1")
         section1?.hidden = false
         section1?.evaluateHidden()
-        let section4 = self.form.sectionBy(tag: "4")
-        section4?.hidden = false
-        section4?.evaluateHidden()
+        //        let section1 = self.form.sectionBy(tag: "1")
+        //        section1?.hidden = false
+        //        section1?.evaluateHidden()
+        let section5 = self.form.sectionBy(tag: "5")
+        section5?.hidden = false
+        section5?.evaluateHidden()
         
         let businessNameRow : TextRow? = self.form.rowBy(tag: "businessName")
         let streetAddressOneRow : TextRow? = self.form.rowBy(tag: "streetAddressOne")
@@ -970,7 +1060,6 @@ extension AddBusinessViewController {
         let saturdayCloseRow : TimeRow? = self.form.rowBy(tag: "saturdayClose")
         let sundayOpenRow : TimeRow? = self.form.rowBy(tag: "sundayOpen")
         let sundayCloseRow : TimeRow? = self.form.rowBy(tag: "sundayClose")
-        
         
         var streetNumber : String?
         var route : String?
@@ -1037,120 +1126,124 @@ extension AddBusinessViewController {
             
             
             switch dayOfWeek {
-                case 0:
-                    
+            case 0:
+                
                 if let suo = value.1["open"]["time"].string {
-                    let string = addColonToGoogleTimeString(string: suo)
-                    sundayOpenRow?.value = firebaseTimeStringToDate(string: string!)
+                    let string = addColonToGoogleTimeString(suo)
+                    sundayOpenRow?.value = firebaseTimeStringToDate(string!)
                     sundayOpenRow?.updateCell()
                 }
                 if let suc = value.1["close"]["time"].string {
-                    let string = addColonToGoogleTimeString(string: suc)
-                    sundayCloseRow?.value = firebaseTimeStringToDate(string: string!)
+                    let string = addColonToGoogleTimeString(suc)
+                    sundayCloseRow?.value = firebaseTimeStringToDate(string!)
                     sundayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
                 row.cell.dayTapped(row.cell.sundayButton)
                 
-                case 1:
-                    if let mo = value.1["open"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: mo)
-                        mondayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-                        mondayOpenRow?.updateCell()
-                    }
-                    if let mc = value.1["close"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: mc)
-                        mondayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-                        mondayCloseRow?.updateCell()
-                 }
-                    let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
-                    row.cell.dayTapped(row.cell.mondayButton)
-
-                case 2:
-                    if let tuo = value.1["open"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: tuo)
-                        tuesdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-                        tuesdayOpenRow?.updateCell()
-                    }
-                    if let tuc = value.1["close"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: tuc)
-                        tuesdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-                        tuesdayCloseRow?.updateCell()
+            case 1:
+                if let mo = value.1["open"]["time"].string {
+                    let string = addColonToGoogleTimeString(mo)
+                    mondayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    mondayOpenRow?.updateCell()
                 }
-                    let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
-                    row.cell.dayTapped(row.cell.tuesdayButton)
+                if let mc = value.1["close"]["time"].string {
+                    let string = addColonToGoogleTimeString(mc)
+                    mondayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    mondayCloseRow?.updateCell()
+                }
+                let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
+                row.cell.dayTapped(row.cell.mondayButton)
                 
-                case 3:
-                    if let wo = value.1["open"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: wo)
-                        wednesdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-                        wednesdayOpenRow?.updateCell()
-                    }
-                    if let wc = value.1["close"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: wc)
-                        wednesdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-                        wednesdayCloseRow?.updateCell()
+            case 2:
+                if let tuo = value.1["open"]["time"].string {
+                    let string = addColonToGoogleTimeString(tuo)
+                    tuesdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    tuesdayOpenRow?.updateCell()
                 }
-                    let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
-                    row.cell.dayTapped(row.cell.wednesdayButton)
+                if let tuc = value.1["close"]["time"].string {
+                    let string = addColonToGoogleTimeString(tuc)
+                    tuesdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    tuesdayCloseRow?.updateCell()
+                }
+                let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
+                row.cell.dayTapped(row.cell.tuesdayButton)
                 
-                case 4:
-                    if let tho = value.1["open"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: tho)
-                        thursdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-                        thursdayOpenRow?.updateCell()
-                    }
-                    if let thc = value.1["close"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: thc)
-                        thursdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-                        thursdayCloseRow?.updateCell()
+            case 3:
+                if let wo = value.1["open"]["time"].string {
+                    let string = addColonToGoogleTimeString(wo)
+                    wednesdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    wednesdayOpenRow?.updateCell()
                 }
-                    let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
-                    row.cell.dayTapped(row.cell.thursdayButton)
+                if let wc = value.1["close"]["time"].string {
+                    let string = addColonToGoogleTimeString(wc)
+                    wednesdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    wednesdayCloseRow?.updateCell()
+                }
+                let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
+                row.cell.dayTapped(row.cell.wednesdayButton)
                 
-                case 5:
-                    if let fo = value.1["open"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: fo)
-                        fridayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-                        fridayOpenRow?.updateCell()
-                    }
-                    if let fc = value.1["close"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: fc)
-                        fridayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-                        fridayCloseRow?.updateCell()
+            case 4:
+                if let tho = value.1["open"]["time"].string {
+                    let string = addColonToGoogleTimeString(tho)
+                    thursdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    thursdayOpenRow?.updateCell()
                 }
-                    let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
-                    row.cell.dayTapped(row.cell.fridayButton)
-                case 6:
-                    if let sao = value.1["open"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: sao)
-                        saturdayOpenRow?.value = firebaseTimeStringToDate(string: string!)
-                        saturdayOpenRow?.updateCell()
-                    }
-                    if let sac = value.1["close"]["time"].string {
-                        let string = addColonToGoogleTimeString(string: sac)
-                        saturdayCloseRow?.value = firebaseTimeStringToDate(string: string!)
-                        saturdayCloseRow?.updateCell()
+                if let thc = value.1["close"]["time"].string {
+                    let string = addColonToGoogleTimeString(thc)
+                    thursdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    thursdayCloseRow?.updateCell()
                 }
-                    let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
-                    row.cell.dayTapped(row.cell.saturdayButton)
-                default:
+                let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
+                row.cell.dayTapped(row.cell.thursdayButton)
+                
+            case 5:
+                if let fo = value.1["open"]["time"].string {
+                    let string = addColonToGoogleTimeString(fo)
+                    fridayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    fridayOpenRow?.updateCell()
+                }
+                if let fc = value.1["close"]["time"].string {
+                    let string = addColonToGoogleTimeString(fc)
+                    fridayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    fridayCloseRow?.updateCell()
+                }
+                let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
+                row.cell.dayTapped(row.cell.fridayButton)
+            case 6:
+                if let sao = value.1["open"]["time"].string {
+                    let string = addColonToGoogleTimeString(sao)
+                    saturdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    saturdayOpenRow?.updateCell()
+                }
+                if let sac = value.1["close"]["time"].string {
+                    let string = addColonToGoogleTimeString(sac)
+                    saturdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    saturdayCloseRow?.updateCell()
+                }
+                let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
+                row.cell.dayTapped(row.cell.saturdayButton)
+            default:
                 break
             }
         }
-
-
+        
+        
     }
+
+    
 }
 
 extension AddBusinessViewController: GMSAutocompleteViewControllerDelegate {
     
+    //MARK: Google AutoComplete Delegate Extension
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         
-        jsonForGooglePlaceID(place: place)
+        //let image = staticMapImage(place: place)
+        mapPopover(place: place)
         
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {

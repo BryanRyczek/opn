@@ -91,8 +91,8 @@ struct Business {
     
     var isOpen: Bool {
         get {
-            let dates = getOpenClose(business: self)
-            return isDateWithinInverval(open: dates[0], close: dates[1])
+            let dates = getOpenClose(self)
+            return isDateWithinInverval(dates[0], close: dates[1])
         }
     }
     

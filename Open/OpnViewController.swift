@@ -78,7 +78,7 @@ class OpnViewController: UIViewController {
         }
     }
     
-    func showPopoverForBusiness(business: Business) {
+    func showPopoverForBusiness(_ business: Business) {
         
         let businessVc = ModalBusinessViewController(nibName: "ModalBusinessViewController", bundle: nil)
         
@@ -92,20 +92,20 @@ class OpnViewController: UIViewController {
         let vc = popup.viewController as! ModalBusinessViewController
         vc.businessName.text = business.businessName
         
-        let mondayOpen = firebaseTimeStringToDate(string: business.mondayOpen)
-        let mondayClose = firebaseTimeStringToDate(string: business.mondayClose)
-        let tuesdayOpen = firebaseTimeStringToDate(string: business.tuesdayOpen)
-        let tuesdayClose = firebaseTimeStringToDate(string: business.tuesdayClose)
-        let wednesdayOpen = firebaseTimeStringToDate(string: business.wednesdayOpen)
-        let wednesdayClose = firebaseTimeStringToDate(string: business.wednesdayClose)
-        let thursdayOpen = firebaseTimeStringToDate(string: business.thursdayOpen)
-        let thursdayClose = firebaseTimeStringToDate(string: business.thursdayClose)
-        let fridayOpen = firebaseTimeStringToDate(string: business.fridayOpen)
-        let fridayClose = firebaseTimeStringToDate(string: business.fridayClose)
-        let saturdayOpen = firebaseTimeStringToDate(string: business.saturdayOpen)
-        let saturdayClose = firebaseTimeStringToDate(string: business.saturdayClose)
-        let sundayOpen = firebaseTimeStringToDate(string: business.sundayOpen)
-        let sundayClose = firebaseTimeStringToDate(string: business.sundayClose)
+        let mondayOpen = firebaseTimeStringToDate( business.mondayOpen)
+        let mondayClose = firebaseTimeStringToDate( business.mondayClose)
+        let tuesdayOpen = firebaseTimeStringToDate( business.tuesdayOpen)
+        let tuesdayClose = firebaseTimeStringToDate( business.tuesdayClose)
+        let wednesdayOpen = firebaseTimeStringToDate( business.wednesdayOpen)
+        let wednesdayClose = firebaseTimeStringToDate( business.wednesdayClose)
+        let thursdayOpen = firebaseTimeStringToDate(business.thursdayOpen)
+        let thursdayClose = firebaseTimeStringToDate( business.thursdayClose)
+        let fridayOpen = firebaseTimeStringToDate(business.fridayOpen)
+        let fridayClose = firebaseTimeStringToDate( business.fridayClose)
+        let saturdayOpen = firebaseTimeStringToDate( business.saturdayOpen)
+        let saturdayClose = firebaseTimeStringToDate( business.saturdayClose)
+        let sundayOpen = firebaseTimeStringToDate( business.sundayOpen)
+        let sundayClose = firebaseTimeStringToDate( business.sundayClose)
             
         vc.mondayOpen.text = mondayOpen.stringify() == mondayClose.stringify() ? "CLOSED!" : "\(mondayOpen.stringify()) - \(mondayClose.stringify())"
         vc.tuesdayOpen.text = tuesdayOpen.stringify() == tuesdayClose.stringify() ? "CLOSED!" :"\(tuesdayOpen.stringify()) - \(tuesdayClose.stringify())"
@@ -176,7 +176,7 @@ class OpnViewController: UIViewController {
         
     }
     
-    func showPopover(business: Business) {
+    func showPopover(_ business: Business) {
         let businessVc = ModalBusinessViewController(nibName: "ModalBusinessViewController", bundle: nil)
         
         //businessVc.businessName.text = "$#!T"
@@ -223,13 +223,13 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
                 dtl.text = String(indexPath.row)
             }
 
-        var chatButton : MGSwipeButton = MGSwipeButton(title: "", icon: chatLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
+        let chatButton : MGSwipeButton = MGSwipeButton(title: "", icon: chatLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
             print("chat")
             return true
         }
         chatButton.centerIconOverText(withSpacing: 0.0)
         
-        var callButton : MGSwipeButton = MGSwipeButton(title: "", icon: callLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
+        let callButton : MGSwipeButton = MGSwipeButton(title: "", icon: callLogo, backgroundColor: UIColor.white) { (sender: MGSwipeTableCell!) -> Bool in
             
             let phoneNumber = business.phoneNumber
             let numOnly = String(phoneNumber.characters.filter { String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
@@ -265,7 +265,7 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
         cell.descriptionLabel.text = business.businessName
         //cell.businessName.text = business.businessName
         
-        let openClose: [Date] = getOpenClose(business: business)
+        let openClose: [Date] = getOpenClose(business)
 //        do {
 //            try checkTime(business: business, completion: { string in
 //                print("super cali\(string)")
@@ -293,7 +293,7 @@ extension OpnViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = opnTableView.cellForRow(at: indexPath) else { return }
         let business = businesses[indexPath.row]
-        showPopoverForBusiness(business: business)
+        showPopoverForBusiness(business)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

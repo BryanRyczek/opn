@@ -21,7 +21,7 @@ extension String {
     }
 }
 
-func firebaseTimeStringToDate (string: String) -> Date {
+func firebaseTimeStringToDate (_ string: String) -> Date {
     
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -37,12 +37,12 @@ func firebaseTimeStringToDate (string: String) -> Date {
         return Date()
     }
     
-    let newDate =  currentDateCustomTime(dateWithTime: date)
+    let newDate =  currentDateCustomTime(date)
     
     return newDate
 }
 
-func addColonToGoogleTimeString (string: String) -> String? {
+func addColonToGoogleTimeString (_ string: String) -> String? {
     if string.characters.count != 4 { return nil }
     
     var newString = string
@@ -52,7 +52,7 @@ func addColonToGoogleTimeString (string: String) -> String? {
     
 }
 
-func currentDateCustomTime(dateWithTime: Date)  -> Date {
+func currentDateCustomTime(_ dateWithTime: Date)  -> Date {
     
     let currentDate = Date()
     let calendar = Calendar.current
@@ -69,7 +69,7 @@ func currentDateCustomTime(dateWithTime: Date)  -> Date {
     return newDate
 }
 
-func getOpenClose(business: Business) -> [Date] {
+func getOpenClose(_ business: Business) -> [Date] {
     
     let date : [Date] = []
     
@@ -104,15 +104,15 @@ func getOpenClose(business: Business) -> [Date] {
         }
     }
     
-    let todayOpenDate = firebaseTimeStringToDate(string: openTime)
-    var todayCloseDate = firebaseTimeStringToDate(string: closingTime)
+    let todayOpenDate = firebaseTimeStringToDate(openTime)
+    var todayCloseDate = firebaseTimeStringToDate(closingTime)
     
-    todayCloseDate = openBeforeClose(open: todayOpenDate, close: todayCloseDate)
+    todayCloseDate = openBeforeClose(todayOpenDate, close: todayCloseDate)
     
     return [todayOpenDate, todayCloseDate]
 }
 
-func openBeforeClose (open: Date, close: Date) -> Date {
+func openBeforeClose (_ open: Date, close: Date) -> Date {
     if open > close {
         let calendar = Calendar.current
         let newClose = calendar.date(byAdding: .day, value: 1, to: close)
@@ -122,7 +122,7 @@ func openBeforeClose (open: Date, close: Date) -> Date {
     }
 }
 
-func isDateWithinInverval(open: Date, close: Date) -> Bool {
+func isDateWithinInverval(_ open: Date, close: Date) -> Bool {
     var isOpen : Bool = false
     let currentDate = Date()
     

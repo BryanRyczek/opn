@@ -42,7 +42,7 @@ class IsOpenViewController: UIViewController {
             print("$#1T")
         }
         print("\(todayOpen)...............\(todayClose)")
-        print(isDateWithinInverval(open: todayOpen, close: todayClose))
+        print(isDateWithinInverval(todayOpen, close: todayClose))
         // Do any additional setup after loading the view.
     }
 
@@ -54,12 +54,12 @@ class IsOpenViewController: UIViewController {
             throw  TimeError.couldNotConvert }
         let todayPlusOpen: String = today + "Open"
         let todayPlusClose: String = today + "Close"
-        todayOpen = try convertFirebaseTimeStringToDate(firebaseString: openCloseTimes[todayPlusOpen]!)
-        todayClose = try convertFirebaseTimeStringToDate(firebaseString: openCloseTimes[todayPlusClose]!)
+        todayOpen = try convertFirebaseTimeStringToDate(openCloseTimes[todayPlusOpen]!)
+        todayClose = try convertFirebaseTimeStringToDate(openCloseTimes[todayPlusClose]!)
     
     }
     
-    func convertFirebaseTimeStringToDate (firebaseString: String) throws -> Date {
+    func convertFirebaseTimeStringToDate (_ firebaseString: String) throws -> Date {
         
         let dateFormatter = DateFormatter()
         //dateFormatter.dateStyle = .short
@@ -74,12 +74,12 @@ class IsOpenViewController: UIViewController {
         guard let date = dateFormatter.date(from: firebaseString) else {
             throw  TimeError.couldNotConvert }
         
-        let newDate = try currentDateCustomTime(dateWithTime: date)
+        let newDate = try currentDateCustomTime(date)
         
         return newDate
     }
 
-    func currentDateCustomTime(dateWithTime: Date) throws -> Date {
+    func currentDateCustomTime(_ dateWithTime: Date) throws -> Date {
         
         let currentDate = Date()
         let calendar = Calendar.current
@@ -96,7 +96,7 @@ class IsOpenViewController: UIViewController {
         return newDate
     }
     
-    func isDateWithinInverval(open: Date, close: Date) -> Bool {
+    func isDateWithinInverval(_ open: Date, close: Date) -> Bool {
         var isOpen : Bool = false
         let currentDate = Date()
         
