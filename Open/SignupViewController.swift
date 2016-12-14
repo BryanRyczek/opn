@@ -42,6 +42,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     lazy var city = String()
     lazy var state = String()
     lazy var zip = String()
+    lazy var neighborhood = String()
     lazy var phoneNumber = String()
     lazy var website = String()
     lazy var email = String()
@@ -158,6 +159,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                                 city: city,
                                 state: state,
                                 zip: zip,
+                                neighborhood: neighborhood,
                                 phoneNumber: phoneNumber,
                                 website: website,
                                 email: email,

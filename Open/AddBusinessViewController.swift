@@ -60,6 +60,7 @@ class AddBusinessViewController: FormViewController {
     lazy var city = String()
     lazy var state = String()
     lazy var zipCode = String()
+    lazy var neighborhood = String()
     lazy var phoneNumber = String()
     lazy var website = String()
     lazy var email = String()
@@ -109,6 +110,13 @@ class AddBusinessViewController: FormViewController {
             cell.textLabel?.textColor = UIColor.white
             cell.backgroundColor = opnBlue
         }
+        TextAreaRow.defaultCellUpdate = { cell, row in
+            cell.textView.font = UIFont(name: avenir65, size: 18)
+            //cell.textLabel?.font = UIFont(name: avenir65, size: 18)
+            cell.update()
+            //defaultTextFieldCellUpdate(cell: cell, row: row)
+        }
+
         
         //MARK: Begin Eureka Form
         //MARK: Section 0
@@ -130,7 +138,19 @@ class AddBusinessViewController: FormViewController {
                 $0.validationOptions = .validatesOnBlur
                 }
                 .onCellSelection({ cell, row in
-                    print("Search")
+                    
+                    let section0 = self.form.sectionBy(tag: "0")
+                    section0?.hidden = true
+                    section0?.evaluateHidden()
+                    let section1 = self.form.sectionBy(tag: "1")
+                    section1?.hidden = false
+                    section1?.evaluateHidden()
+                    let section99 = self.form.sectionBy(tag: "99")
+                    section99?.hidden = false
+                    section99?.evaluateHidden()
+                    let section5 = self.form.sectionBy(tag: "5")
+                    section5?.hidden = false
+                    section5?.evaluateHidden()
                     
                 })
 
@@ -316,8 +336,11 @@ class AddBusinessViewController: FormViewController {
                         }
                     }
             }
-
-            <<< TextAreaRow("businessCategory") {
+            +++ Section("Add keywords that describe your business to help customers find you.") {
+                $0.tag = "99"
+                $0.hidden = true
+            }
+            <<< TextAreaRow("businessDescription") {
                 $0.title = "Business Category"
                 $0.tag = "description"
                 $0.placeholder = "Let Customers know what type of business you have."
@@ -597,7 +620,7 @@ class AddBusinessViewController: FormViewController {
         .onCellSelection({ cell, row in
             
             let valuesDictionary = self.form.values()
-        //    print(valuesDictionary)
+            
             switch self.phase {
                 case 0:
                     //MARK: Set Business Info
@@ -648,6 +671,9 @@ class AddBusinessViewController: FormViewController {
                     let section1 = self.form.sectionBy(tag: "1")
                     section1?.hidden = true
                     section1?.evaluateHidden()
+                    let section99 = self.form.sectionBy(tag: "99")
+                    section99?.hidden = true
+                    section99?.evaluateHidden()
                     let section2 = self.form.sectionBy(tag: "2")
                     section2?.hidden = false
                     section2?.evaluateHidden()
@@ -809,6 +835,7 @@ class AddBusinessViewController: FormViewController {
                                         city: city,
                                         state: state,
                                         zip: zipCode,
+                                        neighborhood: neighborhood,
                                         phoneNumber: phoneNumber,
                                         website: website,
                                         email: email,
@@ -864,7 +891,7 @@ extension AddBusinessViewController {
         let mapVc = BusinessDetailsModalVC(nibName: "BusinessDetailsModalVC", bundle: nil)
         
         let popup = PopupDialog(viewController: mapVc,
-                                buttonAlignment: .vertical,
+                                buttonAlignment: .horizontal,
                                 transitionStyle: .fadeIn,
                                 gestureDismissal: false) {
                                     print("done!")
@@ -877,54 +904,30 @@ extension AddBusinessViewController {
         
         
         vc.staticMapImage.kf.setImage(with: staticMapURL(place: place))
-//        vc.businessName.text = business.businessName
-//        
-//        let mondayOpen = firebaseTimeStringToDate( business.mondayOpen)
-//        let mondayClose = firebaseTimeStringToDate( business.mondayClose)
-//        let tuesdayOpen = firebaseTimeStringToDate( business.tuesdayOpen)
-//        let tuesdayClose = firebaseTimeStringToDate( business.tuesdayClose)
-//        let wednesdayOpen = firebaseTimeStringToDate( business.wednesdayOpen)
-//        let wednesdayClose = firebaseTimeStringToDate( business.wednesdayClose)
-//        let thursdayOpen = firebaseTimeStringToDate(business.thursdayOpen)
-//        let thursdayClose = firebaseTimeStringToDate( business.thursdayClose)
-//        let fridayOpen = firebaseTimeStringToDate(business.fridayOpen)
-//        let fridayClose = firebaseTimeStringToDate( business.fridayClose)
-//        let saturdayOpen = firebaseTimeStringToDate( business.saturdayOpen)
-//        let saturdayClose = firebaseTimeStringToDate( business.saturdayClose)
-//        let sundayOpen = firebaseTimeStringToDate( business.sundayOpen)
-//        let sundayClose = firebaseTimeStringToDate( business.sundayClose)
-        
-//        vc.mondayOpen.text = mondayOpen.stringify() == mondayClose.stringify() ? "CLOSED!" : "\(mondayOpen.stringify()) - \(mondayClose.stringify())"
-//        vc.tuesdayOpen.text = tuesdayOpen.stringify() == tuesdayClose.stringify() ? "CLOSED!" :"\(tuesdayOpen.stringify()) - \(tuesdayClose.stringify())"
-//        vc.wednesdayOpen.text = wednesdayOpen.stringify() == wednesdayClose.stringify() ? "CLOSED!" :"\(wednesdayOpen.stringify()) - \(wednesdayClose.stringify())"
-//        vc.thursdayOpen.text = thursdayOpen.stringify() == thursdayClose.stringify() ? "CLOSED!" :"\(thursdayOpen.stringify()) - \(thursdayClose.stringify())"
-//        vc.fridayOpen.text = fridayOpen.stringify() == fridayClose.stringify() ? "CLOSED!" :"\(fridayOpen.stringify()) - \(fridayClose.stringify())"
-//        vc.saturdayOpen.text = saturdayOpen.stringify() == saturdayClose.stringify() ? "CLOSED!" :"\(saturdayOpen.stringify()) - \(saturdayClose.stringify())"
-//        vc.sundayOpen.text = sundayOpen.stringify() == sundayClose.stringify() ? "CLOSED!" :"\(sundayOpen.stringify()) - \(sundayClose.stringify())"
-        
+
         let overlayAppearance = PopupDialogOverlayView.appearance()
         
         overlayAppearance.opacity = 0.50
         overlayAppearance.blurEnabled = false
         
-        let buttonOne = DefaultButton(title: "YES!") {
+        let buttonTwo = DefaultButton(title: "NO") {
+            print("go")
+            //TODO: select textField of picker
+        }
+        //buttonTwo.backgroundColor = opnRed
+        buttonTwo.titleFont = UIFont(name: avenir55, size: 24)
+        buttonTwo.titleColor = opnRed
+        popup.addButton(buttonTwo)
+        
+        let buttonOne = DefaultButton(title: "YES") {
             self.autocompleteController.dismiss(animated: true, completion: {
                 self.jsonForGooglePlaceID(place: place)
             })
         }
-        buttonOne.backgroundColor = opnBlue
+        //buttonOne.backgroundColor = opnBlue
         buttonOne.titleFont = UIFont(name: avenir85, size: 24)
-        buttonOne.titleColor = UIColor.white
+        buttonOne.titleColor = opnBlue
         popup.addButton(buttonOne)
-        
-        let buttonTwo = DefaultButton(title: "No, let's go back.") {
-            print("go")
-          //  self.autocompleteController
-        }
-        buttonTwo.backgroundColor = opnRed
-        buttonTwo.titleFont = UIFont(name: avenir85, size: 24)
-        buttonTwo.titleColor = UIColor.white
-        popup.addButton(buttonTwo)
         
         // Present dialog
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // in half a second...
@@ -948,6 +951,7 @@ extension AddBusinessViewController {
         let type : String = "maptype=roadmap"
         let marker1 : String = "markers=color:blue%7Clabel:\(bizInitial)%7C\(latString),\(longString)"
         let key : String = "key=AIzaSyCiUyiGQcPxaMDnFJNhSijrr1dZq2XQeuA"
+        let style : String = "style="
         
         let staticMapURLString : String = staticMapPrefix + center + "&" + zoom + "&" + size + "&" + type + "&" + marker1 + "&" + key
         let url : URL = URL(string: staticMapURLString)!
@@ -1000,7 +1004,7 @@ extension AddBusinessViewController {
                 }
                 
                 // now we have the todo, let's just print it to prove we can access it
-                //print("The todo is: " + todo.description)
+                print("The todo is: " + todo.description)
                 
                 let  json = JSON(data: data!)
                 
@@ -1030,9 +1034,9 @@ extension AddBusinessViewController {
         let section1 = self.form.sectionBy(tag: "1")
         section1?.hidden = false
         section1?.evaluateHidden()
-        //        let section1 = self.form.sectionBy(tag: "1")
-        //        section1?.hidden = false
-        //        section1?.evaluateHidden()
+        let section99 = self.form.sectionBy(tag: "99")
+        section99?.hidden = false
+        section99?.evaluateHidden()
         let section5 = self.form.sectionBy(tag: "5")
         section5?.hidden = false
         section5?.evaluateHidden()
@@ -1045,7 +1049,7 @@ extension AddBusinessViewController {
         let zipCodeRow : ZipCodeRow? = self.form.rowBy(tag: "zipCode")
         let businessNumberRow : PhoneRow? = self.form.rowBy(tag: "businessNumber")
         let websiteRow : URLRow? = self.form.rowBy(tag: "website")
-        let descriptionRow : TextRow? = self.form.rowBy(tag: "description")
+        let descriptionRow : TextAreaRow? = self.form.rowBy(tag: "description")
         let mondayOpenRow : TimeRow? = self.form.rowBy(tag: "mondayOpen")
         let mondayCloseRow : TimeRow? = self.form.rowBy(tag: "mondayClose")
         let tuesdayOpenRow : TimeRow? = self.form.rowBy(tag: "tuesdayOpen")
@@ -1081,6 +1085,8 @@ extension AddBusinessViewController {
             case "postal_code":
                 zipCodeRow?.value = component.name
                 zipCodeRow?.updateCell()
+            case "neighborhood":
+                neighborhood = component.name.makeFirebaseString()
             default:
                 break
             }
@@ -1092,7 +1098,6 @@ extension AddBusinessViewController {
                 streetAddressOneRow?.value = addressArray?[0]
                 streetAddressOneRow?.updateCell()
             }
-            print("\(component.type) \(component.name)")
             
         }
         
@@ -1114,16 +1119,30 @@ extension AddBusinessViewController {
         websiteRow?.value = place.website
         websiteRow?.updateCell()
         
-        descriptionRow?.value = place.types[0]
+        var descriptionString = ""
+        for (i, type) in place.types.enumerated() {
+            
+            if i == place.types.count - 1  {
+                if acceptedBusinessTypes.contains(type) {
+                    descriptionString = descriptionString + type
+                } else {
+                    descriptionString = descriptionString.substring(to: descriptionString.index(before: descriptionString.index(descriptionString.endIndex, offsetBy: -1)))
+                }
+            } else if acceptedBusinessTypes.contains(type) {
+                descriptionString = descriptionString + type + ", "
+                
+            }
+           
+        }
+        
+        descriptionRow?.value = descriptionString
         descriptionRow?.updateCell()
         
         let arrayValue = json["result"]["opening_hours"]["periods"]
-        print(arrayValue)
         
         for (i, value) in arrayValue.enumerated() {
             
             let dayOfWeek = value.1["open"]["day"]
-            
             
             switch dayOfWeek {
             case 0:
