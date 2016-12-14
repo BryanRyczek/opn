@@ -66,6 +66,7 @@
 		939E39AE1DDCAD260093FF2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E39AD1DDCAD260093FF2C /* LoginViewController.swift */; };
 		939E39B01DDCD81C0093FF2C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E39AF1DDCD81C0093FF2C /* User.swift */; };
 		93C510791DBABB9800F35504 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C510781DBABB9800F35504 /* Business.swift */; };
+		93D1AEC41DFB591C00F48911 /* WeekDaysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D1AEC31DFB591C00F48911 /* WeekDaysCell.swift */; };
 		93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */; };
 		93DA016A1DD0F24400DF57F7 /* OpnBusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */; };
 		93DA016B1DD0F24400DF57F7 /* OpnBusinessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */; };
@@ -73,6 +74,8 @@
 		93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DCD8E01DBE570500E2624B /* SignupViewController.swift */; };
 		93E1C0D11DD50A5500708CF9 /* IsOpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */; };
 		93F561A01DE3B85500C21308 /* PlacesScrapterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F5619F1DE3B85500C21308 /* PlacesScrapterVC.swift */; };
+		93F91AED1DFF3C480069544E /* BusinessDetailsModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F91AEB1DFF3C480069544E /* BusinessDetailsModalVC.swift */; };
+		93F91AEE1DFF3C480069544E /* BusinessDetailsModalVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F91AEC1DFF3C480069544E /* BusinessDetailsModalVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +137,7 @@
 		939E39AF1DDCD81C0093FF2C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		93C510781DBABB9800F35504 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		93C5107A1DBB053B00F35504 /* Open.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Open.entitlements; sourceTree = "<group>"; };
+		93D1AEC31DFB591C00F48911 /* WeekDaysCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekDaysCell.swift; sourceTree = "<group>"; };
 		93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHelperMethods.swift; sourceTree = "<group>"; };
 		93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnBusinessCell.swift; sourceTree = "<group>"; };
 		93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpnBusinessCell.xib; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 		93DCD8E01DBE570500E2624B /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsOpenViewController.swift; sourceTree = "<group>"; };
 		93F5619F1DE3B85500C21308 /* PlacesScrapterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesScrapterVC.swift; sourceTree = "<group>"; };
+		93F91AEB1DFF3C480069544E /* BusinessDetailsModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailsModalVC.swift; sourceTree = "<group>"; };
+		93F91AEC1DFF3C480069544E /* BusinessDetailsModalVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessDetailsModalVC.xib; sourceTree = "<group>"; };
 		AB4F9900C6BD2C2A01D7FCA0 /* Pods-OpenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenTests/Pods-OpenTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B1E69B6381AB18462E07A92E /* Pods-Open.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Open.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Open/Pods-Open.debug.xcconfig"; sourceTree = "<group>"; };
 		BF7C1E38671A93B6D219A8A6 /* Pods_OpenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -268,7 +274,10 @@
 		93DA01631DD0E8F200DF57F7 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
+				93D1AEC31DFB591C00F48911 /* WeekDaysCell.swift */,
 				93685F7A1DDF8FAD00DD557B /* WeekDaysCell.xib */,
+				93F91AEB1DFF3C480069544E /* BusinessDetailsModalVC.swift */,
+				93F91AEC1DFF3C480069544E /* BusinessDetailsModalVC.xib */,
 				93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */,
 				9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */,
 				93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */,
@@ -401,7 +410,7 @@
 					938CFD151DB46A81000A0675 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 264373799U;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -415,14 +424,14 @@
 					938CFD2C1DB46A81000A0675 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 264373799U;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 938CFD151DB46A81000A0675;
 					};
 					938CFD371DB46A81000A0675 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 264373799U;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 938CFD151DB46A81000A0675;
 					};
@@ -467,6 +476,7 @@
 				931F56671DB5307D003B62D5 /* GoogleService-Info.plist in Resources */,
 				9376CE871DD3DA1900785556 /* ModalBusinessViewController.xib in Resources */,
 				938CFD741DB46C29000A0675 /* AvenirLTStd-Oblique.otf in Resources */,
+				93F91AEE1DFF3C480069544E /* BusinessDetailsModalVC.xib in Resources */,
 				938CFD5F1DB46C29000A0675 /* AvenirLTStd-BookOblique.otf in Resources */,
 				938CFD591DB46C29000A0675 /* AvenirLTStd-BlackOblique.otf in Resources */,
 				938CFD681DB46C29000A0675 /* AvenirLTStd-Light.otf in Resources */,
@@ -671,8 +681,10 @@
 				93C510791DBABB9800F35504 /* Business.swift in Sources */,
 				93366CA61DC8121A001BEA48 /* FirebaseHelpers.swift in Sources */,
 				93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */,
+				93D1AEC41DFB591C00F48911 /* WeekDaysCell.swift in Sources */,
 				938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */,
 				9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */,
+				93F91AED1DFF3C480069544E /* BusinessDetailsModalVC.swift in Sources */,
 				93E1C0D11DD50A5500708CF9 /* IsOpenViewController.swift in Sources */,
 				93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */,
 				938CFD221DB46A81000A0675 /* Open.xcdatamodeld in Sources */,
@@ -830,10 +842,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 264373799U;
 				INFOPLIST_FILE = Open/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bryczek.Open;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -846,10 +860,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 264373799U;
 				INFOPLIST_FILE = Open/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bryczek.Open;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

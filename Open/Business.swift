@@ -71,6 +71,8 @@ struct Business {
     let city : String
     let state : String
     let zip : String
+    //Hood
+    let neighborhood : String
     //Contact Info
     let phoneNumber : String
     let website : String
@@ -91,8 +93,8 @@ struct Business {
     
     var isOpen: Bool {
         get {
-            let dates = getOpenClose(business: self)
-            return isDateWithinInverval(open: dates[0], close: dates[1])
+            let dates = getOpenClose(self)
+            return isDateWithinInverval(dates[0], close: dates[1])
         }
     }
     
@@ -138,6 +140,8 @@ struct Business {
           city : String,
           state : String,
           zip : String,
+        //Hood
+          neighborhood : String,
         //Contact Info
           phoneNumber : String,
           website : String,
@@ -171,6 +175,7 @@ struct Business {
         self.city = city
         self.state = state
         self.zip = zip
+        self.neighborhood = neighborhood
         self.phoneNumber = phoneNumber
         self.website = website
         self.email = email
@@ -178,8 +183,6 @@ struct Business {
         self.ref = nil
         
     }
-    
-    
     
     init(snapshot: FIRDataSnapshot) {
         key = snapshot.key
@@ -209,6 +212,7 @@ struct Business {
         city = snapshotValue["city"] as! String
         state = snapshotValue["state"] as! String
         zip = snapshotValue["zip"] as! String
+        neighborhood = snapshotValue["neighborhood"] as! String
         phoneNumber = snapshotValue["phoneNumber"] as! String
         website = snapshotValue["website"] as! String
         email = snapshotValue["email"] as! String
@@ -244,6 +248,7 @@ struct Business {
                     "city" : city,
                    "state" : state,
                      "zip" : zip,
+            "neighborhood" : neighborhood,
              "phoneNumber" : phoneNumber,
                  "website" : website,
                    "email" : email,

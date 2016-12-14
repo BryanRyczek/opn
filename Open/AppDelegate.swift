@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 import Firebase
 import FirebaseDatabase
+import GooglePlaces
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
+        GMSPlacesClient.provideAPIKey("AIzaSyCcx8-MkIzoLVR9-T0i-7MgNU8oRAokVw0")
         return true
     }
 
