@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
-        GMSPlacesClient.provideAPIKey("AIzaSyAQf8Ped9ZzUGzlA9PGv5f8M9jKCnCJq1I")
+        GMSPlacesClient.provideAPIKey("AIzaSyCafApG7rzzYzzisqDwnJe0Yz_wqCxRZYI")
         return true
     }
 

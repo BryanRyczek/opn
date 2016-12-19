@@ -1149,12 +1149,12 @@ extension AddBusinessViewController {
                 
                 if let suo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(suo)
-                    sundayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    sundayOpenRow?.value = firebaseTimeStringToDate(string)
                     sundayOpenRow?.updateCell()
                 }
                 if let suc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(suc)
-                    sundayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    sundayCloseRow?.value = firebaseTimeStringToDate(string)
                     sundayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1163,12 +1163,12 @@ extension AddBusinessViewController {
             case 1:
                 if let mo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(mo)
-                    mondayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    mondayOpenRow?.value = firebaseTimeStringToDate(string)
                     mondayOpenRow?.updateCell()
                 }
                 if let mc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(mc)
-                    mondayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    mondayCloseRow?.value = firebaseTimeStringToDate(string)
                     mondayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1177,12 +1177,12 @@ extension AddBusinessViewController {
             case 2:
                 if let tuo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(tuo)
-                    tuesdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    tuesdayOpenRow?.value = firebaseTimeStringToDate(string)
                     tuesdayOpenRow?.updateCell()
                 }
                 if let tuc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(tuc)
-                    tuesdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    tuesdayCloseRow?.value = firebaseTimeStringToDate(string)
                     tuesdayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1191,12 +1191,12 @@ extension AddBusinessViewController {
             case 3:
                 if let wo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(wo)
-                    wednesdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    wednesdayOpenRow?.value = firebaseTimeStringToDate(string)
                     wednesdayOpenRow?.updateCell()
                 }
                 if let wc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(wc)
-                    wednesdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    wednesdayCloseRow?.value = firebaseTimeStringToDate(string)
                     wednesdayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1205,12 +1205,12 @@ extension AddBusinessViewController {
             case 4:
                 if let tho = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(tho)
-                    thursdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    thursdayOpenRow?.value = firebaseTimeStringToDate(string)
                     thursdayOpenRow?.updateCell()
                 }
                 if let thc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(thc)
-                    thursdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    thursdayCloseRow?.value = firebaseTimeStringToDate(string)
                     thursdayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1219,12 +1219,12 @@ extension AddBusinessViewController {
             case 5:
                 if let fo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(fo)
-                    fridayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    fridayOpenRow?.value = firebaseTimeStringToDate(string)
                     fridayOpenRow?.updateCell()
                 }
                 if let fc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(fc)
-                    fridayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    fridayCloseRow?.value = firebaseTimeStringToDate(string)
                     fridayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1232,12 +1232,12 @@ extension AddBusinessViewController {
             case 6:
                 if let sao = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(sao)
-                    saturdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    saturdayOpenRow?.value = firebaseTimeStringToDate(string)
                     saturdayOpenRow?.updateCell()
                 }
                 if let sac = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(sac)
-                    saturdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    saturdayCloseRow?.value = firebaseTimeStringToDate(string)
                     saturdayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow

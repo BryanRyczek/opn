@@ -256,7 +256,7 @@ extension GooglePlacesAutocompleteContainer {
         let place = self.places[indexPath.row]
         
         // Configure the cell
-        cell.businessName.text! = place.name!
+        ///cell.businessName.text! = place.name!
         let details = place.getDetails { (details) in
             print("hi")
         }

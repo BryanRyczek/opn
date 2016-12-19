@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tws-D9-mSw">
-                        <rect key="frame" x="172" y="16" width="116" height="17"/>
+                        <rect key="frame" x="74" y="28" width="116" height="17"/>
                         <attributedString key="attributedText">
                             <fragment content="Business Name">
                                 <attributes>
@@ -31,36 +31,42 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="45N-UP-nV2">
-                        <rect key="frame" x="8" y="8" width="40" height="40"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bQT-10-bCY">
+                        <rect key="frame" x="16" y="16" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="eUl-Lv-JMU"/>
-                            <constraint firstAttribute="width" constant="40" id="jO9-w9-3Y7"/>
+                            <constraint firstAttribute="height" constant="40" id="gJk-rJ-zbZ"/>
+                            <constraint firstAttribute="width" constant="40" id="rEF-bL-2rx"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAz-yD-dx6">
-                        <rect key="frame" x="4" y="56" width="49" height="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooh-JE-1bp">
+                        <rect key="frame" x="21" y="60" width="30" height="18"/>
                         <attributedString key="attributedText">
-                            <fragment content="'HOOD">
+                            <fragment content="Label">
                                 <attributes>
-                                    <font key="NSFont" size="14" name="AvenirLTStd-Heavy"/>
+                                    <font key="NSFont" size="12" name="AvenirLTStd-Roman"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rky-a3-AoY">
+                        <rect key="frame" x="446" y="8" width="5" height="17"/>
+                        <attributedString key="attributedText">
+                            <fragment content=" ">
+                                <attributes>
+                                    <font key="NSFont" size="17" name="AvenirLTStd-Roman"/>
                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJn-k3-BXB">
-                        <rect key="frame" x="395" y="8" width="56" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2o-4k-ep1">
+                        <rect key="frame" x="74" y="38" width="200" height="40"/>
                         <attributedString key="attributedText">
-                            <fragment content="OPEN">
+                            <fragment content="Label">
                                 <attributes>
-                                    <font key="NSFont" size="18" name="AvenirLTStd-Oblique"/>
-                                </attributes>
-                            </fragment>
-                            <fragment content="!">
-                                <attributes>
-                                    <font key="NSFont" metaFont="system" size="17"/>
+                                    <font key="NSFont" size="14" name="AvenirLTStd-Book"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
@@ -68,21 +74,25 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="XAz-yD-dx6" firstAttribute="centerX" secondItem="45N-UP-nV2" secondAttribute="centerX" id="5Ye-V1-Q1G"/>
-                    <constraint firstAttribute="trailing" secondItem="jJn-k3-BXB" secondAttribute="trailing" constant="8" id="5hZ-f8-tq8"/>
-                    <constraint firstItem="XAz-yD-dx6" firstAttribute="top" secondItem="45N-UP-nV2" secondAttribute="bottom" constant="8" id="BHL-sK-Adr"/>
-                    <constraint firstItem="jJn-k3-BXB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="C9d-FD-Uox"/>
-                    <constraint firstItem="tws-D9-mSw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="Grr-ci-16j"/>
-                    <constraint firstItem="45N-UP-nV2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="HZC-2u-3YY"/>
-                    <constraint firstItem="45N-UP-nV2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="ckd-YL-URS"/>
-                    <constraint firstItem="tws-D9-mSw" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="gkg-di-iNd"/>
+                    <constraint firstItem="tws-D9-mSw" firstAttribute="leading" secondItem="bQT-10-bCY" secondAttribute="trailing" constant="18" id="E7x-0O-tV1"/>
+                    <constraint firstItem="ooh-JE-1bp" firstAttribute="centerX" secondItem="bQT-10-bCY" secondAttribute="centerX" id="SFe-YO-M1k"/>
+                    <constraint firstItem="bQT-10-bCY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="YzD-cC-55C"/>
+                    <constraint firstAttribute="trailing" secondItem="Rky-a3-AoY" secondAttribute="trailing" constant="8" id="bRw-pW-7cW"/>
+                    <constraint firstItem="ooh-JE-1bp" firstAttribute="top" secondItem="bQT-10-bCY" secondAttribute="bottom" constant="4" id="ldc-Y4-dLT"/>
+                    <constraint firstItem="k2o-4k-ep1" firstAttribute="leading" secondItem="tws-D9-mSw" secondAttribute="leading" id="mOL-MU-S5K"/>
+                    <constraint firstItem="tws-D9-mSw" firstAttribute="centerY" secondItem="bQT-10-bCY" secondAttribute="centerY" id="nmW-hp-Lyb"/>
+                    <constraint firstItem="bQT-10-bCY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="ptj-we-SMI"/>
+                    <constraint firstAttribute="bottom" secondItem="ooh-JE-1bp" secondAttribute="bottom" constant="8" id="qrC-v6-fdr"/>
+                    <constraint firstItem="Rky-a3-AoY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="rsZ-bq-38s"/>
+                    <constraint firstItem="k2o-4k-ep1" firstAttribute="top" secondItem="tws-D9-mSw" secondAttribute="bottom" constant="21" id="v0q-PS-peC"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="businessName" destination="tws-D9-mSw" id="VVU-5l-G7b"/>
-                <outlet property="neighborhoodImage" destination="45N-UP-nV2" id="hRZ-eg-wxl"/>
-                <outlet property="neighborhoodLabel" destination="XAz-yD-dx6" id="OI7-eK-F2R"/>
-                <outlet property="openLabel" destination="jJn-k3-BXB" id="Of0-3n-fgX"/>
+                <outlet property="isOpenLabel" destination="Rky-a3-AoY" id="vAA-n9-3b4"/>
+                <outlet property="nameLabel" destination="tws-D9-mSw" id="8Ba-g2-vwY"/>
+                <outlet property="placeIcon" destination="bQT-10-bCY" id="fb3-SR-98W"/>
+                <outlet property="placeIconLabel" destination="ooh-JE-1bp" id="LPD-wa-7L3"/>
+                <outlet property="secondaryLabel" destination="k2o-4k-ep1" id="wS2-YV-ozU"/>
             </connections>
             <point key="canvasLocation" x="95.5" y="73.5"/>
         </tableViewCell>

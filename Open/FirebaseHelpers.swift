@@ -7,6 +7,71 @@
 //
 
 import Foundation
+import GooglePlaces
+import SwiftyJSON
+
+func getDayOfWeek() -> DayOfWeek {
+    let date = Date()
+    let calendar = Calendar.current
+    let weekday = calendar.component(.weekday, from: date)
+    return (DayOfWeek(rawValue: weekday))!
+}
+
+//MARK: JSON From googlePlace
+func jsonForGooglePlaceID (place: GMSPlace, completionHandler: @escaping (JSON, Error?) -> Void ) -> URLSessionDataTask {
+    
+    //MARK: URL Request properties
+    let defaultSession = URLSession(configuration: URLSessionConfiguration.default)
+    var dataTask: URLSessionDataTask?
+    
+    if dataTask != nil {
+        dataTask?.cancel()
+    }
+    
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    
+    let url = urlFromGooglePlace(place: place)
+    
+    dataTask = defaultSession.dataTask(with: url as URL) {
+        (data, response, error) in
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        
+        // check for any errors
+        guard error == nil else {
+            completionHandler(JSON.null, error)
+            print("error calling GET on /todos/1")
+            return
+        }
+        // make sure we got data
+        guard let responseData = data else {
+            completionHandler(JSON.null, error)
+            print("Error: did not receive data")
+            return
+        }
+     
+        do {
+            guard let jsonObj = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: AnyObject] else {
+                print("error trying to convert data to JSON")
+                return
+            }
+         
+            let json = JSON(data: data!)
+            
+            completionHandler(json, nil)
+            return
+            
+        } catch {
+            print("error trying to convert data to JSON")
+            return
+        }
+        
+    }
+    
+    dataTask?.resume()
+    return dataTask!
+}
+
 
 let acceptedBusinessTypes : [String] = ["accounting",
                                         "airport",
@@ -137,8 +202,8 @@ func firebaseTimeStringToDate (_ string: String) -> Date {
     return newDate
 }
 
-func addColonToGoogleTimeString (_ string: String) -> String? {
-    if string.characters.count != 4 { return nil }
+func addColonToGoogleTimeString (_ string: String) -> String {
+    if string.characters.count != 4 { return string }
     
     var newString = string
     let idx = newString.index(newString.startIndex, offsetBy: 2)

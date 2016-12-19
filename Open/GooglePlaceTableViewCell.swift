@@ -7,50 +7,73 @@
 //
 
 import UIKit
+import GooglePlaces
 
 // MARK: - GooglePlacesAutocompleteContainer
 class GooglePlaceTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var neighborhoodImage: UIImageView!
-    @IBOutlet weak var businessName: UILabel!
-    @IBOutlet weak var neighborhoodLabel: UILabel!
-    @IBOutlet weak var openLabel: UILabel!
+        
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var secondaryLabel: UILabel!
     
+    @IBOutlet weak var placeIcon: UIImageView!
+    @IBOutlet weak var placeIconLabel: UILabel!
     
-//    var nameLabel = UILabel()
-//    var addressLabel = UILabel()
+    @IBOutlet weak var isOpenLabel: UILabel!
+    var placeID : String!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = UITableViewCellSelectionStyle.gray
         
-//        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-//        addressLabel.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        nameLabel.textColor = UIColor.black
-//        nameLabel.backgroundColor = UIColor.white
-//        nameLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-//        
-//        addressLabel.textColor = UIColor(hue: 0.9972, saturation: 0, brightness: 0.54, alpha: 1.0)
-//        addressLabel.backgroundColor = UIColor.white
-//        addressLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)
-//        addressLabel.numberOfLines = 0
-//        
-//        contentView.addSubview(nameLabel)
-//        contentView.addSubview(addressLabel)
-//        
-//        let viewsDict = [
-//            "name" : nameLabel,
-//            "address" : addressLabel
-//        ]
-//        
-//        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[name]-[address]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict))
-//        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[name]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict))
-//        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[address]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDict))
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func update(placeID: String) {
+        
+        GMSPlacesClient.shared().lookUpPlaceID(placeID, callback: { (place, error) in
+            
+            if let error = error {
+                print("lookup place id query error: \(error.localizedDescription)")
+                return
+            }
+            if let place = place {
+                
+                jsonForGooglePlaceID(place: place, completionHandler: { (json, error) in
+                    
+                    //////////
+                    let currentDay = Date().dayNumberOfWeek()
+                    
+                    var open : String = json["result"]["opening_hours"]["periods"][currentDay!]["open"]["time"].stringValue
+                    var close : String = json["result"]["opening_hours"]["periods"][currentDay!]["close"]["time"].stringValue
+                    open = addColonToGoogleTimeString(open)
+                    close = addColonToGoogleTimeString(close)
+                    var openDate : Date = firebaseTimeStringToDate(open)
+                    var closeDate : Date = firebaseTimeStringToDate(close)
+                    closeDate = openBeforeClose(openDate, close: closeDate)
+                    if isDateWithinInverval(openDate, close: closeDate) {
+                        print("place \(place.name) is Open!")
+                        DispatchQueue.main.async {
+                            self.isOpenLabel.text = "OPEN!"
+                        }
+                        
+                    } else {
+                        print("place \(place.name) is closed!")
+                        DispatchQueue.main.async {
+                        self.isOpenLabel.text = "Closed!"
+                        }
+                    }
+    
+                    print("")
+                    
+                    
+                })
+            }
+            
+        })
     }
 }

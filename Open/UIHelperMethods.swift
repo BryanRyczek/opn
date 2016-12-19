@@ -20,7 +20,7 @@ let fontAwesome = "FontAwesome"
 extension Date {
     
     func dayNumberOfWeek() -> Int? {
-        return Calendar.current.dateComponents([.weekday], from: self).weekday
+        return Calendar.current.dateComponents([.weekday], from: self).weekday! - 1
     }
     
     func dayOfWeek() -> String? {

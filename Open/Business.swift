@@ -16,13 +16,13 @@ import FirebaseDatabase
 // phone number
 // hours
 enum DayOfWeek : Int {
-    case sunday = 1
-    case monday
-    case tuesday
-    case wednesday
-    case thursday
-    case friday
-    case saturday
+    case sunday = 0
+    case monday = 1
+    case tuesday = 2
+    case wednesday = 3
+    case thursday = 4
+    case friday = 5
+    case saturday = 6
     
 }
 
@@ -258,12 +258,7 @@ struct Business {
     
 }
 
-func getDayOfWeek() -> DayOfWeek {
-    let date = Date()
-    let calendar = Calendar.current
-    let weekday = calendar.component(.weekday, from: date)
-    return (DayOfWeek(rawValue: weekday))!
-}
+
 
 //extension Business {
 //    func getOpenTimeForDay
