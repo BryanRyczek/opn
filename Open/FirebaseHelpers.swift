@@ -9,6 +9,10 @@
 import Foundation
 import GooglePlaces
 import SwiftyJSON
+import FirebaseDatabase
+
+//MARK: Firebase components properties
+var placeRef = FIRDatabase.database().reference(withPath: "placeid")
 
 func getDayOfWeek() -> DayOfWeek {
     let date = Date()
@@ -16,6 +20,14 @@ func getDayOfWeek() -> DayOfWeek {
     let weekday = calendar.component(.weekday, from: date)
     return (DayOfWeek(rawValue: weekday))!
 }
+
+func cacheBusiness(business: Business) {
+    
+    let businessRef = placeRef.child(business.placeID.lowercased())
+    businessRef.setValue(business.toAnyObject())
+    
+}
+
 
 //MARK: JSON From googlePlace
 func jsonForGooglePlaceID (place: GMSPlace, completionHandler: @escaping (JSON, Error?) -> Void ) -> URLSessionDataTask {

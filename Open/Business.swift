@@ -38,7 +38,7 @@ struct Address {
 }
 
 struct Business {
-    
+    let placeID : String
     let key: String
     let ref: FIRDatabaseReference?
     //Name
@@ -79,6 +79,10 @@ struct Business {
     let email : String
     //etc.
     let businessDescription : String
+    //lat - long
+    let latitude : Double
+    let longitude : Double
+
     
 //    let streetNumber: Int
 //    let street : String
@@ -86,8 +90,6 @@ struct Business {
 //    let city : String
 //    let state : String
 //    let zip : String
-//    let latitude : Double
-//    let longitude : Double
 //    var completed: Bool
 //    let addedByUser: String
     
@@ -109,6 +111,8 @@ struct Business {
     }
     
     init(//Key
+        
+          placeID : String,
           key: String = "",
          //Name
           businessName : String,
@@ -147,8 +151,14 @@ struct Business {
           website : String,
           email : String,
         //etc.
-          businessDescription : String ) {
+          businessDescription : String,
+        // lat - long
+        latitude : Double,
+        longitude : Double
         
+        ) {
+        
+        self.placeID = placeID
         self.key = key
         self.businessName = businessName
         self.contactName = contactName
@@ -180,13 +190,20 @@ struct Business {
         self.website = website
         self.email = email
         self.businessDescription = businessDescription
+        //lat - long
+        self.latitude = latitude
+        self.longitude = longitude
+
         self.ref = nil
         
     }
     
     init(snapshot: FIRDataSnapshot) {
+        
+        
         key = snapshot.key
         let snapshotValue = snapshot.value as! [String: AnyObject]
+        placeID = snapshotValue["placeID"] as! String
         businessName = snapshotValue["businessName"] as! String
         contactName = snapshotValue["contactName"] as! String
         password = snapshotValue["password"] as! String
@@ -217,12 +234,15 @@ struct Business {
         website = snapshotValue["website"] as! String
         email = snapshotValue["email"] as! String
         businessDescription = snapshotValue["businessDescription"] as! String
+        latitude = snapshotValue["latitude"] as! Double
+        longitude = snapshotValue["longitude"] as! Double
         ref = snapshot.ref
     }
     
     func toAnyObject() -> Any {
         return [
                   //"isOpen" : isOpen,
+                 "placeID" : placeID,
              "businessName": businessName,
              "contactName" : contactName,
                 "password" : password,
@@ -253,6 +273,8 @@ struct Business {
                  "website" : website,
                    "email" : email,
      "businessDescription" : businessDescription,
+                "latitude" : latitude,
+               "longitude" : longitude,
             ]
     }
     
@@ -260,6 +282,8 @@ struct Business {
 
 
 
-//extension Business {
-//    func getOpenTimeForDay
-//}
+extension Business {
+    func save() {
+        
+    }
+}

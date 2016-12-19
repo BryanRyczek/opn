@@ -17,6 +17,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     var items : [Business] = []
     
     //MARK: vars for storing information to send to Firebase when all is complete :)
+    lazy var placeID = String()
     lazy var businessName = String()
     lazy var contactName = String()
     lazy var password = String()
@@ -47,6 +48,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     lazy var website = String()
     lazy var email = String()
     lazy var businessDescription = String()
+    lazy var latitude = Double()
+    lazy var longitude = Double()
+    
     
     //MARK: UI components
     @IBOutlet weak var scrollView: UIScrollView!
@@ -134,7 +138,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     }
 
     func saveBusiness() {
-        let business = Business(businessName: businessName,
+        let business = Business(placeID: placeID,
+                                businessName: businessName,
                                 contactName: contactName,
                                 password: password,
                                 businessTypeOne: businessTypeOne,
@@ -163,7 +168,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                                 phoneNumber: phoneNumber,
                                 website: website,
                                 email: email,
-                                businessDescription: businessDescription)
+                                businessDescription: businessDescription,
+                                latitude : latitude,
+                                longitude : longitude)
         
         let businessRef = self.ref.child(businessName.lowercased())
         businessRef.setValue(business.toAnyObject())

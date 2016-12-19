@@ -35,6 +35,7 @@ class AddBusinessViewController: FormViewController {
     lazy var autocompleteController = GMSAutocompleteViewController()
     
     //MARK: vars for storing information to send to Firebase when all is complete :)
+    lazy var placeID = String()
     lazy var businessName = String()
     lazy var contactName = String()
     lazy var password = String()
@@ -65,6 +66,8 @@ class AddBusinessViewController: FormViewController {
     lazy var website = String()
     lazy var email = String()
     lazy var businessDescription = String()
+    lazy var latitude = Double()
+    lazy var longitude = Double()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -810,7 +813,9 @@ class AddBusinessViewController: FormViewController {
     }
 
     func saveBusiness() {
-                let business = Business(businessName: businessName,
+        
+                let business = Business(placeID: placeID,
+                                        businessName: businessName,
                                         contactName: contactName,
                                         password: password,
                                         businessTypeOne: businessTypeOne,
@@ -839,7 +844,10 @@ class AddBusinessViewController: FormViewController {
                                         phoneNumber: phoneNumber,
                                         website: website,
                                         email: email,
-                                        businessDescription: businessDescription)
+                                        businessDescription: businessDescription,
+                                        latitude: latitude,
+                                        longitude: longitude
+                                    )
         
         let businessRef = self.ref.child(businessName.lowercased())
         businessRef.setValue(business.toAnyObject())

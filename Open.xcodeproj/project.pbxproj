@@ -22,7 +22,6 @@
 		936BA2F71E0347ED0097DCD0 /* OpnSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936BA2F61E0347ED0097DCD0 /* OpnSearchViewController.swift */; };
 		936BA2FC1E034D300097DCD0 /* GooglePlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936BA2FA1E034D300097DCD0 /* GooglePlaceTableViewCell.swift */; };
 		936BA2FD1E034D300097DCD0 /* GooglePlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936BA2FB1E034D300097DCD0 /* GooglePlaceTableViewCell.xib */; };
-		936BA2FF1E03AEF40097DCD0 /* Candy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936BA2FE1E03AEF30097DCD0 /* Candy.swift */; };
 		9376CE871DD3DA1900785556 /* ModalBusinessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */; };
 		938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD191DB46A81000A0675 /* AppDelegate.swift */; };
 		938CFD1C1DB46A81000A0675 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD1B1DB46A81000A0675 /* ViewController.swift */; };
@@ -115,7 +114,6 @@
 		936BA2F61E0347ED0097DCD0 /* OpnSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnSearchViewController.swift; sourceTree = "<group>"; };
 		936BA2FA1E034D300097DCD0 /* GooglePlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlaceTableViewCell.swift; sourceTree = "<group>"; };
 		936BA2FB1E034D300097DCD0 /* GooglePlaceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GooglePlaceTableViewCell.xib; sourceTree = "<group>"; };
-		936BA2FE1E03AEF30097DCD0 /* Candy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Candy.swift; sourceTree = "<group>"; };
 		9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalBusinessViewController.xib; sourceTree = "<group>"; };
 		938CFD161DB46A81000A0675 /* Open.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Open.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		938CFD191DB46A81000A0675 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -314,7 +312,6 @@
 		93DA01651DD0E92100DF57F7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				936BA2FE1E03AEF30097DCD0 /* Candy.swift */,
 				93376EF71E034391000A3E84 /* GooglePlacesSearchController.swift */,
 				936BA2FA1E034D300097DCD0 /* GooglePlaceTableViewCell.swift */,
 				936BA2FB1E034D300097DCD0 /* GooglePlaceTableViewCell.xib */,
@@ -703,7 +700,6 @@
 				936BA2F71E0347ED0097DCD0 /* OpnSearchViewController.swift in Sources */,
 				938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */,
 				9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */,
-				936BA2FF1E03AEF40097DCD0 /* Candy.swift in Sources */,
 				93F91AED1DFF3C480069544E /* BusinessDetailsModalVC.swift in Sources */,
 				93E1C0D11DD50A5500708CF9 /* IsOpenViewController.swift in Sources */,
 				93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */,
