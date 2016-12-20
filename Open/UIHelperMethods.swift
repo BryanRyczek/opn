@@ -17,6 +17,12 @@ let avenir65 = "AvenirLTStd-Medium"
 let avenir85 = "AvenirLTStd-Heavy"
 let fontAwesome = "FontAwesome"
 
+extension UIView {
+    class func fromNib<T : UIView>() -> T {
+        return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
+    }
+}
+
 extension Date {
     
     func dayNumberOfWeek() -> Int? {

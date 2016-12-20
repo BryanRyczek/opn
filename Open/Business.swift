@@ -83,16 +83,6 @@ struct Business {
     let latitude : Double
     let longitude : Double
 
-    
-//    let streetNumber: Int
-//    let street : String
-//    //let addressLineTwo : String?
-//    let city : String
-//    let state : String
-//    let zip : String
-//    var completed: Bool
-//    let addedByUser: String
-    
     var isOpen: Bool {
         get {
             let dates = getOpenClose(self)
@@ -102,11 +92,7 @@ struct Business {
     
     var location : CLLocation {
         get {
-            return self.location
-        }
-        set {
-            let newLocation : CLLocation = CLLocation(latitude: 42.382884, longitude: -71.071386)
-            location = newLocation
+            return CLLocation(latitude: latitude, longitude: longitude)
         }
     }
     

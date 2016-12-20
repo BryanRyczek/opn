@@ -944,29 +944,7 @@ extension AddBusinessViewController {
         
     }
     
-    func staticMapURL(place: GMSPlace) -> URL {
-        
-        var bizInitial = place.name[0]
-        let lat = place.coordinate.latitude
-        let long = place.coordinate.longitude
-        let latString : String = "\(lat)"
-        let longString : String = "\(long)"
-        
-        let staticMapPrefix : String = "https://maps.googleapis.com/maps/api/staticmap?"
-        let center : String = "center=\(latString),\(longString)"
-        let zoom : String = "zoom=18"
-        let size : String = "size=300x200"
-        let type : String = "maptype=roadmap"
-        let marker1 : String = "markers=color:blue%7Clabel:\(bizInitial)%7C\(latString),\(longString)"
-        let key : String = "key=AIzaSyCiUyiGQcPxaMDnFJNhSijrr1dZq2XQeuA"
-        let style : String = "style="
-        
-        let staticMapURLString : String = staticMapPrefix + center + "&" + zoom + "&" + size + "&" + type + "&" + marker1 + "&" + key
-        let url : URL = URL(string: staticMapURLString)!
-        
-        return url
-        
-    }
+
     
     func autocompleteClicked() {
         autocompleteController = GMSAutocompleteViewController()

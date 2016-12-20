@@ -8,11 +8,13 @@
 
 import UIKit
 import GooglePlaces
+import FirebaseDatabase
 
 // MARK: - GooglePlacesAutocompleteContainer
 class GooglePlaceTableViewCell: UITableViewCell {
     
-        
+    lazy var ref = FIRDatabase.database().reference(withPath: "placeid")
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var secondaryLabel: UILabel!
     
@@ -22,18 +24,48 @@ class GooglePlaceTableViewCell: UITableViewCell {
     @IBOutlet weak var isOpenLabel: UILabel!
     var placeID : String!
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-        super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        
-        self.selectionStyle = UITableViewCellSelectionStyle.gray
-        
-    }
+    var firebaseBusiness : Business?
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    func updateWithBusiness(business : Business) {
+        
+        nameLabel.text = business.businessName
+        //secondaryLabel.text =
+        placeIconLabel.text = business.neighborhood
+        if business.isOpen == true {
+            self.isOpenLabel.text = "OPEN"
+        } else {
+            self.isOpenLabel.text = "Closed!"
+        }
+
+        
     }
     
     func update(placeID: String) {
+        
+//        ref.queryOrdered(byChild: placeID).observe(.value, with: { (snapshot) in
+//            
+//            for item in snapshot.children {
+//                let business = Business(snapshot: item as! FIRDataSnapshot)
+//                
+//                if business.placeID == placeID {
+//                    print("samesies")
+//                    self.firebaseBusiness = business
+//                    print(self.firebaseBusiness?.businessName)
+//                }
+//                
+//                if let biz = self.firebaseBusiness {
+//                    
+//                    self.updateWithBusiness(business: biz)
+//                    
+//                    return
+//                }
+//             
+//                
+//                
+//            }
+//            
+//        })
+        
         
         GMSPlacesClient.shared().lookUpPlaceID(placeID, callback: { (place, error) in
             
@@ -41,11 +73,11 @@ class GooglePlaceTableViewCell: UITableViewCell {
                 print("lookup place id query error: \(error.localizedDescription)")
                 return
             }
+            
             if let place = place {
                 
                 jsonForGooglePlaceID(place: place, completionHandler: { (json, error) in
                     
-                    //////////
                     let currentDay = Date().dayNumberOfWeek()
                     
                     var open : String = json["result"]["opening_hours"]["periods"][currentDay!]["open"]["time"].stringValue
@@ -58,7 +90,7 @@ class GooglePlaceTableViewCell: UITableViewCell {
                     if isDateWithinInverval(openDate, close: closeDate) {
                         print("place \(place.name) is Open!")
                         DispatchQueue.main.async {
-                            self.isOpenLabel.text = "OPEN!"
+                            
                         }
                         
                     } else {
@@ -68,7 +100,15 @@ class GooglePlaceTableViewCell: UITableViewCell {
                         }
                     }
     
-                    print("")
+                    let business = businessFromPlaceAndJSON(place: place, json: json)
+                    
+                    if business.isOpen {
+                        self.isOpenLabel.text = "OPEN!"
+                    } else {
+                        self.isOpenLabel.text = "CLOSED!"
+                    }
+                    
+                    cacheBusiness(business: business)
                     
                     
                 })
@@ -76,4 +116,14 @@ class GooglePlaceTableViewCell: UITableViewCell {
             
         })
     }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = UITableViewCellSelectionStyle.gray
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
 }

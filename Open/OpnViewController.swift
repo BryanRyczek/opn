@@ -6,12 +6,6 @@
 //
 //
 
-extension UIView {
-    class func fromNib<T : UIView>() -> T {
-        return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
-    }
-}
-
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
@@ -23,7 +17,7 @@ class OpnViewController: UIViewController {
     @IBOutlet weak var opnTableView: UITableView!
     
     //Firebase Refs
-    lazy var ref = FIRDatabase.database().reference(withPath: "business-list")
+    lazy var ref = FIRDatabase.database().reference(withPath: "placeid")
     lazy var usersRef = FIRDatabase.database().reference(withPath: "online")
     //Current Firebase User
     var currentUser : User!
@@ -39,11 +33,6 @@ class OpnViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let open = ref.child("open")
-        let opn = open.child("wednesdayOpen")
-        print(open)
-        print(opn.key)
         
         //set Delegates
         opnTableView.delegate = self
