@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 //MARK: Offset to CLLocation - Compensates for curvature of the earth!
 func locationWithBearing(bearing:Double, distanceMeters:Double, origin:CLLocationCoordinate2D) -> CLLocationCoordinate2D {
@@ -27,4 +28,50 @@ func getDayOfWeek() -> DayOfWeek {
     let calendar = Calendar.current
     let weekday = calendar.component(.weekday, from: date)
     return (DayOfWeek(rawValue: weekday))!
+}
+
+//MARK: Array extension to filder duplicates
+extension Array {
+    
+    func filterDuplicates( _ includeElement: (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element]{
+        var results = [Element]()
+        
+        forEach { (element) in
+            let existingElements = results.filter {
+                return includeElement(element, $0)
+            }
+            if existingElements.count == 0 {
+                results.append(element)
+            }
+        }
+        
+        return results
+    }
+}
+
+public extension Sequence where Iterator.Element: Hashable {
+    var uniqueElements: [Iterator.Element] {
+        return Array(
+            Set(self)
+        )
+    }
+}
+
+public extension Sequence where Iterator.Element: Equatable {
+    var uniqueElements: [Iterator.Element] {
+        return self.reduce([]){
+            uniqueElements, element in
+            
+            uniqueElements.contains(element)
+                ? uniqueElements
+                : uniqueElements + [element]
+        }
+    }
+}
+
+//MARK: Random Number
+extension CGFloat {
+    static func random() -> CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
 }
