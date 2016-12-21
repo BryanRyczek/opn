@@ -18,6 +18,7 @@
 		933E17571E09E1E30001274B /* GooglePlacesHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E17561E09E1E30001274B /* GooglePlacesHelpers.swift */; };
 		933E17591E09E1FB0001274B /* FoundationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E17581E09E1FB0001274B /* FoundationHelpers.swift */; };
 		933E175B1E0AE6960001274B /* OpnSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E175A1E0AE6960001274B /* OpnSearchBar.swift */; };
+		933E175F1E0AEFC70001274B /* OpnSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E175E1E0AEFC70001274B /* OpnSearchController.swift */; };
 		9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */; };
 		93685F741DDE4C3A00DD557B /* AddBusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93685F731DDE4C3A00DD557B /* AddBusinessViewController.swift */; };
 		93685F7B1DDF8FAD00DD557B /* WeekDaysCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93685F7A1DDF8FAD00DD557B /* WeekDaysCell.xib */; };
@@ -26,7 +27,6 @@
 		936BA2FD1E034D300097DCD0 /* GooglePlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936BA2FB1E034D300097DCD0 /* GooglePlaceTableViewCell.xib */; };
 		9376CE871DD3DA1900785556 /* ModalBusinessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */; };
 		938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD191DB46A81000A0675 /* AppDelegate.swift */; };
-		938CFD1C1DB46A81000A0675 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD1B1DB46A81000A0675 /* ViewController.swift */; };
 		938CFD1F1DB46A81000A0675 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD1D1DB46A81000A0675 /* Main.storyboard */; };
 		938CFD221DB46A81000A0675 /* Open.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD201DB46A81000A0675 /* Open.xcdatamodeld */; };
 		938CFD241DB46A81000A0675 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD231DB46A81000A0675 /* Assets.xcassets */; };
@@ -111,6 +111,7 @@
 		933E17561E09E1E30001274B /* GooglePlacesHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlacesHelpers.swift; sourceTree = "<group>"; };
 		933E17581E09E1FB0001274B /* FoundationHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationHelpers.swift; sourceTree = "<group>"; };
 		933E175A1E0AE6960001274B /* OpnSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnSearchBar.swift; sourceTree = "<group>"; };
+		933E175E1E0AEFC70001274B /* OpnSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnSearchController.swift; sourceTree = "<group>"; };
 		9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnViewController.swift; sourceTree = "<group>"; };
 		93685F731DDE4C3A00DD557B /* AddBusinessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBusinessViewController.swift; sourceTree = "<group>"; };
 		93685F7A1DDF8FAD00DD557B /* WeekDaysCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekDaysCell.xib; sourceTree = "<group>"; };
@@ -120,7 +121,6 @@
 		9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalBusinessViewController.xib; sourceTree = "<group>"; };
 		938CFD161DB46A81000A0675 /* Open.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Open.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		938CFD191DB46A81000A0675 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		938CFD1B1DB46A81000A0675 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		938CFD1E1DB46A81000A0675 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		938CFD211DB46A81000A0675 /* Open.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Open.xcdatamodel; sourceTree = "<group>"; };
 		938CFD231DB46A81000A0675 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -192,6 +192,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		933E17601E0AEFD00001274B /* UISearchController Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				933E175A1E0AE6960001274B /* OpnSearchBar.swift */,
+				933E175E1E0AEFC70001274B /* OpnSearchController.swift */,
+			);
+			name = "UISearchController Subclasses";
+			sourceTree = "<group>";
+		};
 		938CFD0D1DB46A81000A0675 = {
 			isa = PBXGroup;
 			children = (
@@ -292,7 +301,7 @@
 				9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */,
 				93DA01681DD0F24400DF57F7 /* OpnBusinessCell.swift */,
 				93DA01691DD0F24400DF57F7 /* OpnBusinessCell.xib */,
-				933E175A1E0AE6960001274B /* OpnSearchBar.swift */,
+				933E17601E0AEFD00001274B /* UISearchController Subclasses */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -300,13 +309,12 @@
 		93DA01641DD0E90600DF57F7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				93685F731DDE4C3A00DD557B /* AddBusinessViewController.swift */,
 				936BA2F61E0347ED0097DCD0 /* OpnSearchViewController.swift */,
 				939E39AD1DDCAD260093FF2C /* LoginViewController.swift */,
-				938CFD1B1DB46A81000A0675 /* ViewController.swift */,
+				93685F731DDE4C3A00DD557B /* AddBusinessViewController.swift */,
+				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
 				93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */,
 				9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */,
-				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -691,9 +699,9 @@
 				939E39B01DDCD81C0093FF2C /* User.swift in Sources */,
 				933E17591E09E1FB0001274B /* FoundationHelpers.swift in Sources */,
 				939E39AE1DDCAD260093FF2C /* LoginViewController.swift in Sources */,
-				938CFD1C1DB46A81000A0675 /* ViewController.swift in Sources */,
 				936BA2FC1E034D300097DCD0 /* GooglePlaceTableViewCell.swift in Sources */,
 				93DA016A1DD0F24400DF57F7 /* OpnBusinessCell.swift in Sources */,
+				933E175F1E0AEFC70001274B /* OpnSearchController.swift in Sources */,
 				93DA016D1DD2177F00DF57F7 /* ModalBusinessViewController.swift in Sources */,
 				933E17571E09E1E30001274B /* GooglePlacesHelpers.swift in Sources */,
 				93C510791DBABB9800F35504 /* Business.swift in Sources */,
