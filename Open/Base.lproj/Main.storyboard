@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1164,35 +1165,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ry9-i5-qvc">
-                                <rect key="frame" x="20" y="0.0" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ry9-i5-qvc">
+                                <rect key="frame" x="165" y="16" width="46" height="0.0"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="presentSearch:" destination="d5B-1l-GmO" eventType="touchUpInside" id="pjT-Ur-lZE"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ndv-C9-Iwu">
-                                <rect key="frame" x="0.0" y="200" width="375" height="520"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ue9-pL-RWb">
+                                <rect key="frame" x="0.0" y="22" width="375" height="645"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ho-oZ-ZXC">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="313"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" priority="999" constant="313" id="gcH-4L-5UP"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eqd-A3-2Wc">
+                                        <rect key="frame" x="0.0" y="313" width="375" height="80"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" priority="999" constant="80" id="BNs-Qx-vWF"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ndv-C9-Iwu">
+                                        <rect key="frame" x="0.0" y="393" width="375" height="252"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="eqd-A3-2Wc" firstAttribute="top" secondItem="9Ho-oZ-ZXC" secondAttribute="bottom" id="vq5-bo-JQk"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ndv-C9-Iwu" firstAttribute="height" secondItem="RQa-Sc-bIQ" secondAttribute="height" multiplier="0.78" id="5gK-w2-4C0"/>
-                            <constraint firstItem="ndv-C9-Iwu" firstAttribute="top" secondItem="RQa-Sc-bIQ" secondAttribute="top" constant="200" id="LK4-I7-Krg"/>
-                            <constraint firstItem="ndv-C9-Iwu" firstAttribute="leading" secondItem="RQa-Sc-bIQ" secondAttribute="leading" id="VR7-DT-Xlh"/>
-                            <constraint firstAttribute="trailing" secondItem="ndv-C9-Iwu" secondAttribute="trailing" id="fmO-td-9v0"/>
+                            <constraint firstAttribute="bottom" secondItem="ue9-pL-RWb" secondAttribute="bottom" id="SPb-VZ-X2x"/>
+                            <constraint firstAttribute="trailing" secondItem="ue9-pL-RWb" secondAttribute="trailing" id="W4E-WU-4vC"/>
+                            <constraint firstItem="Ry9-i5-qvc" firstAttribute="centerX" secondItem="RQa-Sc-bIQ" secondAttribute="centerX" id="atu-OU-SG2"/>
+                            <constraint firstItem="ue9-pL-RWb" firstAttribute="top" secondItem="Ry9-i5-qvc" secondAttribute="bottom" constant="6" id="hHd-Mw-pMG"/>
+                            <constraint firstItem="ue9-pL-RWb" firstAttribute="leading" secondItem="RQa-Sc-bIQ" secondAttribute="leading" id="kEK-UR-BZ6"/>
+                            <constraint firstItem="Ry9-i5-qvc" firstAttribute="top" secondItem="RQa-Sc-bIQ" secondAttribute="topMargin" constant="16" id="peo-tu-5o2"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchControllerView" destination="eqd-A3-2Wc" id="dIf-35-TkN"/>
                         <outlet property="searchTableView" destination="ndv-C9-Iwu" id="bzA-Zk-f2n"/>
-                        <outlet property="searchTableViewHeightOffset" destination="LK4-I7-Krg" id="HIA-oS-2A2"/>
+                        <outlet property="topView" destination="9Ho-oZ-ZXC" id="xio-24-3ZU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMQ-aT-ORL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5188" y="-618"/>
+            <point key="canvasLocation" x="5188" y="-618.44077961019491"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r6d-J0-x6K">

@@ -30,13 +30,14 @@ class OpnSearchViewController:  UIViewController {
     var searchController : OpnSearchController!
     var tableDataSource: GMSAutocompleteTableDataSource?
 
-    @IBOutlet weak var searchTableViewHeightOffset: NSLayoutConstraint!
     @IBOutlet weak var searchTableView: UITableView!
+    
+    @IBOutlet weak var searchControllerView: UIView!
+    
+    @IBOutlet weak var topView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         configureSearchController()
         
@@ -70,11 +71,54 @@ class OpnSearchViewController:  UIViewController {
         determineMyCurrentLocation()
     }
 
+    
+    //MARK: set notifications for
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(OpnSearchViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(OpnSearchViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+
+    
+    func keyboardWillShow(notification: NSNotification) {
+        let userInfo = notification.userInfo!
+        let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
+        
+//        UIView.animate(withDuration: 0.3, animations: {
+//            self.topView.isHidden = true
+//        }, completion: { (true) in
+//            self.view.layoutIfNeeded()
+//            print("topViewHidden: \(self.topView.isHidden)")
+//        })
+        
+        
+        print(keyboardHeight);
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+            
+            UIView.animate(withDuration: 0.15, animations: {
+                self.topView.isHidden = false
+                self.view.layoutIfNeeded()
+            }, completion: { (true) in
+                print("topViewHidden: \(self.topView.isHidden)")
+            })
+        
+    }
+    
     func configureSearchController() {
         
         let scFrame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.view.frame.size.width * 0.8, height: self.view.frame.size.height * 0.15))
-        
-        let sc : UISearchController = UISearchController(searchResultsController: nil)
         
         searchController = OpnSearchController(searchResultsController: nil,
                                                searchBarFrame: scFrame,
@@ -85,23 +129,14 @@ class OpnSearchViewController:  UIViewController {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = true
         searchController.searchBar.delegate = self
-        //searchController.customDelegate = self
+        
         definesPresentationContext = true
         
         // add searchController to tableview which will display its results
-        searchTableView.tableHeaderView = searchController.searchBar
-       // guard let sc = searchController else { return }
+        //searchTableView.tableHeaderView = searchController.searchBar
+        searchControllerView.addSubview(searchController.searchBar)
         
-        //Create UIImage relative to screen size
-        //let image : UIImage = getImageWithColor(color: .green, size: CGSize(width: self.view.frame.width * 0.5, height: self.view.frame.height * 0.25))
-        
-//        let bar = sc.searchBar
-//        bar.backgroundImage = image
-//        bar.delegate = self
-//        bar.showsCancelButton = false
-//        bar.placeholder = "Find Something Open!"
-        
-        //searchController.searchBar.sizeToFit()
+        searchController.searchBar.sizeToFit()
 
     }
     
@@ -111,26 +146,22 @@ class OpnSearchViewController:  UIViewController {
         // Turn the network activity indicator off.
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         // Reload table data.
-        searchTableView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.searchTableView.reloadData()
+        }
     }
     
     func didRequestAutocompletePredictionsForTableDataSource(tableDataSource: GMSAutocompleteTableDataSource) {
         // Turn the network activity indicator on.
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         // Reload table data.
-        searchTableView.reloadData()
+        DispatchQueue.main.async {
+            self.searchTableView.reloadData()
+        }
     }
     
-    func animateTableView() {
-        
-         //DispatchQueue.main.asyncAfter(deadline: .now() + 1.00) {
-        UIView.animate(withDuration: 0.5) {
-            self.searchTableViewHeightOffset.constant = 20.0
-            self.view.layoutIfNeeded()
-        }
-       //     }
-        
-    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -140,8 +171,34 @@ class OpnSearchViewController:  UIViewController {
     
     @IBAction func presentSearch(_ sender: Any) {
         
+        print("button pressed")
+        
+        if topView.isHidden {
+            
+            self.searchController.searchBar.resignFirstResponder()
+            
+            
+        } else if !topView.isHidden {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.topView.isHidden = true
+                self.view.layoutIfNeeded()
+            }, completion: { (true) in
+                print("topViewHidden: \(self.topView.isHidden)")
+                self.searchController.searchBar.becomeFirstResponder()
+            })
+
+        }
+        
         
     }
+    
+    func animateTableView() {
+        
+        //DispatchQueue.main.asyncAfter(deadline: .now() + 1.00) {
+        
+        //     }
+    }
+
 
     /*
     // MARK: - Navigation
@@ -160,16 +217,16 @@ extension OpnSearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
-        animateTableView()
+       //searchBar.resignFirstResponder()
         
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         
-        UIView.animate(withDuration: 0.5) {
-            self.searchTableViewHeightOffset.constant = 400.0
-            self.view.layoutIfNeeded()
-        }
+//        UIView.animate(withDuration: 0.5) {
+//            self.topView.isHidden = false
+//            self.view.layoutIfNeeded()
+//        }
     }
     
 }

@@ -8,31 +8,19 @@
 
 import UIKit
 
-//protocol OpnSearchControllerDelegate {
-//    
-//    func didStartSearching()
-//    
-//    func didTapOnSearchButton()
-//    
-//    func didTapOnCancelButton()
-//    
-//    func didChangeSearchText(searchText: String)
-//    
-//}
-
-
-class OpnSearchController: UISearchController, UISearchBarDelegate {
-
-    //var customDelegate: OpnSearchControllerDelegate!
+class OpnSearchController: UISearchController {
     
+    //MARK: must init OpnSearchBar here because the searchBar override will be looking for it.
     var opnSearchBar = OpnSearchBar()
     
+    //MARK: Override get only searchBar
     override var searchBar: UISearchBar {
         get {
             return opnSearchBar
         }
     }
     
+    //MARK: Custom Init
     init(searchResultsController: UIViewController!,
                   searchBarFrame: CGRect,
                    searchBarFont: UIFont,
@@ -48,24 +36,6 @@ class OpnSearchController: UISearchController, UISearchBarDelegate {
         
     }
     
-    func configureSearchBar(frame: CGRect,
-                            font: UIFont,
-                            textColor: UIColor,
-                            bgColor: UIColor) {
-        
-        //opnSearchBar = OpnSearchBar(frame: frame, font: font, textColor: textColor)
-        
-        
-        opnSearchBar.barTintColor = bgColor
-        opnSearchBar.tintColor = textColor
-        opnSearchBar.showsBookmarkButton = false
-        opnSearchBar.showsScopeBar = false
-        opnSearchBar.showsCancelButton = false
-        
-        //opnSearchBar.delegate = self
-    }
-    
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -74,41 +44,30 @@ class OpnSearchController: UISearchController, UISearchBarDelegate {
         super.init(coder: aDecoder)!
     }
     
+    //MARK: configure search bar
+    func configureSearchBar(frame: CGRect,
+                            font: UIFont,
+                            textColor: UIColor,
+                            bgColor: UIColor) {
+        
+        opnSearchBar.barTintColor = bgColor
+        opnSearchBar.tintColor = textColor
+        opnSearchBar.showsBookmarkButton = false
+        opnSearchBar.showsScopeBar = false
+        opnSearchBar.showsCancelButton = false
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    // MARK: UISearchBarDelegate functions
-    
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        customDelegate.didStartSearching()
-//    }
-//    
-//    
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        opnSearchBar.resignFirstResponder()
-//        customDelegate.didTapOnSearchButton()
-//    }
-//    
-//    
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        opnSearchBar.resignFirstResponder()
-//        customDelegate.didTapOnCancelButton()
-//    }
-//    
-//    
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        customDelegate.didChangeSearchText(searchText: searchText)
-//    }
-
 
     /*
     // MARK: - Navigation
