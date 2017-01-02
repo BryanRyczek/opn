@@ -84,6 +84,69 @@ func currentDateCustomTime(_ dateWithTime: Date)  -> Date {
     return newDate
 }
 
+func openUntil(_ business: Business) -> String {
+    
+    
+    var closeTime: String = ""
+    
+    if let today = addDay(date: Date()).dayOfWeek() {
+        switch today {
+        case "monday":
+            closeTime = business.mondayClose
+        case "tuesday":
+            closeTime = business.tuesdayClose
+        case"wednesday":
+            closeTime = business.wednesdayClose
+        case"thursday":
+            closeTime = business.thursdayClose
+        case"friday":
+            closeTime = business.fridayClose
+        case"saturday":
+            closeTime = business.saturdayClose
+        case"sunday":
+            closeTime = business.sundayClose
+        default:
+            break
+        }
+    }
+    
+    closeTime = addColonToGoogleTimeString(closeTime)
+    
+    return closeTime
+}
+
+func nextOpen(_ business: Business) -> String {
+    
+    var openTime: String = ""
+    
+    if let today = addDay(date: Date()).dayOfWeek() {
+        switch today {
+        case "monday":
+            openTime = business.mondayOpen
+        case "tuesday":
+            openTime = business.tuesdayOpen
+        case"wednesday":
+            openTime = business.wednesdayOpen
+        case"thursday":
+            openTime = business.thursdayOpen
+        case"friday":
+            openTime = business.fridayOpen
+        case"saturday":
+            openTime = business.saturdayOpen
+        case"sunday":
+            openTime = business.sundayOpen
+        default:
+            break
+        }
+    }
+    
+    openTime = addColonToGoogleTimeString(openTime)
+    
+    return openTime
+}
+
+
+
 func getOpenClose(_ business: Business) -> [Date] {
     
     let date : [Date] = []
@@ -125,6 +188,12 @@ func getOpenClose(_ business: Business) -> [Date] {
     todayCloseDate = openBeforeClose(todayOpenDate, close: todayCloseDate)
     
     return [todayOpenDate, todayCloseDate]
+}
+
+func addDay(date: Date) -> Date {
+    let calendar = Calendar.current
+    let newClose = calendar.date(byAdding: .day, value: 1, to: date)
+    return newClose!
 }
 
 func openBeforeClose (_ open: Date, close: Date) -> Date {

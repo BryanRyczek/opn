@@ -90,6 +90,18 @@ struct Business {
         }
     }
     
+    var nxtOpn : String {
+        get {
+            return nextOpen(self)
+        }
+    }
+    
+    var opnTil : String {
+        get {
+            return openUntil(self)
+        }
+    }
+    
     var location : CLLocation {
         get {
             return CLLocation(latitude: latitude, longitude: longitude)

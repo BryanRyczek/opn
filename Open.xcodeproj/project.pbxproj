@@ -10,6 +10,10 @@
 		2AE8ED62A4D263A0D37FC926 /* Pods_Open.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64D185DDE602F14DACEAEC5A /* Pods_Open.framework */; };
 		5C2171A3F78382A061D366D6 /* Pods_OpenUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E47470BD685635AD9123C8 /* Pods_OpenUITests.framework */; };
 		60F7B288ABA718C0E8AC947C /* Pods_OpenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7C1E38671A93B6D219A8A6 /* Pods_OpenTests.framework */; };
+		930A0A531E16E2B0005CB733 /* BubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A0A511E16E2B0005CB733 /* BubbleNode.swift */; };
+		930A0A541E16E2B0005CB733 /* BubblesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A0A521E16E2B0005CB733 /* BubblesScene.swift */; };
+		930A0A571E16E3BF005CB733 /* SIFloatingCollectionScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A0A551E16E3BF005CB733 /* SIFloatingCollectionScene.swift */; };
+		930A0A581E16E3BF005CB733 /* SIFloatingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A0A561E16E3BF005CB733 /* SIFloatingNode.swift */; };
 		931951161DC0F56400F5346C /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 931951151DC0F56400F5346C /* FontAwesome.otf */; };
 		931F56671DB5307D003B62D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 931F56661DB5307D003B62D5 /* GoogleService-Info.plist */; };
 		931F56681DB5307D003B62D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 931F56661DB5307D003B62D5 /* GoogleService-Info.plist */; };
@@ -79,6 +83,7 @@
 		93DA016D1DD2177F00DF57F7 /* ModalBusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */; };
 		93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DCD8E01DBE570500E2624B /* SignupViewController.swift */; };
 		93E1C0D11DD50A5500708CF9 /* IsOpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */; };
+		93F24D061E16159700B50A9F /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F24D051E16159700B50A9F /* DiscoverViewController.swift */; };
 		93F91AED1DFF3C480069544E /* BusinessDetailsModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F91AEB1DFF3C480069544E /* BusinessDetailsModalVC.swift */; };
 		93F91AEE1DFF3C480069544E /* BusinessDetailsModalVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F91AEC1DFF3C480069544E /* BusinessDetailsModalVC.xib */; };
 /* End PBXBuildFile section */
@@ -105,6 +110,10 @@
 		392779ACCE81932BED6547DB /* Pods-Open.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Open.release.xcconfig"; path = "Pods/Target Support Files/Pods-Open/Pods-Open.release.xcconfig"; sourceTree = "<group>"; };
 		64D185DDE602F14DACEAEC5A /* Pods_Open.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Open.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70C631ECFE3195CF183BE0C2 /* Pods-OpenUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenUITests/Pods-OpenUITests.release.xcconfig"; sourceTree = "<group>"; };
+		930A0A511E16E2B0005CB733 /* BubbleNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleNode.swift; sourceTree = "<group>"; };
+		930A0A521E16E2B0005CB733 /* BubblesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblesScene.swift; sourceTree = "<group>"; };
+		930A0A551E16E3BF005CB733 /* SIFloatingCollectionScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIFloatingCollectionScene.swift; sourceTree = "<group>"; };
+		930A0A561E16E3BF005CB733 /* SIFloatingNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIFloatingNode.swift; sourceTree = "<group>"; };
 		931951151DC0F56400F5346C /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 		931F56661DB5307D003B62D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseHelpers.swift; sourceTree = "<group>"; };
@@ -155,6 +164,7 @@
 		93DA016C1DD2177F00DF57F7 /* ModalBusinessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalBusinessViewController.swift; sourceTree = "<group>"; };
 		93DCD8E01DBE570500E2624B /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsOpenViewController.swift; sourceTree = "<group>"; };
+		93F24D051E16159700B50A9F /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		93F91AEB1DFF3C480069544E /* BusinessDetailsModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailsModalVC.swift; sourceTree = "<group>"; };
 		93F91AEC1DFF3C480069544E /* BusinessDetailsModalVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessDetailsModalVC.xib; sourceTree = "<group>"; };
 		AB4F9900C6BD2C2A01D7FCA0 /* Pods-OpenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenTests/Pods-OpenTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -309,6 +319,11 @@
 		93DA01641DD0E90600DF57F7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				93F24D051E16159700B50A9F /* DiscoverViewController.swift */,
+				930A0A511E16E2B0005CB733 /* BubbleNode.swift */,
+				930A0A521E16E2B0005CB733 /* BubblesScene.swift */,
+				930A0A551E16E3BF005CB733 /* SIFloatingCollectionScene.swift */,
+				930A0A561E16E3BF005CB733 /* SIFloatingNode.swift */,
 				936BA2F61E0347ED0097DCD0 /* OpnSearchViewController.swift */,
 				939E39AD1DDCAD260093FF2C /* LoginViewController.swift */,
 				93685F731DDE4C3A00DD557B /* AddBusinessViewController.swift */,
@@ -696,6 +711,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93685F741DDE4C3A00DD557B /* AddBusinessViewController.swift in Sources */,
+				930A0A581E16E3BF005CB733 /* SIFloatingNode.swift in Sources */,
 				939E39B01DDCD81C0093FF2C /* User.swift in Sources */,
 				933E17591E09E1FB0001274B /* FoundationHelpers.swift in Sources */,
 				939E39AE1DDCAD260093FF2C /* LoginViewController.swift in Sources */,
@@ -708,12 +724,16 @@
 				93366CA61DC8121A001BEA48 /* FirebaseHelpers.swift in Sources */,
 				93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */,
 				93D1AEC41DFB591C00F48911 /* WeekDaysCell.swift in Sources */,
+				930A0A571E16E3BF005CB733 /* SIFloatingCollectionScene.swift in Sources */,
 				936BA2F71E0347ED0097DCD0 /* OpnSearchViewController.swift in Sources */,
 				938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */,
 				9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */,
 				93F91AED1DFF3C480069544E /* BusinessDetailsModalVC.swift in Sources */,
 				933E175B1E0AE6960001274B /* OpnSearchBar.swift in Sources */,
+				930A0A541E16E2B0005CB733 /* BubblesScene.swift in Sources */,
 				93E1C0D11DD50A5500708CF9 /* IsOpenViewController.swift in Sources */,
+				93F24D061E16159700B50A9F /* DiscoverViewController.swift in Sources */,
+				930A0A531E16E2B0005CB733 /* BubbleNode.swift in Sources */,
 				93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */,
 				938CFD221DB46A81000A0675 /* Open.xcdatamodeld in Sources */,
 			);
