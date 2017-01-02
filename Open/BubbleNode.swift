@@ -40,10 +40,15 @@ class BubbleNode: SIFloatingNode {
         let radius = (boundingBox?.size.width)! / 2.0;
         node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
         //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
-        node.fillColor = opnRed
-            
-            //SKColor.black
-        node.strokeColor = node.fillColor
+        node.fillColor = .clear
+        node.strokeColor = opnRed
+        
+        let spriteNode = SKSpriteNode()
+        spriteNode.name = "sprite"
+//        spriteNode.texture = 
+//        spriteNode.name = "userimage"
+        node.isUserInteractionEnabled = true
+        node.addChild(spriteNode)
         
         node.labelNode.text = node.business?.businessName
         node.labelNode.position = CGPoint.zero

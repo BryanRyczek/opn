@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SpriteKit
+
 //MARK: COLORS!
 let opnBlue: UIColor = UIColor(red: 31/255, green: 54/255, blue: 232/255, alpha: 1)
 let opnRed: UIColor = UIColor(red: 226/255, green: 2/255, blue: 64/255, alpha: 1)
@@ -16,6 +18,14 @@ let avenir55 = "AvenirLTStd-Roman"
 let avenir65 = "AvenirLTStd-Medium"
 let avenir85 = "AvenirLTStd-Heavy"
 let fontAwesome = "FontAwesome"
+
+//MARK: SpriteKit Animations
+let pulsedRed = SKAction.sequence([
+    SKAction.colorize(with: opnRed, colorBlendFactor: 1.0, duration: 0.15),
+    SKAction.wait(forDuration: 0.1),
+    SKAction.colorize(withColorBlendFactor: 0.9, duration: 0.05),
+    SKAction.wait(forDuration: 0.05),
+    SKAction.colorize(withColorBlendFactor: 1.0, duration: 0.05)])
 
 extension UIView {
     class func fromNib<T : UIView>() -> T {
