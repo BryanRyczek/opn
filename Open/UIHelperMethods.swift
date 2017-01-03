@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SpriteKit
+
 //MARK: COLORS!
 let opnBlue: UIColor = UIColor(red: 31/255, green: 54/255, blue: 232/255, alpha: 1)
 let opnRed: UIColor = UIColor(red: 226/255, green: 2/255, blue: 64/255, alpha: 1)
@@ -17,10 +19,24 @@ let avenir65 = "AvenirLTStd-Medium"
 let avenir85 = "AvenirLTStd-Heavy"
 let fontAwesome = "FontAwesome"
 
+//MARK: SpriteKit Animations
+let pulsedRed = SKAction.sequence([
+    SKAction.colorize(with: opnRed, colorBlendFactor: 1.0, duration: 0.15),
+    SKAction.wait(forDuration: 0.1),
+    SKAction.colorize(withColorBlendFactor: 0.9, duration: 0.05),
+    SKAction.wait(forDuration: 0.05),
+    SKAction.colorize(withColorBlendFactor: 1.0, duration: 0.05)])
+
+extension UIView {
+    class func fromNib<T : UIView>() -> T {
+        return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
+    }
+}
+
 extension Date {
     
     func dayNumberOfWeek() -> Int? {
-        return Calendar.current.dateComponents([.weekday], from: self).weekday
+        return Calendar.current.dateComponents([.weekday], from: self).weekday! - 1
     }
     
     func dayOfWeek() -> String? {
@@ -30,6 +46,16 @@ extension Date {
         // or use lowercaseed(with: locale)
     }
     
+}
+
+func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
+    let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: size.width, height: size.height))
+    UIGraphicsBeginImageContextWithOptions(size, false, 0)
+    color.setFill()
+    UIRectFill(rect)
+    let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+    UIGraphicsEndImageContext()
+    return image
 }
 
 //type inference functions so we can add stored properties to extenstions
@@ -104,42 +130,6 @@ class CIRoundedImageView: UIImageView {
     }
 }
 
-extension Array {
-    
-    func filterDuplicates( _ includeElement: (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element]{
-        var results = [Element]()
-        
-        forEach { (element) in
-            let existingElements = results.filter {
-                return includeElement(element, $0)
-            }
-            if existingElements.count == 0 {
-                results.append(element)
-            }
-        }
-        
-        return results
-    }
-}
-
-public extension Sequence where Iterator.Element: Hashable {
-    var uniqueElements: [Iterator.Element] {
-        return Array(
-            Set(self)
-        )
-    }
-}
-public extension Sequence where Iterator.Element: Equatable {
-    var uniqueElements: [Iterator.Element] {
-        return self.reduce([]){
-            uniqueElements, element in
-            
-            uniqueElements.contains(element)
-                ? uniqueElements
-                : uniqueElements + [element]
-        }
-    }
-}
 
 // MARK: - String Extension to handle HTML encoded strings
 extension String {
@@ -170,11 +160,6 @@ extension UITableViewCell {
     }
 }
 
-extension CGFloat {
-    static func random() -> CGFloat {
-        return CGFloat(arc4random()) / CGFloat(UInt32.max)
-    }
-}
 
 extension UIColor {
     static func randomColor() -> UIColor {
@@ -186,45 +171,6 @@ extension UIColor {
                        alpha: 1.0)
     }
 }
-
-//public func ==(lhs: Date, rhs: Date) -> Bool {
-//    return lhs === rhs || lhs.compare(rhs as Date) == .orderedSame
-//}
-//
-//public func <(lhs: Date, rhs: Date) -> Bool {
-//    return lhs.compare(rhs as Date) == .orderedAscending
-//}
-//
-//extension Date: Comparable { }
-//
-//func addTimeToCurrentDate(_ addMinutes: Int, addHours: Int) -> Date {
-//    
-//    let calendar = Calendar.current
-//    let addMin = calendar.date(byAdding: .minute, value: addMinutes, to: Date())
-//    let addHrs = calendar.date(byAdding: .hour, value: addHours, to: addMin!)
-//    return addHrs!
-    
-//    let formatter = DateFormatter()
-//    formatter.amSymbol = "AM"
-//    formatter.pmSymbol = "PM"
-//    
-//    //CHECK FOR MILITARY TIME
-//    let formatString: NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString
-//    let hasAMPM = formatString.contains("a")
-//    
-//    switch hasAMPM {
-//    case true:
-//        formatter.dateFormat = "h:mm a"
-//        let standardTime = formatter.string(from: addHours!)
-//        return "\(standardTime)"
-//        
-//    case false:
-//        formatter.dateFormat = "h:mm"
-//        let militaryTime = formatter.string(from: addHours!)
-//        return "\(militaryTime)"
-//    }
-//}
-
 
 func addTimeToCurrentDateString(_ addMinutes: Int, addHours: Int) -> String {
     

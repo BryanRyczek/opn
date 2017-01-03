@@ -35,12 +35,15 @@ class AddBusinessViewController: FormViewController {
     lazy var autocompleteController = GMSAutocompleteViewController()
     
     //MARK: vars for storing information to send to Firebase when all is complete :)
+    lazy var opnPlaceID = String()
+    lazy var placeID = String()
     lazy var businessName = String()
     lazy var contactName = String()
     lazy var password = String()
     lazy var businessTypeOne = String()
     lazy var businessTypeTwo = String()
     lazy var businessTypeThree = String()
+    lazy var businessTags = [String]()
     lazy var mondayOpen = String()
     lazy var mondayClose = String()
     lazy var tuesdayOpen = String()
@@ -65,6 +68,8 @@ class AddBusinessViewController: FormViewController {
     lazy var website = String()
     lazy var email = String()
     lazy var businessDescription = String()
+    lazy var latitude = Double()
+    lazy var longitude = Double()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -341,7 +346,7 @@ class AddBusinessViewController: FormViewController {
                 $0.hidden = true
             }
             <<< TextAreaRow("businessDescription") {
-                $0.title = "Business Category"
+                $0.title = "Business Description"
                 $0.tag = "description"
                 $0.placeholder = "Let Customers know what type of business you have."
             }
@@ -643,12 +648,15 @@ class AddBusinessViewController: FormViewController {
                         self.website = ""
                     }
                     
-                    if let des = valuesDictionary["businessCategory"] as? String ?? nil {
+                    if let des = valuesDictionary["description"] as? String ?? nil {
                         self.businessDescription = des.makeFirebaseString()
+                        self.businessTags = des.components(separatedBy: ",")
+                        for entry in self.businessTags {
+                            entry.makeFirebaseString()
+                        }
                     } else {
                         self.businessDescription = ""
                     }
-                    
                     
                     guard let bn = valuesDictionary["businessName"] as? String ?? nil,
                         let sa1 = valuesDictionary["streetAddressOne"] as? String ?? nil,
@@ -810,12 +818,16 @@ class AddBusinessViewController: FormViewController {
     }
 
     func saveBusiness() {
-                let business = Business(businessName: businessName,
+        
+                var business = Business(opnPlaceID: opnPlaceID,
+                                        placeID: placeID,
+                                        businessName: businessName,
                                         contactName: contactName,
                                         password: password,
                                         businessTypeOne: businessTypeOne,
                                         businessTypeTwo: businessTypeTwo,
                                         businessTypeThree: businessTypeThree,
+                                        businessTags: businessTags,
                                         mondayOpen: mondayOpen,
                                         mondayClose: mondayClose,
                                         tuesdayOpen: tuesdayOpen,
@@ -839,9 +851,14 @@ class AddBusinessViewController: FormViewController {
                                         phoneNumber: phoneNumber,
                                         website: website,
                                         email: email,
-                                        businessDescription: businessDescription)
+                                        businessDescription: businessDescription,
+                                        latitude: latitude,
+                                        longitude: longitude
+                                    )
         
-        let businessRef = self.ref.child(businessName.lowercased())
+        business.generateOpnPlaceID()
+        
+        let businessRef = placeRef.child(business.opnPlaceID.lowercased())
         businessRef.setValue(business.toAnyObject())
         
     }
@@ -882,7 +899,7 @@ func defaultTextFieldCellUpdate<T0: TextFieldCell, T1:FieldRowConformance>(cell:
 
 //MARK: WeeklyDayCell
 
-
+//MARK: Extension
 extension AddBusinessViewController {
     
     func mapPopover(place: GMSPlace) {
@@ -936,29 +953,7 @@ extension AddBusinessViewController {
         
     }
     
-    func staticMapURL(place: GMSPlace) -> URL {
-        
-        var bizInitial = place.name[0]
-        let lat = place.coordinate.latitude
-        let long = place.coordinate.longitude
-        let latString : String = "\(lat)"
-        let longString : String = "\(long)"
-        
-        let staticMapPrefix : String = "https://maps.googleapis.com/maps/api/staticmap?"
-        let center : String = "center=\(latString),\(longString)"
-        let zoom : String = "zoom=18"
-        let size : String = "size=300x200"
-        let type : String = "maptype=roadmap"
-        let marker1 : String = "markers=color:blue%7Clabel:\(bizInitial)%7C\(latString),\(longString)"
-        let key : String = "key=AIzaSyCiUyiGQcPxaMDnFJNhSijrr1dZq2XQeuA"
-        let style : String = "style="
-        
-        let staticMapURLString : String = staticMapPrefix + center + "&" + zoom + "&" + size + "&" + type + "&" + marker1 + "&" + key
-        let url : URL = URL(string: staticMapURLString)!
-        
-        return url
-        
-    }
+
     
     func autocompleteClicked() {
         autocompleteController = GMSAutocompleteViewController()
@@ -1027,6 +1022,8 @@ extension AddBusinessViewController {
     }
 
     func setValuesFromGooglePlaceAndJSON (place: GMSPlace, json: JSON) {
+        
+        placeID = place.placeID
         
         let section0 = self.form.sectionBy(tag: "0")
         section0?.hidden = true
@@ -1135,6 +1132,7 @@ extension AddBusinessViewController {
            
         }
         
+        businessTags = place.types
         descriptionRow?.value = descriptionString
         descriptionRow?.updateCell()
         
@@ -1149,12 +1147,12 @@ extension AddBusinessViewController {
                 
                 if let suo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(suo)
-                    sundayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    sundayOpenRow?.value = firebaseTimeStringToDate(string)
                     sundayOpenRow?.updateCell()
                 }
                 if let suc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(suc)
-                    sundayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    sundayCloseRow?.value = firebaseTimeStringToDate(string)
                     sundayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1163,12 +1161,12 @@ extension AddBusinessViewController {
             case 1:
                 if let mo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(mo)
-                    mondayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    mondayOpenRow?.value = firebaseTimeStringToDate(string)
                     mondayOpenRow?.updateCell()
                 }
                 if let mc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(mc)
-                    mondayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    mondayCloseRow?.value = firebaseTimeStringToDate(string)
                     mondayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1177,12 +1175,12 @@ extension AddBusinessViewController {
             case 2:
                 if let tuo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(tuo)
-                    tuesdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    tuesdayOpenRow?.value = firebaseTimeStringToDate(string)
                     tuesdayOpenRow?.updateCell()
                 }
                 if let tuc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(tuc)
-                    tuesdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    tuesdayCloseRow?.value = firebaseTimeStringToDate(string)
                     tuesdayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1191,12 +1189,12 @@ extension AddBusinessViewController {
             case 3:
                 if let wo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(wo)
-                    wednesdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    wednesdayOpenRow?.value = firebaseTimeStringToDate(string)
                     wednesdayOpenRow?.updateCell()
                 }
                 if let wc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(wc)
-                    wednesdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    wednesdayCloseRow?.value = firebaseTimeStringToDate(string)
                     wednesdayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1205,12 +1203,12 @@ extension AddBusinessViewController {
             case 4:
                 if let tho = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(tho)
-                    thursdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    thursdayOpenRow?.value = firebaseTimeStringToDate(string)
                     thursdayOpenRow?.updateCell()
                 }
                 if let thc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(thc)
-                    thursdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    thursdayCloseRow?.value = firebaseTimeStringToDate(string)
                     thursdayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1219,12 +1217,12 @@ extension AddBusinessViewController {
             case 5:
                 if let fo = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(fo)
-                    fridayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    fridayOpenRow?.value = firebaseTimeStringToDate(string)
                     fridayOpenRow?.updateCell()
                 }
                 if let fc = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(fc)
-                    fridayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    fridayCloseRow?.value = firebaseTimeStringToDate(string)
                     fridayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow
@@ -1232,12 +1230,12 @@ extension AddBusinessViewController {
             case 6:
                 if let sao = value.1["open"]["time"].string {
                     let string = addColonToGoogleTimeString(sao)
-                    saturdayOpenRow?.value = firebaseTimeStringToDate(string!)
+                    saturdayOpenRow?.value = firebaseTimeStringToDate(string)
                     saturdayOpenRow?.updateCell()
                 }
                 if let sac = value.1["close"]["time"].string {
                     let string = addColonToGoogleTimeString(sac)
-                    saturdayCloseRow?.value = firebaseTimeStringToDate(string!)
+                    saturdayCloseRow?.value = firebaseTimeStringToDate(string)
                     saturdayCloseRow?.updateCell()
                 }
                 let row = form.rowBy(tag: "weekDayRow") as! WeekDayRow

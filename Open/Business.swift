@@ -16,29 +16,20 @@ import FirebaseDatabase
 // phone number
 // hours
 enum DayOfWeek : Int {
-    case sunday = 1
-    case monday
-    case tuesday
-    case wednesday
-    case thursday
-    case friday
-    case saturday
-    
-}
-
-struct Address {
-    
-    var streetNumber : Int?
-    var street : String?
-    var addressLineTwo: String?
-    var city : String
-    var state : String
-    var zip : Int
+    case sunday = 0
+    case monday = 1
+    case tuesday = 2
+    case wednesday = 3
+    case thursday = 4
+    case friday = 5
+    case saturday = 6
     
 }
 
 struct Business {
     
+    var opnPlaceID : String //Generated upon signup
+    let placeID : String //Google places ID for cross reference
     let key: String
     let ref: FIRDatabaseReference?
     //Name
@@ -50,6 +41,7 @@ struct Business {
     let businessTypeOne : String
     let businessTypeTwo : String
     let businessTypeThree : String
+    let businessTags : [String]
     //Hours
     let mondayOpen : String
     let mondayClose : String
@@ -79,18 +71,10 @@ struct Business {
     let email : String
     //etc.
     let businessDescription : String
-    
-//    let streetNumber: Int
-//    let street : String
-//    //let addressLineTwo : String?
-//    let city : String
-//    let state : String
-//    let zip : String
-//    let latitude : Double
-//    let longitude : Double
-//    var completed: Bool
-//    let addedByUser: String
-    
+    //lat - long
+    let latitude : Double
+    let longitude : Double
+
     var isOpen: Bool {
         get {
             let dates = getOpenClose(self)
@@ -98,17 +82,28 @@ struct Business {
         }
     }
     
+    var nxtOpn : String {
+        get {
+            return nextOpen(self)
+        }
+    }
+    
+    var opnTil : String {
+        get {
+            return openUntil(self)
+        }
+    }
+    
     var location : CLLocation {
         get {
-            return self.location
-        }
-        set {
-            let newLocation : CLLocation = CLLocation(latitude: 42.382884, longitude: -71.071386)
-            location = newLocation
+            return CLLocation(latitude: latitude, longitude: longitude)
         }
     }
     
     init(//Key
+        
+          opnPlaceID : String,
+          placeID : String,
           key: String = "",
          //Name
           businessName : String,
@@ -119,6 +114,7 @@ struct Business {
           businessTypeOne : String,
           businessTypeTwo : String,
           businessTypeThree : String,
+          businessTags : [String],
         //Hours
           mondayOpen : String,
           mondayClose : String,
@@ -147,8 +143,15 @@ struct Business {
           website : String,
           email : String,
         //etc.
-          businessDescription : String ) {
+          businessDescription : String,
+        // lat - long
+        latitude : Double,
+        longitude : Double
         
+        ) {
+        
+        self.opnPlaceID = opnPlaceID
+        self.placeID = placeID
         self.key = key
         self.businessName = businessName
         self.contactName = contactName
@@ -156,6 +159,7 @@ struct Business {
         self.businessTypeOne = businessTypeOne
         self.businessTypeTwo = businessTypeTwo
         self.businessTypeThree = businessTypeThree
+        self.businessTags = businessTags
         self.mondayOpen = mondayOpen
         self.mondayClose = mondayClose
         self.tuesdayOpen = tuesdayOpen
@@ -180,19 +184,28 @@ struct Business {
         self.website = website
         self.email = email
         self.businessDescription = businessDescription
+        //lat - long
+        self.latitude = latitude
+        self.longitude = longitude
+
         self.ref = nil
         
     }
     
     init(snapshot: FIRDataSnapshot) {
+        
+        
         key = snapshot.key
         let snapshotValue = snapshot.value as! [String: AnyObject]
+        opnPlaceID = snapshotValue["opnPlaceID"] as! String
+        placeID = snapshotValue["placeID"] as! String
         businessName = snapshotValue["businessName"] as! String
         contactName = snapshotValue["contactName"] as! String
         password = snapshotValue["password"] as! String
         businessTypeOne = snapshotValue["businessTypeOne"] as! String
         businessTypeTwo = snapshotValue["businessTypeTwo"] as! String
         businessTypeThree = snapshotValue["businessTypeThree"] as! String
+        businessTags = snapshotValue["businessTags"] as! [String]
         mondayOpen = snapshotValue["mondayOpen"] as! String
         mondayClose = snapshotValue["mondayClose"] as! String
         tuesdayOpen = snapshotValue["tuesdayOpen"] as! String
@@ -217,18 +230,23 @@ struct Business {
         website = snapshotValue["website"] as! String
         email = snapshotValue["email"] as! String
         businessDescription = snapshotValue["businessDescription"] as! String
+        latitude = snapshotValue["latitude"] as! Double
+        longitude = snapshotValue["longitude"] as! Double
         ref = snapshot.ref
     }
     
     func toAnyObject() -> Any {
         return [
                   //"isOpen" : isOpen,
+              "opnPlaceID" : opnPlaceID,
+                 "placeID" : placeID,
              "businessName": businessName,
              "contactName" : contactName,
                 "password" : password,
          "businessTypeOne" : businessTypeOne,
          "businessTypeTwo" : businessTypeTwo,
        "businessTypeThree" : businessTypeThree,
+            "businessTags" : businessTags,
               "mondayOpen" : mondayOpen,
              "mondayClose" : mondayClose,
              "tuesdayOpen" : tuesdayOpen,
@@ -253,18 +271,17 @@ struct Business {
                  "website" : website,
                    "email" : email,
      "businessDescription" : businessDescription,
+                "latitude" : latitude,
+               "longitude" : longitude,
             ]
     }
     
 }
 
-func getDayOfWeek() -> DayOfWeek {
-    let date = Date()
-    let calendar = Calendar.current
-    let weekday = calendar.component(.weekday, from: date)
-    return (DayOfWeek(rawValue: weekday))!
-}
 
-//extension Business {
-//    func getOpenTimeForDay
-//}
+
+extension Business {
+    mutating func generateOpnPlaceID() {
+        self.opnPlaceID = randomOpnKey(length: 27)
+    }
+}

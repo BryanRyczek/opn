@@ -7,101 +7,37 @@
 //
 
 import Foundation
+import GooglePlaces
+import SwiftyJSON
+import FirebaseDatabase
 
-let acceptedBusinessTypes : [String] = ["accounting",
-                                        "airport",
-                                        "amusement_park",
-                                        "aquarium",
-                                        "art_gallery",
-                                        "atm",
-                                        "bakery",
-                                        "bank",
-                                        "bar",
-                                        "beauty_salon",
-                                        "bicycle_store",
-                                        "book_store",
-                                        "bowling_alley",
-                                        "bus_station",
-                                        "cafe",
-                                        "campground",
-                                        "car_dealer",
-                                        "car_rental",
-                                        "car_repair",
-                                        "car_wash",
-                                        "casino",
-                                        "cemetery",
-                                        "church",
-                                        "city_hall",
-                                        "clothing_store",
-                                        "convenience_store",
-                                        "courthouse",
-                                        "dentist",
-                                        "department_store",
-                                        "doctor",
-                                        "electrician",
-                                        "electronics_store",
-                                        "embassy",
-                                        "finance",
-                                        "fire_station",
-                                        "florist",
-                                        "food",
-                                        "funeral_home",
-                                        "furniture_store",
-                                        "gas_station",
-                                        "general_contractor",
-                                        "grocery_or_supermarket",
-                                        "gym",
-                                        "hair_care",
-                                        "hardware_store",
-                                        "hindu_temple",
-                                        "home_goods_store",
-                                        "hospital",
-                                        "insurance_agency",
-                                        "jewelry_store",
-                                        "laundry",
-                                        "lawyer",
-                                        "library",
-                                        "liquor_store",
-                                        "local_government_office",
-                                        "locksmith",
-                                        "lodging",
-                                        "meal_delivery",
-                                        "meal_takeaway",
-                                        "mosque",
-                                        "movie_rental",
-                                        "movie_theater",
-                                        "moving_company",
-                                        "museum",
-                                        "night_club",
-                                        "painter",
-                                        "park",
-                                        "parking",
-                                        "pet_store",
-                                        "pharmacy",
-                                        "physiotherapist",
-                                        "plumber",
-                                        "police",
-                                        "post_office",
-                                        "real_estate_agency",
-                                        "restaurant",
-                                        "roofing_contractor",
-                                        "rv_park",
-                                        "school",
-                                        "shoe_store",
-                                        "shopping_mall",
-                                        "spa",
-                                        "stadium",
-                                        "storage",
-                                        "store",
-                                        "subway_station",
-                                        "synagogue",
-                                        "taxi_stand",
-                                        "train_station",
-                                        "transit_station",
-                                        "travel_agency",
-                                        "university",
-                                        "veterinary_care",
-                                        "zoo"]
+//MARK: Firebase components properties
+var placeRef = FIRDatabase.database().reference(withPath: "opnPlaceID")
+
+func randomOpnKey(length: Int) -> String {
+    
+    let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    let len = UInt32(letters.length)
+    
+    var randomOpnKey = ""
+    
+    for _ in 0 ..< length {
+        let rand = arc4random_uniform(len)
+        var nextChar = letters.character(at: Int(rand))
+        randomOpnKey += NSString(characters: &nextChar, length: 1) as String
+    }
+    
+    return randomOpnKey
+}
+
+
+func cacheBusiness(business: Business) {
+
+    let businessRef = placeRef.child(business.opnPlaceID.lowercased())
+    businessRef.setValue(business.toAnyObject())
+    
+}
+
 
 extension String {
     func makeFirebaseString() -> String{
@@ -137,8 +73,8 @@ func firebaseTimeStringToDate (_ string: String) -> Date {
     return newDate
 }
 
-func addColonToGoogleTimeString (_ string: String) -> String? {
-    if string.characters.count != 4 { return nil }
+func addColonToGoogleTimeString (_ string: String) -> String {
+    if string.characters.count != 4 { return string }
     
     var newString = string
     let idx = newString.index(newString.startIndex, offsetBy: 2)
@@ -163,6 +99,69 @@ func currentDateCustomTime(_ dateWithTime: Date)  -> Date {
     
     return newDate
 }
+
+func openUntil(_ business: Business) -> String {
+    
+    
+    var closeTime: String = ""
+    
+    if let today = addDay(date: Date()).dayOfWeek() {
+        switch today {
+        case "monday":
+            closeTime = business.mondayClose
+        case "tuesday":
+            closeTime = business.tuesdayClose
+        case"wednesday":
+            closeTime = business.wednesdayClose
+        case"thursday":
+            closeTime = business.thursdayClose
+        case"friday":
+            closeTime = business.fridayClose
+        case"saturday":
+            closeTime = business.saturdayClose
+        case"sunday":
+            closeTime = business.sundayClose
+        default:
+            break
+        }
+    }
+    
+    closeTime = addColonToGoogleTimeString(closeTime)
+    
+    return closeTime
+}
+
+func nextOpen(_ business: Business) -> String {
+    
+    var openTime: String = ""
+    
+    if let today = addDay(date: Date()).dayOfWeek() {
+        switch today {
+        case "monday":
+            openTime = business.mondayOpen
+        case "tuesday":
+            openTime = business.tuesdayOpen
+        case"wednesday":
+            openTime = business.wednesdayOpen
+        case"thursday":
+            openTime = business.thursdayOpen
+        case"friday":
+            openTime = business.fridayOpen
+        case"saturday":
+            openTime = business.saturdayOpen
+        case"sunday":
+            openTime = business.sundayOpen
+        default:
+            break
+        }
+    }
+    
+    openTime = addColonToGoogleTimeString(openTime)
+    
+    return openTime
+}
+
+
 
 func getOpenClose(_ business: Business) -> [Date] {
     
@@ -205,6 +204,12 @@ func getOpenClose(_ business: Business) -> [Date] {
     todayCloseDate = openBeforeClose(todayOpenDate, close: todayCloseDate)
     
     return [todayOpenDate, todayCloseDate]
+}
+
+func addDay(date: Date) -> Date {
+    let calendar = Calendar.current
+    let newClose = calendar.date(byAdding: .day, value: 1, to: date)
+    return newClose!
 }
 
 func openBeforeClose (_ open: Date, close: Date) -> Date {
