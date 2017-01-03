@@ -26,19 +26,10 @@ enum DayOfWeek : Int {
     
 }
 
-struct Address {
-    
-    var streetNumber : Int?
-    var street : String?
-    var addressLineTwo: String?
-    var city : String
-    var state : String
-    var zip : Int
-    
-}
-
 struct Business {
-    let placeID : String
+    
+    var opnPlaceID : String //Generated upon signup
+    let placeID : String //Google places ID for cross reference
     let key: String
     let ref: FIRDatabaseReference?
     //Name
@@ -50,6 +41,7 @@ struct Business {
     let businessTypeOne : String
     let businessTypeTwo : String
     let businessTypeThree : String
+    let businessTags : [String]
     //Hours
     let mondayOpen : String
     let mondayClose : String
@@ -110,6 +102,7 @@ struct Business {
     
     init(//Key
         
+          opnPlaceID : String,
           placeID : String,
           key: String = "",
          //Name
@@ -121,6 +114,7 @@ struct Business {
           businessTypeOne : String,
           businessTypeTwo : String,
           businessTypeThree : String,
+          businessTags : [String],
         //Hours
           mondayOpen : String,
           mondayClose : String,
@@ -156,6 +150,7 @@ struct Business {
         
         ) {
         
+        self.opnPlaceID = opnPlaceID
         self.placeID = placeID
         self.key = key
         self.businessName = businessName
@@ -164,6 +159,7 @@ struct Business {
         self.businessTypeOne = businessTypeOne
         self.businessTypeTwo = businessTypeTwo
         self.businessTypeThree = businessTypeThree
+        self.businessTags = businessTags
         self.mondayOpen = mondayOpen
         self.mondayClose = mondayClose
         self.tuesdayOpen = tuesdayOpen
@@ -201,6 +197,7 @@ struct Business {
         
         key = snapshot.key
         let snapshotValue = snapshot.value as! [String: AnyObject]
+        opnPlaceID = snapshotValue["opnPlaceID"] as! String
         placeID = snapshotValue["placeID"] as! String
         businessName = snapshotValue["businessName"] as! String
         contactName = snapshotValue["contactName"] as! String
@@ -208,6 +205,7 @@ struct Business {
         businessTypeOne = snapshotValue["businessTypeOne"] as! String
         businessTypeTwo = snapshotValue["businessTypeTwo"] as! String
         businessTypeThree = snapshotValue["businessTypeThree"] as! String
+        businessTags = snapshotValue["businessTags"] as! [String]
         mondayOpen = snapshotValue["mondayOpen"] as! String
         mondayClose = snapshotValue["mondayClose"] as! String
         tuesdayOpen = snapshotValue["tuesdayOpen"] as! String
@@ -240,6 +238,7 @@ struct Business {
     func toAnyObject() -> Any {
         return [
                   //"isOpen" : isOpen,
+              "opnPlaceID" : opnPlaceID,
                  "placeID" : placeID,
              "businessName": businessName,
              "contactName" : contactName,
@@ -247,6 +246,7 @@ struct Business {
          "businessTypeOne" : businessTypeOne,
          "businessTypeTwo" : businessTypeTwo,
        "businessTypeThree" : businessTypeThree,
+            "businessTags" : businessTags,
               "mondayOpen" : mondayOpen,
              "mondayClose" : mondayClose,
              "tuesdayOpen" : tuesdayOpen,
@@ -281,7 +281,7 @@ struct Business {
 
 
 extension Business {
-    func save() {
-        
+    mutating func generateOpnPlaceID() {
+        self.opnPlaceID = randomOpnKey(length: 27)
     }
 }

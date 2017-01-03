@@ -35,6 +35,7 @@ class AddBusinessViewController: FormViewController {
     lazy var autocompleteController = GMSAutocompleteViewController()
     
     //MARK: vars for storing information to send to Firebase when all is complete :)
+    lazy var opnPlaceID = String()
     lazy var placeID = String()
     lazy var businessName = String()
     lazy var contactName = String()
@@ -42,6 +43,7 @@ class AddBusinessViewController: FormViewController {
     lazy var businessTypeOne = String()
     lazy var businessTypeTwo = String()
     lazy var businessTypeThree = String()
+    lazy var businessTags = [String]()
     lazy var mondayOpen = String()
     lazy var mondayClose = String()
     lazy var tuesdayOpen = String()
@@ -344,7 +346,7 @@ class AddBusinessViewController: FormViewController {
                 $0.hidden = true
             }
             <<< TextAreaRow("businessDescription") {
-                $0.title = "Business Category"
+                $0.title = "Business Description"
                 $0.tag = "description"
                 $0.placeholder = "Let Customers know what type of business you have."
             }
@@ -646,12 +648,15 @@ class AddBusinessViewController: FormViewController {
                         self.website = ""
                     }
                     
-                    if let des = valuesDictionary["businessCategory"] as? String ?? nil {
+                    if let des = valuesDictionary["description"] as? String ?? nil {
                         self.businessDescription = des.makeFirebaseString()
+                        self.businessTags = des.components(separatedBy: ",")
+                        for entry in self.businessTags {
+                            entry.makeFirebaseString()
+                        }
                     } else {
                         self.businessDescription = ""
                     }
-                    
                     
                     guard let bn = valuesDictionary["businessName"] as? String ?? nil,
                         let sa1 = valuesDictionary["streetAddressOne"] as? String ?? nil,
@@ -814,13 +819,15 @@ class AddBusinessViewController: FormViewController {
 
     func saveBusiness() {
         
-                let business = Business(placeID: placeID,
+                var business = Business(opnPlaceID: opnPlaceID,
+                                        placeID: placeID,
                                         businessName: businessName,
                                         contactName: contactName,
                                         password: password,
                                         businessTypeOne: businessTypeOne,
                                         businessTypeTwo: businessTypeTwo,
                                         businessTypeThree: businessTypeThree,
+                                        businessTags: businessTags,
                                         mondayOpen: mondayOpen,
                                         mondayClose: mondayClose,
                                         tuesdayOpen: tuesdayOpen,
@@ -849,7 +856,9 @@ class AddBusinessViewController: FormViewController {
                                         longitude: longitude
                                     )
         
-        let businessRef = self.ref.child(businessName.lowercased())
+        business.generateOpnPlaceID()
+        
+        let businessRef = placeRef.child(business.opnPlaceID.lowercased())
         businessRef.setValue(business.toAnyObject())
         
     }
@@ -890,7 +899,7 @@ func defaultTextFieldCellUpdate<T0: TextFieldCell, T1:FieldRowConformance>(cell:
 
 //MARK: WeeklyDayCell
 
-
+//MARK: Extension
 extension AddBusinessViewController {
     
     func mapPopover(place: GMSPlace) {
@@ -1014,6 +1023,8 @@ extension AddBusinessViewController {
 
     func setValuesFromGooglePlaceAndJSON (place: GMSPlace, json: JSON) {
         
+        placeID = place.placeID
+        
         let section0 = self.form.sectionBy(tag: "0")
         section0?.hidden = true
         section0?.evaluateHidden()
@@ -1121,6 +1132,7 @@ extension AddBusinessViewController {
            
         }
         
+        businessTags = place.types
         descriptionRow?.value = descriptionString
         descriptionRow?.updateCell()
         

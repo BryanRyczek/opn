@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wB2-0R-E8H">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9Ns-am-1jG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1240,7 +1240,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFz-nP-ymh">
-                                <rect key="frame" x="36" y="28" width="303" height="48"/>
+                                <rect key="frame" x="36" y="72" width="303" height="48"/>
                                 <attributedString key="attributedText">
                                     <fragment content="There are 20 Businesses Open within 3 mi. of you.">
                                         <attributes>
@@ -1269,13 +1269,14 @@
                             <constraint firstAttribute="trailing" secondItem="5lC-bl-AR5" secondAttribute="trailing" constant="8" id="dKX-Ke-38m"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Cx9-3p-uhZ"/>
                     <connections>
                         <outlet property="headlineLabel" destination="AFz-nP-ymh" id="RZP-WO-YEm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fh3-ZY-0MQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6279" y="-618"/>
+            <point key="canvasLocation" x="7216.8000000000002" y="-618.44077961019491"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r6d-J0-x6K">
@@ -1295,11 +1296,29 @@
             </objects>
             <point key="canvasLocation" x="1664.8" y="88.605697151424295"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sbO-bl-HJV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jZZ-do-nv6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fBO-vk-Nfx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wB2-0R-E8H" kind="relationship" relationship="rootViewController" id="U2V-GY-uWm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mae-da-2wm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6277.6000000000004" y="-618.44077961019491"/>
+        </scene>
     </scenes>
     <resources>
         <image name="opnLogo" width="317" height="210"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SAq-Sz-THd"/>
+        <segue reference="r1W-2q-vMi"/>
     </inferredMetricsTieBreakers>
 </document>

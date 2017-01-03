@@ -17,7 +17,7 @@ class OpnViewController: UIViewController {
     @IBOutlet weak var opnTableView: UITableView!
     
     //Firebase Refs
-    lazy var ref = FIRDatabase.database().reference(withPath: "placeid")
+    lazy var ref = FIRDatabase.database().reference(withPath: "opnPlaceID")
     lazy var usersRef = FIRDatabase.database().reference(withPath: "online")
     //Current Firebase User
     var currentUser : User!

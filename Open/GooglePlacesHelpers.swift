@@ -164,6 +164,7 @@ func BusinessForGooglePlaceID (place: GMSPlace, completionHandler: @escaping (Bu
 //MARK: Business from GMSPlace and JSON
 func businessFromPlaceAndJSON(place: GMSPlace, json: JSON) -> Business {
     
+    var opnPlaceID : String = ""
     var placeID : String = ""
     var key: String
     var ref: FIRDatabaseReference?
@@ -176,6 +177,7 @@ func businessFromPlaceAndJSON(place: GMSPlace, json: JSON) -> Business {
     var businessTypeOne : String = ""
     var businessTypeTwo : String = ""
     var businessTypeThree : String = ""
+    var businessTags : [String] = []
     //Hours
     var mondayOpen : String = ""
     var mondayClose : String = ""
@@ -214,8 +216,8 @@ func businessFromPlaceAndJSON(place: GMSPlace, json: JSON) -> Business {
     
     placeID = place.placeID
     
-    latitude = place.coordinate.latitude as! Double
-    longitude = place.coordinate.longitude as! Double
+    latitude = place.coordinate.latitude
+    longitude = place.coordinate.longitude
     
     var addressArray = place.formattedAddress?.components(separatedBy: ",")
     
@@ -286,6 +288,8 @@ func businessFromPlaceAndJSON(place: GMSPlace, json: JSON) -> Business {
         }
     }
     
+    businessTags = descriptionArray
+    
     let arrayValue = json["result"]["opening_hours"]["periods"]
     
     for (i, value) in arrayValue.enumerated() {
@@ -352,13 +356,15 @@ func businessFromPlaceAndJSON(place: GMSPlace, json: JSON) -> Business {
     
     
     
-    let business = Business(placeID: placeID,
+    var business = Business(opnPlaceID: opnPlaceID,
+                            placeID: placeID,
                             businessName: businessName,
                             contactName: contactName,
                             password: password,
                             businessTypeOne: businessTypeOne,
                             businessTypeTwo: businessTypeTwo,
                             businessTypeThree: businessTypeThree,
+                            businessTags: businessTags,
                             mondayOpen: mondayOpen,
                             mondayClose: mondayClose,
                             tuesdayOpen: tuesdayOpen,
@@ -387,6 +393,7 @@ func businessFromPlaceAndJSON(place: GMSPlace, json: JSON) -> Business {
                             longitude: longitude
     )
     
+    business.generateOpnPlaceID()
     
     return business
 }
@@ -421,6 +428,7 @@ let acceptedBusinessTypes : [String] = ["accounting",
                                         "dentist",
                                         "department_store",
                                         "doctor",
+                                        "establishment",
                                         "electrician",
                                         "electronics_store",
                                         "embassy",

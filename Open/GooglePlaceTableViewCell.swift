@@ -28,6 +28,7 @@ class GooglePlaceTableViewCell: UITableViewCell {
     
     func updateWithBusiness(business : Business) {
         
+        firebaseBusiness = business
         nameLabel.text = business.businessName
         //secondaryLabel.text =
         placeIconLabel.text = business.neighborhood
@@ -101,14 +102,13 @@ class GooglePlaceTableViewCell: UITableViewCell {
                     }
     
                     let business = businessFromPlaceAndJSON(place: place, json: json)
+                    self.firebaseBusiness = business
                     
                     if business.isOpen {
                         self.isOpenLabel.text = "OPEN!"
                     } else {
                         self.isOpenLabel.text = "CLOSED!"
                     }
-                    
-                    cacheBusiness(business: business)
                     
                     
                 })

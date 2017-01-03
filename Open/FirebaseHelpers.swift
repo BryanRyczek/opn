@@ -12,12 +12,28 @@ import SwiftyJSON
 import FirebaseDatabase
 
 //MARK: Firebase components properties
-var placeRef = FIRDatabase.database().reference(withPath: "placeid")
+var placeRef = FIRDatabase.database().reference(withPath: "opnPlaceID")
+
+func randomOpnKey(length: Int) -> String {
+    
+    let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    let len = UInt32(letters.length)
+    
+    var randomOpnKey = ""
+    
+    for _ in 0 ..< length {
+        let rand = arc4random_uniform(len)
+        var nextChar = letters.character(at: Int(rand))
+        randomOpnKey += NSString(characters: &nextChar, length: 1) as String
+    }
+    
+    return randomOpnKey
+}
 
 
 func cacheBusiness(business: Business) {
 
-    let businessRef = placeRef.child(business.placeID.lowercased())
+    let businessRef = placeRef.child(business.opnPlaceID.lowercased())
     businessRef.setValue(business.toAnyObject())
     
 }

@@ -295,6 +295,14 @@ extension OpnSearchViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GooglePlaceTableViewCell", for: indexPath) as! GooglePlaceTableViewCell
+        guard let biz = cell.firebaseBusiness else { return }
+        cacheBusiness(business: biz)
+        
+    }
+    
 }
 
 //MARK: searchbar results updater

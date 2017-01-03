@@ -1,9 +1,9 @@
 //
-//  BubbleNode.swift
-//  Example
+//  MenuNode.swift
+//  Open
 //
-//  Created by Neverland on 15.08.15.
-//  Copyright (c) 2015 ProudOfZiggy. All rights reserved.
+//  Created by Bryan Ryczek on 1/2/17.
+//  Copyright © 2017 Bryan Ryczek. All rights reserved.
 //
 
 import Foundation
@@ -12,13 +12,14 @@ import UIKit
 import SpriteKit
 import Hue
 
-class BubbleNode: SIFloatingNode {
+class MenuNode: SIFloatingNode {
+
     var labelNode = SKLabelNode(fontNamed: avenir55)
-    var business : Business?
+    var category : String?
     
-    init(business: Business, circleOfRadius: Float) {
+    init(category: String, circleOfRadius: Float) {
         super.init()
-        self.business = business
+        self.category = category
         let p = CGPath(ellipseIn: CGRect(origin: CGPoint(x: -40, y: -40), size: CGSize(width: 80.0, height: 80.0)), transform: nil)
         self.path = p
         
@@ -29,35 +30,31 @@ class BubbleNode: SIFloatingNode {
         
     }
     
-    class func instantiate(business: Business) -> BubbleNode! {
-        let node = BubbleNode(business: business, circleOfRadius: 80)
+    class func instantiate(category: String) -> MenuNode! {
+        let node = MenuNode(category: category, circleOfRadius: 80)
         configureNode(node)
         return node
     }
     
-    class func configureNode(_ node: BubbleNode!) {
+    class func configureNode(_ node: MenuNode!) {
         let boundingBox = node.path?.boundingBox;
         let radius = (boundingBox?.size.width)! / 2.0;
         node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
         //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
-        if let biz = node.business {
-            if biz.isOpen {
-                node.fillColor = opnRed
-            } else {
-                node.fillColor = .lightGray
-            }
+        if let type = node.category {
+            
         }
-       
+        node.fillColor = opnBlue
         node.strokeColor = opnRed
         
-//        let spriteNode = SKSpriteNode()
-//        spriteNode.name = "sprite"
-////        spriteNode.texture = 
-////        spriteNode.name = "userimage"
-//        node.isUserInteractionEnabled = true
-//        node.addChild(spriteNode)
+        //        let spriteNode = SKSpriteNode()
+        //        spriteNode.name = "sprite"
+        ////        spriteNode.texture =
+        ////        spriteNode.name = "userimage"
+        //        node.isUserInteractionEnabled = true
+        //        node.addChild(spriteNode)
         
-        node.labelNode.text = node.business?.businessName
+        node.labelNode.text = node.category
         node.labelNode.position = CGPoint.zero
         node.labelNode.fontColor = SKColor.white
         node.labelNode.fontSize = 10
@@ -68,17 +65,17 @@ class BubbleNode: SIFloatingNode {
     }
     
     override func selectingAnimation() -> SKAction? {
-        removeAction(forKey: BubbleNode.removingKey)
+        removeAction(forKey: MenuNode.removingKey)
         return SKAction.scale(to: 1.3, duration: 0.2)
     }
     
     override func normalizeAnimation() -> SKAction? {
-        removeAction(forKey: BubbleNode.removingKey)
+        removeAction(forKey: MenuNode.removingKey)
         return SKAction.scale(to: 1, duration: 0.2)
     }
     
     override func removeAnimation() -> SKAction? {
-        removeAction(forKey: BubbleNode.removingKey)
+        removeAction(forKey: MenuNode.removingKey)
         return SKAction.fadeOut(withDuration: 0.2)
     }
     
@@ -89,4 +86,6 @@ class BubbleNode: SIFloatingNode {
         let repeatPulse = SKAction.repeatForever(pulse)
         return repeatPulse
     }
+
+    
 }
