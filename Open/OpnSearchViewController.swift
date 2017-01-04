@@ -21,6 +21,7 @@ class OpnSearchViewController:  UIViewController {
     
     let GoogleMapsAPIServerKey = "AIzaSyBnajvDIhZR3W5ksBmOvzU3j1yJSX48ZBY"
 
+    //MARK: Location
     var locationManager : CLLocationManager!
     var currentLat : CLLocationDegrees?
     var currentLong : CLLocationDegrees?
@@ -109,7 +110,7 @@ class OpnSearchViewController:  UIViewController {
                                                searchBarFrame: scFrame,
                                                searchBarFont: UIFont(name: avenir85, size: 24.0)!,
                                                searchBarTextColor: opnBlue,
-                                               searchBarTintColor: opnRed)
+                                               searchBarTintColor: .white)
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = true
@@ -261,7 +262,25 @@ extension OpnSearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.nameLabel.text = placeName
         
-        cell.update(placeID: place.placeID!)
+        //cell.update(placeID: place.placeID!)
+        
+        cell.updateBusiness(placeID: place.placeID!) { biz in
+            cell.firebaseBusiness = biz
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // in no time flat...
+                
+                if biz.isOpen == true {
+                    cell.isOpenLabel.text = "OPEN"
+                } else {
+                    cell.isOpenLabel.text = "Closed!"
+                }
+
+                self.searchTableView.reloadData()
+            }
+
+            
+            
+        }
         
         return cell
         

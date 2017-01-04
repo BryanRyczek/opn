@@ -30,7 +30,7 @@ class BubblesScene: SIFloatingCollectionScene {
     fileprivate func configure() {
         backgroundColor = SKColor.white
         scaleMode = .aspectFill
-        allowMultipleSelection = false
+        allowMultipleSelection = true
         var bodyFrame = frame
         bodyFrame.size.width = CGFloat(magneticField.minimumRadius)
         bodyFrame.origin.x -= bodyFrame.size.width / 2

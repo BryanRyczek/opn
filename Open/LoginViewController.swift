@@ -49,7 +49,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         FIRAuth.auth()!.addStateDidChangeListener() { auth, user in
             if user != nil {
-               // self.performSegue(withIdentifier: self.opnSegue, sender: nil)
+                //self.performSegue(withIdentifier: self.opnSegue, sender: nil)
             }
         }
         // Do any additional setup after loading the view.

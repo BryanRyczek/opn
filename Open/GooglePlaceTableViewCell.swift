@@ -41,6 +41,31 @@ class GooglePlaceTableViewCell: UITableViewCell {
         
     }
     
+    func updateBusiness(placeID: String, completion: @escaping (_ result: Business) -> Void) {
+        
+        GMSPlacesClient.shared().lookUpPlaceID(placeID, callback: { (place, error) in
+            
+            if let error = error {
+                print("lookup place id query error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let place = place {
+                
+                jsonForGooglePlaceID(place: place, completionHandler: { (json, error) in
+                    
+                    let business = businessFromPlaceAndJSON(place: place, json: json)
+                    
+                    completion(business)
+                    
+                })
+            }
+            
+        })
+        
+    }
+
+    
     func update(placeID: String) {
         
 //        ref.queryOrdered(byChild: placeID).observe(.value, with: { (snapshot) in

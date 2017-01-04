@@ -10,6 +10,7 @@ import UIKit
 import Eureka
 //import PostalAddressRow
 import FirebaseDatabase
+import CoreLocation
 import GooglePlaces
 import SwiftyJSON
 import Kingfisher
@@ -27,6 +28,11 @@ class AddBusinessViewController: FormViewController {
     
     //MARK: GooglePlaces properties
     lazy var selectedPlace = GMSPlace()
+    
+    //MARK: Location used to set bounds for Google Places search
+    var locationManager : CLLocationManager!
+    var currentLat : CLLocationDegrees?
+    var currentLong : CLLocationDegrees?
     
     //MARK: Firebase components properties
     lazy var ref = FIRDatabase.database().reference(withPath: "business-list")
@@ -73,6 +79,8 @@ class AddBusinessViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        determineMyCurrentLocation()
         
         //MARK: Set font and other Eureka Row properties
         LabelRow.defaultCellUpdate = { cell, row in
@@ -956,9 +964,21 @@ extension AddBusinessViewController {
 
     
     func autocompleteClicked() {
+        
+        let currentLocation = CLLocationCoordinate2D(latitude: currentLat!, longitude: currentLong!)
+        let nwOffset = locationWithBearing(bearing: 315.0, distanceMeters: 25000, origin: currentLocation)
+        let seOffset = locationWithBearing(bearing: 135.0, distanceMeters: 25000, origin: currentLocation)
+        let bounds = GMSCoordinateBounds(coordinate: nwOffset, coordinate: seOffset)
+        
+        let filter = GMSAutocompleteFilter()
+        filter.type = .establishment
+        
         autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
+        autocompleteController.autocompleteBounds = bounds
+        autocompleteController.autocompleteFilter = filter
         present(autocompleteController, animated: true, completion: nil)
+        
     }
     
     func jsonForGooglePlaceID (place: GMSPlace) {
@@ -1283,3 +1303,38 @@ extension AddBusinessViewController: GMSAutocompleteViewControllerDelegate {
     }
     
 }
+
+//MARK: Location Manager Delegate Methods
+extension AddBusinessViewController: CLLocationManagerDelegate {
+    
+    func determineMyCurrentLocation() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+            //locationManager.startUpdatingHeading()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        
+        // Call stopUpdatingLocation() to stop listening for location updates,
+        // other wise this function will be called every time when user location changes.
+        
+        
+        currentLat = userLocation.coordinate.latitude
+        currentLong = userLocation.coordinate.longitude
+        manager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
+    }
+    
+}
+
