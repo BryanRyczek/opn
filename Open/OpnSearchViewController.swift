@@ -94,25 +94,10 @@ class OpnSearchViewController:  UIViewController {
         let userInfo = notification.userInfo!
         let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
         
-//        UIView.animate(withDuration: 0.3, animations: {
-//            self.topView.isHidden = true
-//        }, completion: { (true) in
-//            self.view.layoutIfNeeded()
-//            print("topViewHidden: \(self.topView.isHidden)")
-//        })
-        
-        
         print(keyboardHeight);
     }
     
     func keyboardWillHide(notification: NSNotification) {
-            
-            UIView.animate(withDuration: 0.15, animations: {
-                self.topView.isHidden = false
-                self.view.layoutIfNeeded()
-            }, completion: { (true) in
-                print("topViewHidden: \(self.topView.isHidden)")
-            })
         
     }
     
@@ -179,26 +164,13 @@ class OpnSearchViewController:  UIViewController {
             
             
         } else if !topView.isHidden {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.topView.isHidden = true
-                self.view.layoutIfNeeded()
-            }, completion: { (true) in
-                print("topViewHidden: \(self.topView.isHidden)")
-                self.searchController.searchBar.becomeFirstResponder()
-            })
+           
 
         }
         
         
     }
     
-    func animateTableView() {
-        
-        //DispatchQueue.main.asyncAfter(deadline: .now() + 1.00) {
-        
-        //     }
-    }
-
 
     /*
     // MARK: - Navigation
