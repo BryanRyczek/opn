@@ -42,7 +42,7 @@ class MenuNode: SIFloatingNode {
         node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
         //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
         
-        node.fillColor = UIColor.randomColor()
+        node.fillColor = opnBlue
         node.strokeColor = opnRed
         
         let texture = SKTexture(image: #imageLiteral(resourceName: "clear100x100"))
