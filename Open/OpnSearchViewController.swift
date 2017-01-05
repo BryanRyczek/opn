@@ -262,8 +262,6 @@ extension OpnSearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.nameLabel.text = placeName
         
-        //cell.update(placeID: place.placeID!)
-        
         cell.updateBusiness(placeID: place.placeID!) { biz in
             cell.firebaseBusiness = biz
             
@@ -275,7 +273,7 @@ extension OpnSearchViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.isOpenLabel.text = "Closed!"
                 }
 
-                self.searchTableView.reloadData()
+                
             }
 
             

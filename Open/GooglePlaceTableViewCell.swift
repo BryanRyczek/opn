@@ -10,8 +10,14 @@ import UIKit
 import GooglePlaces
 import FirebaseDatabase
 
+protocol GooglePlaceCellDelegate {
+    func updateCellUI()
+}
+
 // MARK: - GooglePlacesAutocompleteContainer
 class GooglePlaceTableViewCell: UITableViewCell {
+    
+    var googlePlaceCellDelegate: GooglePlaceCellDelegate?
     
     lazy var ref = FIRDatabase.database().reference(withPath: "placeid")
     
