@@ -59,6 +59,23 @@ class BubbleNode: SIFloatingNode {
         return node
     }
     
+    class func instantiate(business: Business, color: UIColor, menuNode: MenuNode) -> BubbleNode! {
+        let node = BubbleNode(business: business, circleOfRadius: 80)
+        node.name = menuNode.labelNode.text
+        
+        if let biz = node.business {
+            if biz.isOpen {
+                node.fillColor = color
+            } else {
+                node.fillColor = .lightGray
+            }
+        }
+        
+        configureNode(node)
+        return node
+    }
+
+    
     class func configureNode(_ node: BubbleNode!) {
         let boundingBox = node.path?.boundingBox;
         let radius = (boundingBox?.size.width)! / 2.0;

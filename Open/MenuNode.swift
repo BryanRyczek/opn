@@ -13,8 +13,6 @@ import SpriteKit
 import Hue
 
 class MenuNode: SIFloatingNode {
-
-    fileprivate(set) open var floatingNodes: [SIFloatingNode] = []
     
     var labelNode = SKLabelNode(fontNamed: avenir55)
     var category : String?
@@ -43,9 +41,7 @@ class MenuNode: SIFloatingNode {
         let radius = (boundingBox?.size.width)! / 2.0;
         node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
         //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
-        if let type = node.category {
-            
-        }
+        
         node.fillColor = UIColor.randomColor()
         node.strokeColor = opnRed
         
@@ -96,13 +92,6 @@ class MenuNode: SIFloatingNode {
         node.addChild(node.labelNode)
     }
     
-    override open func addChild(_ node: SKNode) {
-        if let child = node as? SIFloatingNode {
-            configureChildNode(child)
-            floatingNodes.append(child)
-        }
-        super.addChild(node)
-    }
     
     fileprivate func configureChildNode(_ node: SIFloatingNode!) {
         if node.physicsBody == nil {
@@ -119,14 +108,6 @@ class MenuNode: SIFloatingNode {
         node.physicsBody?.mass = 0.3
         node.physicsBody?.friction = 0
         node.physicsBody?.linearDamping = 3
-    }
-    
-    open func removeFloatingNodes() {
-        
-        for node in floatingNodes {
-            node.removeFromParent()
-        }
-        floatingNodes.removeAll()
     }
     
     override func selectingAnimation() -> SKAction? {

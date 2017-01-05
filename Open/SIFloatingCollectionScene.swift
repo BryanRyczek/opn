@@ -86,7 +86,7 @@ open class SIFloatingCollectionScene: SKScene {
                 removingStartedTime = nil
                 if let node = atPoint(tPoint) as? SIFloatingNode {
                     if let index = floatingNodes.index(of: node) {
-                        removeFloatinNodeAtIndex(index)
+                        removeFloatingNodeAtIndex(index)
                     }
                 }
             }
@@ -187,6 +187,19 @@ open class SIFloatingCollectionScene: SKScene {
         return index
     }
     
+    open func indexOfSelectedNodeWithName(name: String) -> Int? {
+        var index: Int?
+        
+        for (idx, node) in floatingNodes.enumerated() {
+           
+            if node.state == .selected && node.name == name {
+                index = idx
+                break
+            }
+        }
+        return index
+    }
+    
     open func indexesOfSelectedNodes() -> [Int]! {
         var indexes: [Int] = []
         
@@ -196,6 +209,40 @@ open class SIFloatingCollectionScene: SKScene {
             }
         }
         return indexes
+    }
+    
+    func indexesOfChildrenNodes(menuNode: MenuNode) -> [Int]! {
+        
+        var indexes: [Int] = []
+        
+        for node in floatingNodes {
+            if node.name == menuNode.category {
+                if let index = floatingNodes.index(of: node) {
+                    indexes.append(index)
+                }
+            }
+        }
+        
+        indexes.sort(by: >)
+        return indexes
+        
+    }
+    
+    func indexesOfChildrenNodesWithName(name: String) -> [Int]! {
+        
+        var indexes: [Int] = []
+        
+        for node in floatingNodes {
+            if node.name == name {
+                if let index = floatingNodes.index(of: node) {
+                    indexes.append(index)
+                }
+            }
+        }
+        
+        indexes.sort(by: >)
+        return indexes
+        
     }
     
     override open func atPoint(_ p: CGPoint) -> SKNode {
@@ -208,7 +255,11 @@ open class SIFloatingCollectionScene: SKScene {
         return currentNode
     }
     
-    open func removeFloatinNodeAtIndex(_ index: Int) {
+    open func selectNode(_ node: SIFloatingNode) {
+        updateNodeState(node)
+    }
+    
+    open func removeFloatingNodeAtIndex(_ index: Int) {
         if shouldRemoveNodeAtIndex(index) {
             let node = floatingNodes[index]
             floatingNodes.remove(at: index)
@@ -231,6 +282,14 @@ open class SIFloatingCollectionScene: SKScene {
             switch node.state {
             case .normal:
                 if shouldSelectNodeAtIndex(index) {
+                    
+                    if let name = node.name {
+                        if let selectedIndex = indexOfSelectedNodeWithName(name: name) {
+                            updateNodeState(floatingNodes[selectedIndex])
+                        }
+                    }
+                    
+                    //if multiple selection isn't enabled, find the selected node and then update the state of that node
                     if !allowMultipleSelection, let selectedIndex = indexOfSelectedNode() {
                         updateNodeState(floatingNodes[selectedIndex])
                     }
@@ -257,6 +316,23 @@ open class SIFloatingCollectionScene: SKScene {
         }
         super.addChild(node)
     }
+    
+    func addChildToMenuNode(_ menuNode: MenuNode, childNode: SKNode) {
+        if let child = childNode as? SIFloatingNode {
+            configureNode(child)
+            floatingNodes.append(child)
+            menuNode.addChild(child)
+        }
+    }
+    
+    func removeChildrenFromMenuNode(_ menuNode: MenuNode) {
+        
+        guard let indexes = indexesOfChildrenNodes(menuNode: menuNode) else { return }
+            for index in indexes {
+                removeFloatingNodeAtIndex(index)
+            }
+    }
+    
     
     fileprivate func configure() {
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)

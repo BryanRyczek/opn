@@ -209,9 +209,9 @@
 		932A022F1E1C40E300FDCDB6 /* Discover - SpriteKit */ = {
 			isa = PBXGroup;
 			children = (
-				930A0A511E16E2B0005CB733 /* BubbleNode.swift */,
 				931B38291E1D7BCD0033C74E /* BDGradientNode.swift */,
 				932A022D1E1B043400FDCDB6 /* MenuNode.swift */,
+				930A0A511E16E2B0005CB733 /* BubbleNode.swift */,
 				930A0A521E16E2B0005CB733 /* BubblesScene.swift */,
 				930A0A551E16E3BF005CB733 /* SIFloatingCollectionScene.swift */,
 				930A0A561E16E3BF005CB733 /* SIFloatingNode.swift */,
