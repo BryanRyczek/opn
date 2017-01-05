@@ -31,15 +31,7 @@ class BubbleNode: SIFloatingNode {
     
     class func instantiate(business: Business) -> BubbleNode! {
         let node = BubbleNode(business: business, circleOfRadius: 80)
-        configureNode(node)
-        return node
-    }
-    
-    class func configureNode(_ node: BubbleNode!) {
-        let boundingBox = node.path?.boundingBox;
-        let radius = (boundingBox?.size.width)! / 2.0;
-        node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
-        //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
+        
         if let biz = node.business {
             if biz.isOpen {
                 node.fillColor = opnRed
@@ -47,7 +39,49 @@ class BubbleNode: SIFloatingNode {
                 node.fillColor = .lightGray
             }
         }
-       
+        
+        configureNode(node)
+        return node
+    }
+    
+    class func instantiate(business: Business, color: UIColor) -> BubbleNode! {
+        let node = BubbleNode(business: business, circleOfRadius: 80)
+        
+        if let biz = node.business {
+            if biz.isOpen {
+                node.fillColor = color
+            } else {
+                node.fillColor = .lightGray
+            }
+        }
+        
+        configureNode(node)
+        return node
+    }
+    
+    class func instantiate(business: Business, color: UIColor, menuNode: MenuNode) -> BubbleNode! {
+        let node = BubbleNode(business: business, circleOfRadius: 80)
+        node.name = menuNode.labelNode.text
+        
+        if let biz = node.business {
+            if biz.isOpen {
+                node.fillColor = color
+            } else {
+                node.fillColor = .lightGray
+            }
+        }
+        
+        configureNode(node)
+        return node
+    }
+
+    
+    class func configureNode(_ node: BubbleNode!) {
+        let boundingBox = node.path?.boundingBox;
+        let radius = (boundingBox?.size.width)! / 2.0;
+        node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
+        //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
+        
         node.strokeColor = opnRed
         
 //        let spriteNode = SKSpriteNode()

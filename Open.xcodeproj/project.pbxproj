@@ -15,6 +15,7 @@
 		930A0A571E16E3BF005CB733 /* SIFloatingCollectionScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A0A551E16E3BF005CB733 /* SIFloatingCollectionScene.swift */; };
 		930A0A581E16E3BF005CB733 /* SIFloatingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A0A561E16E3BF005CB733 /* SIFloatingNode.swift */; };
 		931951161DC0F56400F5346C /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 931951151DC0F56400F5346C /* FontAwesome.otf */; };
+		931B382A1E1D7BCE0033C74E /* BDGradientNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B38291E1D7BCD0033C74E /* BDGradientNode.swift */; };
 		931F56671DB5307D003B62D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 931F56661DB5307D003B62D5 /* GoogleService-Info.plist */; };
 		931F56681DB5307D003B62D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 931F56661DB5307D003B62D5 /* GoogleService-Info.plist */; };
 		931F56691DB5307D003B62D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 931F56661DB5307D003B62D5 /* GoogleService-Info.plist */; };
@@ -116,6 +117,7 @@
 		930A0A551E16E3BF005CB733 /* SIFloatingCollectionScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIFloatingCollectionScene.swift; sourceTree = "<group>"; };
 		930A0A561E16E3BF005CB733 /* SIFloatingNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIFloatingNode.swift; sourceTree = "<group>"; };
 		931951151DC0F56400F5346C /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		931B38291E1D7BCD0033C74E /* BDGradientNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BDGradientNode.swift; sourceTree = "<group>"; };
 		931F56661DB5307D003B62D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		932A022D1E1B043400FDCDB6 /* MenuNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuNode.swift; sourceTree = "<group>"; };
 		93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseHelpers.swift; sourceTree = "<group>"; };
@@ -207,8 +209,9 @@
 		932A022F1E1C40E300FDCDB6 /* Discover - SpriteKit */ = {
 			isa = PBXGroup;
 			children = (
-				930A0A511E16E2B0005CB733 /* BubbleNode.swift */,
+				931B38291E1D7BCD0033C74E /* BDGradientNode.swift */,
 				932A022D1E1B043400FDCDB6 /* MenuNode.swift */,
+				930A0A511E16E2B0005CB733 /* BubbleNode.swift */,
 				930A0A521E16E2B0005CB733 /* BubblesScene.swift */,
 				930A0A551E16E3BF005CB733 /* SIFloatingCollectionScene.swift */,
 				930A0A561E16E3BF005CB733 /* SIFloatingNode.swift */,
@@ -734,6 +737,7 @@
 				933E17571E09E1E30001274B /* GooglePlacesHelpers.swift in Sources */,
 				93C510791DBABB9800F35504 /* Business.swift in Sources */,
 				93366CA61DC8121A001BEA48 /* FirebaseHelpers.swift in Sources */,
+				931B382A1E1D7BCE0033C74E /* BDGradientNode.swift in Sources */,
 				93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */,
 				93D1AEC41DFB591C00F48911 /* WeekDaysCell.swift in Sources */,
 				930A0A571E16E3BF005CB733 /* SIFloatingCollectionScene.swift in Sources */,

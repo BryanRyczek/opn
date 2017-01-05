@@ -21,6 +21,7 @@ class OpnSearchViewController:  UIViewController {
     
     let GoogleMapsAPIServerKey = "AIzaSyBnajvDIhZR3W5ksBmOvzU3j1yJSX48ZBY"
 
+    //MARK: Location
     var locationManager : CLLocationManager!
     var currentLat : CLLocationDegrees?
     var currentLong : CLLocationDegrees?
@@ -94,25 +95,10 @@ class OpnSearchViewController:  UIViewController {
         let userInfo = notification.userInfo!
         let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
         
-//        UIView.animate(withDuration: 0.3, animations: {
-//            self.topView.isHidden = true
-//        }, completion: { (true) in
-//            self.view.layoutIfNeeded()
-//            print("topViewHidden: \(self.topView.isHidden)")
-//        })
-        
-        
         print(keyboardHeight);
     }
     
     func keyboardWillHide(notification: NSNotification) {
-            
-            UIView.animate(withDuration: 0.15, animations: {
-                self.topView.isHidden = false
-                self.view.layoutIfNeeded()
-            }, completion: { (true) in
-                print("topViewHidden: \(self.topView.isHidden)")
-            })
         
     }
     
@@ -124,7 +110,7 @@ class OpnSearchViewController:  UIViewController {
                                                searchBarFrame: scFrame,
                                                searchBarFont: UIFont(name: avenir85, size: 24.0)!,
                                                searchBarTextColor: opnBlue,
-                                               searchBarTintColor: opnRed)
+                                               searchBarTintColor: .white)
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = true
@@ -179,26 +165,13 @@ class OpnSearchViewController:  UIViewController {
             
             
         } else if !topView.isHidden {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.topView.isHidden = true
-                self.view.layoutIfNeeded()
-            }, completion: { (true) in
-                print("topViewHidden: \(self.topView.isHidden)")
-                self.searchController.searchBar.becomeFirstResponder()
-            })
+           
 
         }
         
         
     }
     
-    func animateTableView() {
-        
-        //DispatchQueue.main.asyncAfter(deadline: .now() + 1.00) {
-        
-        //     }
-    }
-
 
     /*
     // MARK: - Navigation
@@ -289,7 +262,23 @@ extension OpnSearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.nameLabel.text = placeName
         
-        cell.update(placeID: place.placeID!)
+        cell.updateBusiness(placeID: place.placeID!) { biz in
+            cell.firebaseBusiness = biz
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // in no time flat...
+                
+                if biz.isOpen == true {
+                    cell.isOpenLabel.text = "OPEN"
+                } else {
+                    cell.isOpenLabel.text = "Closed!"
+                }
+
+                
+            }
+
+            
+            
+        }
         
         return cell
         

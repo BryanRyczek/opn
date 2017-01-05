@@ -30,7 +30,7 @@ class BubblesScene: SIFloatingCollectionScene {
     fileprivate func configure() {
         backgroundColor = SKColor.white
         scaleMode = .aspectFill
-        allowMultipleSelection = false
+        allowMultipleSelection = true
         var bodyFrame = frame
         bodyFrame.size.width = CGFloat(magneticField.minimumRadius)
         bodyFrame.origin.x -= bodyFrame.size.width / 2
@@ -93,7 +93,7 @@ class BubblesScene: SIFloatingCollectionScene {
     func actionForFloatingNode(_ node: SIFloatingNode!) -> SKAction {
         let action = SKAction.run({ () -> Void in
             if let index = self.floatingNodes.index(of: node) {
-                self.removeFloatinNodeAtIndex(index)
+                self.removeFloatingNodeAtIndex(index)
                 if node.state == .selected {
                     self.throwNode(
                         node,
