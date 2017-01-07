@@ -314,6 +314,7 @@ open class SIFloatingCollectionScene: SKScene {
             configureNode(child)
             floatingNodes.append(child)
         }
+        //node.position = CGPoint(x: 100.0, y: 100.0)
         super.addChild(node)
     }
     

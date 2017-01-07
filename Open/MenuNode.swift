@@ -42,8 +42,8 @@ class MenuNode: SIFloatingNode {
         node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
         //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
         
-        node.fillColor = opnBlue
-        node.strokeColor = opnRed
+        node.fillColor = .white
+        node.strokeColor = UIColor.randomColor()
         
         let texture = SKTexture(image: #imageLiteral(resourceName: "clear100x100"))
         let gradientColors = [opnRed, opnBlue]
@@ -79,11 +79,11 @@ class MenuNode: SIFloatingNode {
         
         node.labelNode.text = node.category
         node.labelNode.position = CGPoint.zero
-        node.labelNode.fontColor = SKColor.white
+        node.labelNode.fontColor = node.strokeColor
         if node.labelNode.text == "🌮" {
             node.labelNode.fontSize = 35
         } else {
-            node.labelNode.fontSize = 10
+            node.labelNode.fontSize = 12
         }
         
         node.labelNode.isUserInteractionEnabled = false

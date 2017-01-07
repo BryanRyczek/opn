@@ -24,9 +24,24 @@ class BubbleNode: SIFloatingNode {
         
     }
     
+    init(circleOfRadius: Float) {
+        super.init()
+        //self.business = business
+        let p = CGPath(ellipseIn: CGRect(origin: CGPoint(x: -40, y: -40), size: CGSize(width: 80.0, height: 80.0)), transform: nil)
+        self.path = p
+        
+    }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init()
         
+    }
+    
+    class func instantiate() -> BubbleNode! {
+        let node = BubbleNode(circleOfRadius: 80)
+        configureNode(node)
+        return node
     }
     
     class func instantiate(business: Business) -> BubbleNode! {
@@ -65,8 +80,9 @@ class BubbleNode: SIFloatingNode {
         
         if let biz = node.business {
             if biz.isOpen {
-                node.fillColor = color
+                node.fillColor = menuNode.strokeColor
             } else {
+                //TO DO: Make this a blend of gray and the fill color used if the business was open
                 node.fillColor = .lightGray
             }
         }
@@ -82,7 +98,7 @@ class BubbleNode: SIFloatingNode {
         node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
         //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
         
-        node.strokeColor = opnRed
+        node.strokeColor = .clear
         
 //        let spriteNode = SKSpriteNode()
 //        spriteNode.name = "sprite"
