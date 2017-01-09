@@ -658,9 +658,10 @@ class AddBusinessViewController: FormViewController {
                     
                     if let des = valuesDictionary["description"] as? String ?? nil {
                         self.businessDescription = des.makeFirebaseString()
-                        self.businessTags = des.components(separatedBy: ",")
-                        for entry in self.businessTags {
-                            entry.makeFirebaseString()
+                        let tags = des.components(separatedBy: ",")
+                        for entry in tags {
+                            let condensedString = entry.makeFirebaseString()
+                            self.businessTags.append(condensedString)
                         }
                     } else {
                         self.businessDescription = ""
@@ -866,8 +867,7 @@ class AddBusinessViewController: FormViewController {
         
         business.generateOpnPlaceID()
         
-        let businessRef = placeRef.child(business.opnPlaceID.lowercased())
-        businessRef.setValue(business.toAnyObject())
+        cacheBusiness(business: business)
         
     }
     
@@ -1152,7 +1152,7 @@ extension AddBusinessViewController {
            
         }
         
-        businessTags = place.types
+        //businessTags = place.types
         descriptionRow?.value = descriptionString
         descriptionRow?.updateCell()
         

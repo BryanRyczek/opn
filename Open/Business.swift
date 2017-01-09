@@ -282,6 +282,6 @@ struct Business {
 
 extension Business {
     mutating func generateOpnPlaceID() {
-        self.opnPlaceID = randomOpnKey(length: 27)
+        self.opnPlaceID = randomOpnKey(length: 18, business: self)
     }
 }

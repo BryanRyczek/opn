@@ -81,6 +81,15 @@ class BubblesScene: SIFloatingCollectionScene {
         node.run(throwAction)
     }
     
+    func centerNodeAction (node: SKNode) -> SKAction {
+        
+        let movingXAction = SKAction.moveTo(x: size.width / 2, duration: 0.2)
+        let movingYAction = SKAction.moveTo(y: size.height / 2, duration: 0.4)
+        let resize = SKAction.scale(to: 1.3, duration: 0.4)
+        let centerAction = SKAction.group([movingXAction, movingYAction, resize])
+        return centerAction
+    }
+    
     func sortedFloatingNodes() -> [SIFloatingNode]! {
         let sortedNodes = floatingNodes.sorted { (node: SIFloatingNode, nextNode: SIFloatingNode) -> Bool in
             let distance = distanceBetweenPoints(node.position, secondPoint: self.magneticField.position)

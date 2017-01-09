@@ -273,11 +273,7 @@ extension OpnSearchViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.isOpenLabel.text = "Closed!"
                 }
 
-                
             }
-
-            
-            
         }
         
         return cell

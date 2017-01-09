@@ -40,6 +40,7 @@ open class SIFloatingCollectionScene: SKScene {
         }
     }
     fileprivate(set) open var floatingNodes: [SIFloatingNode] = []
+    fileprivate(set) open var hiddenNodes: [SIFloatingNode] = []
     
     fileprivate var touchPoint: CGPoint?
     fileprivate var touchStartedTime: TimeInterval?
@@ -211,6 +212,23 @@ open class SIFloatingCollectionScene: SKScene {
         return indexes
     }
     
+    open func indexesOfNonSelectedNodes() -> [Int]! {
+        
+        var indexes: [Int] = []
+        
+        for (idx, node) in floatingNodes.enumerated() {
+            indexes.append(idx)
+            if node.state == .selected {
+                indexes.removeLast()
+            }
+        }
+        
+        indexes.sort(by: >)
+        return indexes
+        
+    }
+    
+    //MARK: find index of children nodes
     func indexesOfChildrenNodes(menuNode: MenuNode) -> [Int]! {
         
         var indexes: [Int] = []
@@ -260,12 +278,19 @@ open class SIFloatingCollectionScene: SKScene {
     }
     
     open func removeFloatingNodeAtIndex(_ index: Int) {
+        print("index \(index)")
         if shouldRemoveNodeAtIndex(index) {
+            print("should remove  \(index)")
             let node = floatingNodes[index]
             floatingNodes.remove(at: index)
             node.removeFromParent()
             floatingDelegate?.floatingScene?(self, didRemoveFloatingNodeAtIndex: index)
         }
+    }
+    
+    open func hideFloatingNodeAtIndex(_ index: Int) {
+        let node = floatingNodes[index]
+        node.isHidden = true
     }
     
     fileprivate func startRemovingNode(_ node: SIFloatingNode!) {
@@ -334,6 +359,28 @@ open class SIFloatingCollectionScene: SKScene {
             }
     }
     
+    open func hideNonSelectedNodes() {
+        guard let nonSelectedNodeIndexes = indexesOfNonSelectedNodes() else {
+            print("error returning non selected indexes")
+            return
+        }
+        for index in nonSelectedNodeIndexes {
+            hideFloatingNodeAtIndex(index)
+        }
+        
+    }
+    
+    open func removeNonSelectedNodes() {
+        guard let nonSelectedNodeIndexes = indexesOfNonSelectedNodes() else {
+            print("error returning non selected indexes")
+            return
+        }
+        for index in nonSelectedNodeIndexes {
+            removeFloatingNodeAtIndex(index)
+        }
+    }
+    
+    
     
     fileprivate func configure() {
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
@@ -376,7 +423,7 @@ open class SIFloatingCollectionScene: SKScene {
     // MARK: -
     // MARK: Floating Delegate Helpers
     fileprivate func shouldRemoveNodeAtIndex(_ index: Int) -> Bool {
-        if 0...floatingNodes.count - 1 ~= index {
+        if 0...floatingNodes.count - 1 ~= index { //is the index within the array count?
             if let shouldRemove = floatingDelegate?.floatingScene?(self, shouldRemoveFloatingNodeAtIndex: index) {
                 return shouldRemove
             }

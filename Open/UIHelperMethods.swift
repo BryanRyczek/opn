@@ -21,13 +21,6 @@ let avenir65 = "AvenirLTStd-Medium"
 let avenir85 = "AvenirLTStd-Heavy"
 let fontAwesome = "FontAwesome"
 
-//MARK: SpriteKit Animations
-let pulsedRed = SKAction.sequence([
-    SKAction.colorize(with: opnRed, colorBlendFactor: 1.0, duration: 0.15),
-    SKAction.wait(forDuration: 0.1),
-    SKAction.colorize(withColorBlendFactor: 0.9, duration: 0.05),
-    SKAction.wait(forDuration: 0.05),
-    SKAction.colorize(withColorBlendFactor: 1.0, duration: 0.05)])
 
 extension UIView {
     class func fromNib<T : UIView>() -> T {
@@ -149,6 +142,43 @@ extension String {
         }
         self.init(attributedString!.string)!
     }
+}
+
+//MARK: String extension for easy subscripting syntax
+
+//let str = "abcdef"
+//str[1 ..< 3] // returns "bc"
+//str[5] // returns "f"
+//str[80] // returns ""
+//str.substring(from: 3) // returns "def"
+//str.substring(to: str.length - 2) // returns "abcd"
+
+extension String {
+    
+    var length: Int {
+        return self.characters.count
+    }
+    
+    subscript (i: Int) -> String {
+        return self[Range(i ..< i + 1)]
+    }
+    
+    func substring(from: Int) -> String {
+        return self[Range(min(from, length) ..< length)]
+    }
+    
+    func substring(to: Int) -> String {
+        return self[Range(0 ..< max(0, to))]
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
+                                            upper: min(length, max(0, r.upperBound))))
+        let start = index(startIndex, offsetBy: range.lowerBound)
+        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+        return self[Range(start ..< end)]
+    }
+    
 }
 
 //Enable / Disable UITableViewCell
@@ -273,9 +303,12 @@ extension String {
         return self.replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
     }
     
-    func removeWhitespace() -> String {
-        return self.replace(" ", replacement: "")
+    func condenseWhitespace() -> String {
+        return self.components(separatedBy: CharacterSet.whitespacesAndNewlines)
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
     }
+    
 }
 
 //MARK: helper method for circularMatchIndicator
@@ -293,21 +326,6 @@ extension UIView{
     func setCornerRadius(_ radius: CGFloat? = nil){
         self.layer.cornerRadius = radius ?? self.frame.width / 2
         self.layer.masksToBounds = true
-    }
-}
-
-extension String {
-    subscript(i: Int) -> String {
-        guard i >= 0 && i < characters.count else { return "" }
-        return String(self[index(startIndex, offsetBy: i)])
-    }
-    subscript(range: CountableRange<Int>) -> String {
-        let lowerIndex = index(startIndex, offsetBy: max(0,range.lowerBound), limitedBy: endIndex) ?? endIndex
-        return self[lowerIndex..<(index(lowerIndex, offsetBy: range.upperBound - range.lowerBound, limitedBy: endIndex) ?? endIndex)]
-    }
-    subscript(range: ClosedRange<Int>) -> String {
-        let lowerIndex = index(startIndex, offsetBy: max(0,range.lowerBound), limitedBy: endIndex) ?? endIndex
-        return self[lowerIndex..<(index(lowerIndex, offsetBy: range.upperBound - range.lowerBound + 1, limitedBy: endIndex) ?? endIndex)]
     }
 }
 

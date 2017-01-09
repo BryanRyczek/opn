@@ -14,12 +14,14 @@ import FirebaseDatabase
 //MARK: Firebase components properties
 var placeRef = FIRDatabase.database().reference(withPath: "opnPlaceID")
 
-func randomOpnKey(length: Int) -> String {
+func randomOpnKey(length: Int, business: Business) -> String {
     
     let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     let len = UInt32(letters.length)
     
     var randomOpnKey = ""
+    
+    randomOpnKey += business.zip + business.businessName[0 ..< 3] + "-"
     
     for _ in 0 ..< length {
         let rand = arc4random_uniform(len)
@@ -33,8 +35,37 @@ func randomOpnKey(length: Int) -> String {
 
 func cacheBusiness(business: Business) {
 
-    let businessRef = placeRef.child(business.opnPlaceID.lowercased())
-    businessRef.setValue(business.toAnyObject())
+    placeRef.queryOrdered(byChild: business.placeID).queryEqual(toValue: "\(business.placeID)").observe(.value, with: {snapshot in
+    
+        var returnedBusiness : Business?
+        
+        if snapshot.childrenCount == 0 {
+            print("we have a new business: \(business.businessName)! opnID = \(business.opnPlaceID)")
+            let businessRef = placeRef.child(business.opnPlaceID.lowercased())
+            businessRef.setValue(business.toAnyObject())
+            return
+        } else if snapshot.childrenCount == 1 {
+        
+            for item in snapshot.children {
+                returnedBusiness = Business(snapshot: item as! FIRDataSnapshot)
+                
+                guard let rBiz = returnedBusiness else { return }
+                
+                if business.placeID == rBiz.placeID {
+                    print("business already exists, information will be updated")
+                    let businessRef = placeRef.child(rBiz.opnPlaceID.lowercased())
+                    var newBusiness = business
+                    newBusiness.opnPlaceID = rBiz.opnPlaceID
+                    businessRef.setValue(newBusiness.toAnyObject())
+                    return
+                }
+            }
+            
+        } else if snapshot.childrenCount >= 2 {
+            fatalError("multiple businesses with identical openPlaceIDs")
+        }
+        
+    })
     
 }
 
@@ -47,6 +78,7 @@ extension String {
         for character in arrCharacterToReplace{
             finalString = finalString.replacingOccurrences(of: character, with: " ")
         }
+        finalString = finalString.condenseWhitespace()
         
         return finalString
     }
