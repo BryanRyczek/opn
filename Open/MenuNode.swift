@@ -80,7 +80,7 @@ class MenuNode: SIFloatingNode {
         node.labelNode.text = node.category
         node.labelNode.position = CGPoint.zero
         node.labelNode.fontColor = node.strokeColor
-        if node.labelNode.text == "🌮" {
+        if (node.labelNode.text?.containsEmoji)! {
             node.labelNode.fontSize = 35
         } else {
             node.labelNode.fontSize = 12

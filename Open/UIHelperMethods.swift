@@ -15,19 +15,35 @@ import SpriteKit
 let opnBlue: UIColor = UIColor(red: 31/255, green: 54/255, blue: 232/255, alpha: 1)
 let opnRed: UIColor = UIColor(red: 226/255, green: 2/255, blue: 64/255, alpha: 1)
 
+extension UIColor {
+    static func randomColor() -> UIColor {
+        // If you wanted a random alpha, just create another
+        // random number for that too.
+        return UIColor(red:   .random(),
+                       green: .random(),
+                       blue:  .random(),
+                       alpha: 1.0)
+    }
+}
+
 //MARK: FONTS
 let avenir55 = "AvenirLTStd-Roman"
 let avenir65 = "AvenirLTStd-Medium"
 let avenir85 = "AvenirLTStd-Heavy"
 let fontAwesome = "FontAwesome"
 
-
-extension UIView {
-    class func fromNib<T : UIView>() -> T {
-        return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
+//MARK: print all fonts available to the project's target
+func printFonts() {
+    let fontFamilyNames = UIFont.familyNames
+    for familyName in fontFamilyNames {
+        print("------------------------------")
+        print("Font Family Name = [\(familyName)]")
+        let names = UIFont.fontNames(forFamilyName: familyName )
+        print("Font Names = [\(names)]")
     }
 }
 
+//MARK: DATES
 extension Date {
     
     func dayNumberOfWeek() -> Int? {
@@ -43,6 +59,55 @@ extension Date {
     
 }
 
+func addTimeToCurrentDateString(_ addMinutes: Int, addHours: Int) -> String {
+    
+    let calendar = Calendar.current
+    let addMin = calendar.date(byAdding: .minute, value: addMinutes, to: Date())
+    let addHrs = calendar.date(byAdding: .hour, value: addHours, to: addMin!)
+    
+    let formatter = DateFormatter()
+    formatter.amSymbol = "AM"
+    formatter.pmSymbol = "PM"
+    
+    switch determineTimeScheme() {
+    case true: //12 Hour Clock
+        formatter.dateFormat = "h:mm a"
+        let standardTime = formatter.string(from: addHrs!)
+        return "\(standardTime)"
+    case false: // 24 Hour clock (no AM / PM)
+        formatter.dateFormat = "h:mm"
+        let militaryTime = formatter.string(from: addHrs!)
+        return "\(militaryTime)"
+    }
+}
+
+func formatGMTDate(_ date: Date) -> String {
+    
+    let formatter = DateFormatter()
+    formatter.amSymbol = "AM"
+    formatter.pmSymbol = "PM"
+    
+    switch determineTimeScheme() {
+    case true:
+        formatter.dateFormat = "h:mm a"
+        let standardTime = formatter.string(from: date)
+        return "\(standardTime)"
+    case false:
+        formatter.dateFormat = "h:mm"
+        let militaryTime = formatter.string(from: date)
+        return "\(militaryTime)"
+    }
+    
+}
+
+//determines if user is using 12 hour or 24 hour clock setting
+func determineTimeScheme() -> Bool {
+    let formatString: NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString
+    let hasAMPM = formatString.contains("a")
+    return hasAMPM
+}
+
+//MARK: IMAGES
 func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
     let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: size.width, height: size.height))
     UIGraphicsBeginImageContextWithOptions(size, false, 0)
@@ -53,6 +118,7 @@ func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
     return image
 }
 
+//MARK: MISC
 //type inference functions so we can add stored properties to extenstions
 func associatedObject<ValueType: AnyObject>(
     _ base: AnyObject,
@@ -74,6 +140,8 @@ func associateObject<ValueType: AnyObject>(
     objc_setAssociatedObject(base, key, value,
                              .OBJC_ASSOCIATION_RETAIN)
 }
+
+//MARK: Load Nib From UIView
 class NibLoadingView: UIView {
     
     @IBOutlet weak var view: UIView!
@@ -108,23 +176,52 @@ class NibLoadingView: UIView {
     }
 }
 
-//Set IB ImageViews to this custom class to round corners
-class CIRoundedImageView: UIImageView {
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func awakeFromNib() {
-        print("height \(self.frame.height) width \(self.frame.width)")
-        self.layoutIfNeeded()
-        print("height \(self.frame.height) width \(self.frame.width)")
-        layer.cornerRadius = self.frame.width / 2.0
-        print(layer.cornerRadius)
-        layer.masksToBounds = true
+//MARK: TableViewCell
+//Enable / Disable UITableViewCell
+extension UITableViewCell {
+    func enable(_ on: Bool) {
+        self.isUserInteractionEnabled = on
+        for view in contentView.subviews {
+            view.isUserInteractionEnabled = on
+            view.alpha = on ? 1 : 0.5
+        }
     }
 }
 
+
+//MARK: STRINGS
+//this method takes an HTML tagged String and returns an attributed string based on the HTML tags (<b>String</b>).
+func convertHTMLTextToAttributedString(_ inputText: String, fontSize : Int) -> NSAttributedString {
+    
+    var html = inputText
+    
+    // Replace newline character by HTML line break
+    while let range = html.range(of: "\n") {
+        html.replaceSubrange(range, with: "<br />")
+    }
+    
+    // Embed in a <span> for font attributes:
+    html = "<span style=\"font-family: Helvetica; font-size:\(fontSize)pt;\">" + html + "</span>"
+    
+    let data = html.data(using: String.Encoding.unicode, allowLossyConversion: true)!
+    let attrStr = try? NSAttributedString(
+        data: data,
+        options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+        documentAttributes: nil)
+    return attrStr!
+}
+
+//used for image matching static data
+func currentUserFirstNameLowercase (_ username: String) -> String {
+    let firstName = username.components(separatedBy: " ")[0]
+    let firstNameLowercase = firstName.lowercased()
+    return firstNameLowercase
+}
+
+func currentUserFirstName (_ username: String) -> String {
+    let firstName = username.components(separatedBy: " ")[0]
+    return firstName
+}
 
 // MARK: - String Extension to handle HTML encoded strings
 extension String {
@@ -181,123 +278,29 @@ extension String {
     
 }
 
-//Enable / Disable UITableViewCell
-extension UITableViewCell {
-    func enable(_ on: Bool) {
-        self.isUserInteractionEnabled = on
-        for view in contentView.subviews {
-            view.isUserInteractionEnabled = on
-            view.alpha = on ? 1 : 0.5
+//MARK: Contains Emjoi
+extension String {
+    
+    var containsEmoji: Bool {
+        for scalar in unicodeScalars {
+            switch scalar.value {
+            case 0x1F600...0x1F64F, // Emoticons
+            0x1F300...0x1F5FF, // Misc Symbols and Pictographs
+            0x1F680...0x1F6FF, // Transport and Map
+            0x2600...0x26FF,   // Misc symbols
+            0x2700...0x27BF,   // Dingbats
+            0xFE00...0xFE0F:   // Variation Selectors
+                return true
+            default:
+                continue
+            }
         }
-    }
-}
-
-
-extension UIColor {
-    static func randomColor() -> UIColor {
-        // If you wanted a random alpha, just create another
-        // random number for that too.
-        return UIColor(red:   .random(),
-                       green: .random(),
-                       blue:  .random(),
-                       alpha: 1.0)
-    }
-}
-
-func addTimeToCurrentDateString(_ addMinutes: Int, addHours: Int) -> String {
-    
-    let calendar = Calendar.current
-    let addMin = calendar.date(byAdding: .minute, value: addMinutes, to: Date())
-    let addHrs = calendar.date(byAdding: .hour, value: addHours, to: addMin!)
-    
-    let formatter = DateFormatter()
-    formatter.amSymbol = "AM"
-    formatter.pmSymbol = "PM"
-    
-    switch determineTimeScheme() {
-    case true: //12 Hour Clock
-        formatter.dateFormat = "h:mm a"
-        let standardTime = formatter.string(from: addHrs!)
-        return "\(standardTime)"
-    case false: // 24 Hour clock (no AM / PM)
-        formatter.dateFormat = "h:mm"
-        let militaryTime = formatter.string(from: addHrs!)
-        return "\(militaryTime)"
-    }
-}
-
-func formatGMTDate(_ date: Date) -> String {
-    
-    let formatter = DateFormatter()
-    formatter.amSymbol = "AM"
-    formatter.pmSymbol = "PM"
-    
-    switch determineTimeScheme() {
-    case true:
-        formatter.dateFormat = "h:mm a"
-        let standardTime = formatter.string(from: date)
-        return "\(standardTime)"
-    case false:
-        formatter.dateFormat = "h:mm"
-        let militaryTime = formatter.string(from: date)
-        return "\(militaryTime)"
+        return false
     }
     
 }
 
-//determines if user is using 12 hour or 24 hour clock setting
-func determineTimeScheme() -> Bool {
-    let formatString: NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString
-    let hasAMPM = formatString.contains("a")
-    return hasAMPM
-}
-
-//MARK: String conversion methods
-//this method takes an HTML tagged String and returns an attributed string based on the HTML tags (<b>String</b>).
-func convertHTMLTextToAttributedString(_ inputText: String, fontSize : Int) -> NSAttributedString {
-    
-    var html = inputText
-    
-    // Replace newline character by HTML line break
-    while let range = html.range(of: "\n") {
-        html.replaceSubrange(range, with: "<br />")
-    }
-    
-    // Embed in a <span> for font attributes:
-    html = "<span style=\"font-family: Helvetica; font-size:\(fontSize)pt;\">" + html + "</span>"
-    
-    let data = html.data(using: String.Encoding.unicode, allowLossyConversion: true)!
-    let attrStr = try? NSAttributedString(
-        data: data,
-        options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
-        documentAttributes: nil)
-    return attrStr!
-}
-
-//used for image matching static data
-func currentUserFirstNameLowercase (_ username: String) -> String {
-    let firstName = username.components(separatedBy: " ")[0]
-    let firstNameLowercase = firstName.lowercased()
-    return firstNameLowercase
-}
-
-func currentUserFirstName (_ username: String) -> String {
-    let firstName = username.components(separatedBy: " ")[0]
-    return firstName
-}
-
-func printFonts() {
-    let fontFamilyNames = UIFont.familyNames
-    for familyName in fontFamilyNames {
-        print("------------------------------")
-        print("Font Family Name = [\(familyName)]")
-        let names = UIFont.fontNames(forFamilyName: familyName )
-        print("Font Names = [\(names)]")
-    }
-}
-
-
-//remove whitespaces from string
+//MARK: remove whitespaces from string
 extension String {
     func replace(_ string:String, replacement:String) -> String {
         return self.replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
@@ -311,6 +314,8 @@ extension String {
     
 }
 
+
+
 //MARK: helper method for circularMatchIndicator
 func randomAngle() -> Int {
     return Int(360 * Int(arc4random_uniform(UInt32(1))))
@@ -321,6 +326,12 @@ func randomInt(_ min: Int, max: Int) -> Int {
     return Int(arc4random_uniform(UInt32((max - min) + 1))) + min
 }
 
+extension UIView {
+    class func fromNib<T : UIView>() -> T {
+        return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
+    }
+}
+
 //apply corner radius
 extension UIView{
     func setCornerRadius(_ radius: CGFloat? = nil){
@@ -328,6 +339,7 @@ extension UIView{
         self.layer.masksToBounds = true
     }
 }
+
 
 //MARK: Storyboard methods
 //this method will allow the developer to 

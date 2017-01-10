@@ -817,8 +817,7 @@ class AddBusinessViewController: FormViewController {
                 self.email = em.makeFirebaseString()
                 
                 self.saveBusiness()
-                self.performSegue(withIdentifier: "addBizShowOpn", sender: self)
-
+                
             default:
                 break
             }
@@ -867,7 +866,13 @@ class AddBusinessViewController: FormViewController {
         
         business.generateOpnPlaceID()
         
-        cacheBusiness(business: business)
+        cacheBusiness(business: business) { result in
+            if result == true {
+                self.performSegue(withIdentifier: "addBizShowOpn", sender: self)
+            } else {
+                print("business not cached, segue not performed!")
+            }
+        }
         
     }
     

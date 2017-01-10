@@ -33,9 +33,9 @@ func randomOpnKey(length: Int, business: Business) -> String {
 }
 
 
-func cacheBusiness(business: Business) {
+func cacheBusiness(business: Business, completion: @escaping (_ result: Bool) -> Void) {
 
-    placeRef.queryOrdered(byChild: business.placeID).queryEqual(toValue: "\(business.placeID)").observe(.value, with: {snapshot in
+    placeRef.queryOrdered(byChild: "placeID").queryEqual(toValue: "\(business.placeID)").observe(.value, with: {snapshot in
     
         var returnedBusiness : Business?
         
@@ -57,7 +57,7 @@ func cacheBusiness(business: Business) {
                     var newBusiness = business
                     newBusiness.opnPlaceID = rBiz.opnPlaceID
                     businessRef.setValue(newBusiness.toAnyObject())
-                    return
+                    completion(true)
                 }
             }
             

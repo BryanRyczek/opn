@@ -284,8 +284,9 @@ extension OpnSearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "GooglePlaceTableViewCell", for: indexPath) as! GooglePlaceTableViewCell
         guard let biz = cell.firebaseBusiness else { return }
-        cacheBusiness(business: biz)
-        
+        cacheBusiness(business: biz) { result in
+            print("business cached!")
+        }
     }
     
 }
