@@ -19,7 +19,8 @@ class BubbleNode: SIFloatingNode {
     init(business: Business, circleOfRadius: Float) {
         super.init()
         self.business = business
-        let p = CGPath(ellipseIn: CGRect(origin: CGPoint(x: -40, y: -40), size: CGSize(width: 80.0, height: 80.0)), transform: nil)
+        let radius : CGFloat = CGFloat(circleOfRadius)
+        let p = CGPath(ellipseIn: CGRect(origin: CGPoint(x: -radius, y: -radius), size: CGSize(width: radius*2, height: radius*2)), transform: nil)
         self.path = p
         
     }
@@ -74,8 +75,8 @@ class BubbleNode: SIFloatingNode {
         return node
     }
     
-    class func instantiate(business: Business, color: UIColor, menuNode: MenuNode) -> BubbleNode! {
-        let node = BubbleNode(business: business, circleOfRadius: 80)
+    class func instantiate(business: Business, menuNode: MenuNode) -> BubbleNode! {
+        let node = BubbleNode(business: business, circleOfRadius: 30)
         node.name = menuNode.labelNode.text
         
         if let biz = node.business {

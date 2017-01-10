@@ -45,8 +45,6 @@ class IsOpenViewController: UIViewController {
         print(isDateWithinInverval(todayOpen, close: todayClose))
         // Do any additional setup after loading the view.
     }
-
-    
     
     func setOpenClose() throws {
         
