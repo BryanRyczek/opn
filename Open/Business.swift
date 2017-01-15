@@ -285,3 +285,46 @@ extension Business {
         self.opnPlaceID = randomOpnKey(length: 18, business: self)
     }
 }
+
+extension Business: Equatable {
+
+    static func ==(lhs: Business, rhs: Business) -> Bool {
+              let areEqual = lhs.opnPlaceID == rhs.opnPlaceID &&
+        lhs.placeID == rhs.placeID &&
+        lhs.businessName == rhs.businessName &&
+        lhs.contactName == rhs.contactName &&
+        lhs.password == rhs.password &&
+        lhs.businessTypeOne == rhs.businessTypeOne &&
+        lhs.businessTypeTwo == rhs.businessTypeTwo &&
+        lhs.businessTypeThree == rhs.businessTypeThree &&
+        lhs.businessTags == rhs.businessTags &&
+        lhs.mondayOpen == rhs.mondayOpen &&
+        lhs.mondayClose == rhs.mondayClose &&
+        lhs.tuesdayOpen == rhs.tuesdayOpen &&
+        lhs.tuesdayClose == rhs.tuesdayClose &&
+        lhs.wednesdayOpen == rhs.wednesdayOpen &&
+        lhs.wednesdayClose == rhs.wednesdayClose &&
+        lhs.thursdayOpen == rhs.thursdayOpen &&
+        lhs.thursdayClose == rhs.thursdayClose &&
+        lhs.fridayOpen == rhs.fridayOpen &&
+        lhs.fridayClose == rhs.fridayClose &&
+        lhs.saturdayOpen == rhs.saturdayOpen &&
+        lhs.saturdayClose == rhs.saturdayClose &&
+        lhs.sundayOpen == rhs.sundayOpen &&
+        lhs.sundayClose == rhs.sundayClose &&
+        lhs.addressLineOne == rhs.addressLineOne &&
+        lhs.addressLineTwo == rhs.addressLineTwo &&
+        lhs.city == rhs.city &&
+        lhs.state == rhs.state &&
+        lhs.zip == rhs.zip &&
+        lhs.neighborhood == rhs.neighborhood &&
+        lhs.phoneNumber == rhs.phoneNumber &&
+        lhs.website == rhs.website &&
+        lhs.email == rhs.email &&
+        lhs.businessDescription == rhs.businessDescription &&
+        lhs.latitude == rhs.latitude &&
+        lhs.longitude == rhs.longitude
+        
+        return areEqual
+    }
+}
