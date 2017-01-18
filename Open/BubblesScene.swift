@@ -19,6 +19,7 @@ class BubblesScene: SIFloatingCollectionScene {
     var bottomOffset: CGFloat = 0
     var topOffset: CGFloat = 0
     
+    var selectedMenuNode : MenuNode?
     
     var touchPoint: CGPoint? // point where the user touched. needed for touchesBegan, ended, moved etc. overrides
     

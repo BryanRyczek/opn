@@ -12,7 +12,7 @@ import UIKit
 import SpriteKit
 import Hue
 
-class BubbleNode: SIFloatingNode {
+open class BubbleNode: SIFloatingNode {
     var labelNode = SKLabelNode(fontNamed: avenir55)
     var business : Business?
     
@@ -34,7 +34,7 @@ class BubbleNode: SIFloatingNode {
     }
     
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init()
         
     }
@@ -66,8 +66,10 @@ class BubbleNode: SIFloatingNode {
         if let biz = node.business {
             if biz.isOpen {
                 node.fillColor = color
+                node.strokeColor = color
             } else {
                 node.fillColor = .lightGray
+                node.strokeColor = color
             }
         }
         
@@ -82,9 +84,11 @@ class BubbleNode: SIFloatingNode {
         if let biz = node.business {
             if biz.isOpen {
                 node.fillColor = menuNode.strokeColor
+                node.strokeColor = menuNode.strokeColor
             } else {
                 //TO DO: Make this a blend of gray and the fill color used if the business was open
                 node.fillColor = .lightGray
+                node.strokeColor = menuNode.strokeColor
             }
         }
         
@@ -97,9 +101,8 @@ class BubbleNode: SIFloatingNode {
         let boundingBox = node.path?.boundingBox;
         let radius = (boundingBox?.size.width)! / 2.0;
         node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
+        node.physicsBody?.categoryBitMask = PhysicsCategory.BubbleNode
         //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
-        
-        node.strokeColor = .clear
         
 //        let spriteNode = SKSpriteNode()
 //        spriteNode.name = "sprite"
@@ -118,22 +121,22 @@ class BubbleNode: SIFloatingNode {
         node.addChild(node.labelNode)
     }
     
-    override func selectingAnimation() -> SKAction? {
+    override open func selectingAnimation() -> SKAction? {
         removeAction(forKey: BubbleNode.removingKey)
         return SKAction.scale(to: 1.3, duration: 0.2)
     }
     
-    override func normalizeAnimation() -> SKAction? {
+    override open func normalizeAnimation() -> SKAction? {
         removeAction(forKey: BubbleNode.removingKey)
         return SKAction.scale(to: 1, duration: 0.2)
     }
     
-    override func removeAnimation() -> SKAction? {
+    override open func removeAnimation() -> SKAction? {
         removeAction(forKey: BubbleNode.removingKey)
         return SKAction.fadeOut(withDuration: 0.2)
     }
     
-    override func removingAnimation() -> SKAction {
+    override open func removingAnimation() -> SKAction {
         let pulseUp = SKAction.scale(to: xScale + 0.13, duration: 0)
         let pulseDown = SKAction.scale(to: xScale, duration: 0.3)
         let pulse = SKAction.sequence([pulseUp, pulseDown])

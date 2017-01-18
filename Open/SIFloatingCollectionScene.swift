@@ -32,6 +32,13 @@ public enum SIFloatingCollectionSceneMode {
     case moving
 }
 
+struct PhysicsCategory {
+    static let None      : UInt32 = 0
+    static let All       : UInt32 = UInt32.max
+    static let MenuNode  : UInt32 = 0x1 << 1       // 1
+    static let BubbleNode : UInt32 = 0x2 << 2      // 2
+}
+
 open class SIFloatingCollectionScene: SKScene {
     fileprivate(set) open var magneticField = SKFieldNode.radialGravityField()
     fileprivate(set) var mode: SIFloatingCollectionSceneMode = .normal {
@@ -39,9 +46,12 @@ open class SIFloatingCollectionScene: SKScene {
             modeUpdated()
         }
     }
+    
     fileprivate(set) open var floatingNodes: [SIFloatingNode] = []
-    fileprivate(set) open var removedNodes: [SIFloatingNode] = []
-    open var currentMenu : [String] = []
+    fileprivate(set) open var removedMenuNodes : [MenuNode] = []
+    fileprivate(set) open var removedBubbleNodes : [BubbleNode] = []
+    var currentMenu : [String] = []
+    var currentBusinesses : [Business] = []
     
     fileprivate var touchPoint: CGPoint?
     fileprivate var touchStartedTime: TimeInterval?
@@ -289,6 +299,10 @@ open class SIFloatingCollectionScene: SKScene {
                 let newMenu = currentMenu.filter{ $0 != menuNode.category }
                 currentMenu = newMenu
             }
+            if let bubNode = node as? BubbleNode {
+                let newBusinesses = currentBusinesses.filter{ $0 != bubNode.business }
+                currentBusinesses = newBusinesses
+            }
             floatingDelegate?.floatingScene?(self, didRemoveFloatingNodeAtIndex: index)
         }
         
@@ -296,25 +310,47 @@ open class SIFloatingCollectionScene: SKScene {
     
     open func removeFloatingNodeAtIndexAddToArray(_ index: Int) {
         if shouldRemoveNodeAtIndex(index) {
-            print("should remove  \(index)")
             let node = floatingNodes[index]
             floatingNodes.remove(at: index)
-            removedNodes.append(node)
+            
+            if let n = node as? MenuNode {
+                removedMenuNodes.append(n)
+            }
+            if let n = node as? BubbleNode {
+                removedBubbleNodes.append(n)
+            }
+            
             node.removeFromParent()
             floatingDelegate?.floatingScene?(self, didRemoveFloatingNodeAtIndex: index)
         }
     }
     
     open func addRemovedNodes(nodes: [SIFloatingNode]) {
+        
         for node in nodes {
             self.reAddChild(node)
         }
-        removedNodes.removeAll()
+
+        if nodes is [MenuNode] {
+            removedMenuNodes.removeAll()
+        }
+        if nodes is [BubbleNode] {
+            removedBubbleNodes.removeAll()
+        }
+        
     }
     
     open func hideFloatingNodeAtIndex(_ index: Int) {
         let node = floatingNodes[index]
         node.isHidden = true
+    }
+    
+    open func removePhoneNode() {
+        for (i, node) in floatingNodes.enumerated() {
+            if node is PhoneNode {
+                removeFloatingNodeAtIndex(i)
+            }
+        }
     }
     
     fileprivate func startRemovingNode(_ node: SIFloatingNode!) {
@@ -346,6 +382,18 @@ open class SIFloatingCollectionScene: SKScene {
         }
     }
 
+    func menuNodeWithCategoryExists(node: MenuNode) -> Bool {
+        guard let category = node.category else {
+            return true
+        }
+        
+            if currentMenu.contains(category) {
+                return true
+            } else {
+                return false
+            }
+            
+        }
     
     fileprivate func updateNodeState(_ node: SIFloatingNode!) {
         if let index = floatingNodes.index(of: node) {
@@ -397,12 +445,14 @@ open class SIFloatingCollectionScene: SKScene {
 
     }
     
-    func addChildToMenuNode(_ menuNode: MenuNode, childNode: SKNode) {
+    func addNodeForMenuNode(_ menuNode: MenuNode, childNode: SKNode) {
         if let child = childNode as? SIFloatingNode {
             configureNode(child)
             floatingNodes.append(child)
-            menuNode.addChild(child)
+            
         }
+        childNode.position = menuNode.position
+        super.addChild(childNode)
     }
     
     func removeChildrenFromMenuNode(_ menuNode: MenuNode) {

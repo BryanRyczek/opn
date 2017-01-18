@@ -12,7 +12,7 @@ import UIKit
 import SpriteKit
 import Hue
 
-class MenuNode: SIFloatingNode {
+open class MenuNode: SIFloatingNode {
     
     var labelNode = SKLabelNode(fontNamed: avenir55)
     var category : String?
@@ -25,7 +25,7 @@ class MenuNode: SIFloatingNode {
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init()
         
     }
@@ -37,9 +37,10 @@ class MenuNode: SIFloatingNode {
     }
     
     class func configureNode(_ node: MenuNode!) {
-        let boundingBox = node.path?.boundingBox;
+        let boundingBox = node.path?.boundingBox
         let radius = (boundingBox?.size.width)! / 2.0;
         node.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
+        node.physicsBody?.categoryBitMask = PhysicsCategory.MenuNode
         //let randomGradient = UIColor(gradientStyle: .radial, withFrame: boundingBox!, andColors: [FlatRed(),FlatRedDark()] )
         
         node.fillColor = .white
@@ -110,22 +111,22 @@ class MenuNode: SIFloatingNode {
         node.physicsBody?.linearDamping = 3
     }
     
-    override func selectingAnimation() -> SKAction? {
+    override open func selectingAnimation() -> SKAction? {
         removeAction(forKey: MenuNode.removingKey)
         return SKAction.scale(to: 1.3, duration: 0.2)
     }
     
-    override func normalizeAnimation() -> SKAction? {
+    override open func normalizeAnimation() -> SKAction? {
         removeAction(forKey: MenuNode.removingKey)
         return SKAction.scale(to: 1, duration: 0.2)
     }
     
-    override func removeAnimation() -> SKAction? {
+    override open func removeAnimation() -> SKAction? {
         removeAction(forKey: MenuNode.removingKey)
         return SKAction.fadeOut(withDuration: 0.2)
     }
     
-    override func removingAnimation() -> SKAction {
+    override open func removingAnimation() -> SKAction {
         let pulseUp = SKAction.scale(to: xScale + 0.13, duration: 0)
         let pulseDown = SKAction.scale(to: xScale, duration: 0.3)
         let pulse = SKAction.sequence([pulseUp, pulseDown])
