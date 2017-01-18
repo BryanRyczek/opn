@@ -31,6 +31,8 @@
 		936BA2F71E0347ED0097DCD0 /* OpnSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936BA2F61E0347ED0097DCD0 /* OpnSearchViewController.swift */; };
 		936BA2FC1E034D300097DCD0 /* GooglePlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936BA2FA1E034D300097DCD0 /* GooglePlaceTableViewCell.swift */; };
 		936BA2FD1E034D300097DCD0 /* GooglePlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 936BA2FB1E034D300097DCD0 /* GooglePlaceTableViewCell.xib */; };
+		936C057F1E21AE15006F36A9 /* SpriteKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C057E1E21AE15006F36A9 /* SpriteKitHelpers.swift */; };
+		936C05811E23F7C6006F36A9 /* EmojiBusinessArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C05801E23F7C6006F36A9 /* EmojiBusinessArray.swift */; };
 		9376CE871DD3DA1900785556 /* ModalBusinessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */; };
 		938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938CFD191DB46A81000A0675 /* AppDelegate.swift */; };
 		938CFD1F1DB46A81000A0675 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD1D1DB46A81000A0675 /* Main.storyboard */; };
@@ -77,6 +79,7 @@
 		938CFD791DB46C29000A0675 /* AvenirLTStd-Roman.otf in Resources */ = {isa = PBXBuildFile; fileRef = 938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */; };
 		939E39AE1DDCAD260093FF2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E39AD1DDCAD260093FF2C /* LoginViewController.swift */; };
 		939E39B01DDCD81C0093FF2C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E39AF1DDCD81C0093FF2C /* User.swift */; };
+		93B87FB41E2EE0A500882798 /* PhoneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B87FB31E2EE0A500882798 /* PhoneNode.swift */; };
 		93C510791DBABB9800F35504 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C510781DBABB9800F35504 /* Business.swift */; };
 		93D1AEC41DFB591C00F48911 /* WeekDaysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D1AEC31DFB591C00F48911 /* WeekDaysCell.swift */; };
 		93DA01671DD0E93100DF57F7 /* UIHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DA01661DD0E93100DF57F7 /* UIHelperMethods.swift */; };
@@ -131,6 +134,8 @@
 		936BA2F61E0347ED0097DCD0 /* OpnSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpnSearchViewController.swift; sourceTree = "<group>"; };
 		936BA2FA1E034D300097DCD0 /* GooglePlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlaceTableViewCell.swift; sourceTree = "<group>"; };
 		936BA2FB1E034D300097DCD0 /* GooglePlaceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GooglePlaceTableViewCell.xib; sourceTree = "<group>"; };
+		936C057E1E21AE15006F36A9 /* SpriteKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitHelpers.swift; sourceTree = "<group>"; };
+		936C05801E23F7C6006F36A9 /* EmojiBusinessArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiBusinessArray.swift; sourceTree = "<group>"; };
 		9376CE861DD3DA1900785556 /* ModalBusinessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalBusinessViewController.xib; sourceTree = "<group>"; };
 		938CFD161DB46A81000A0675 /* Open.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Open.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		938CFD191DB46A81000A0675 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -159,6 +164,7 @@
 		938CFD551DB46C29000A0675 /* AvenirLTStd-Roman.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirLTStd-Roman.otf"; sourceTree = "<group>"; };
 		939E39AD1DDCAD260093FF2C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		939E39AF1DDCD81C0093FF2C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		93B87FB31E2EE0A500882798 /* PhoneNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNode.swift; sourceTree = "<group>"; };
 		93C510781DBABB9800F35504 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		93C5107A1DBB053B00F35504 /* Open.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Open.entitlements; sourceTree = "<group>"; };
 		93D1AEC31DFB591C00F48911 /* WeekDaysCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekDaysCell.swift; sourceTree = "<group>"; };
@@ -210,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				931B38291E1D7BCD0033C74E /* BDGradientNode.swift */,
+				93B87FB31E2EE0A500882798 /* PhoneNode.swift */,
 				932A022D1E1B043400FDCDB6 /* MenuNode.swift */,
 				930A0A511E16E2B0005CB733 /* BubbleNode.swift */,
 				930A0A521E16E2B0005CB733 /* BubblesScene.swift */,
@@ -308,11 +315,28 @@
 			name = Avenir;
 			sourceTree = "<group>";
 		};
+		9390FA7D1E254F1A00E996D6 /* Currently Unused */ = {
+			isa = PBXGroup;
+			children = (
+				936C05801E23F7C6006F36A9 /* EmojiBusinessArray.swift */,
+			);
+			name = "Currently Unused";
+			sourceTree = "<group>";
+		};
+		9390FA7E1E254F4200E996D6 /* Currently Unused */ = {
+			isa = PBXGroup;
+			children = (
+				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
+			);
+			name = "Currently Unused";
+			sourceTree = "<group>";
+		};
 		93DA01621DD0E8E600DF57F7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				93C510781DBABB9800F35504 /* Business.swift */,
 				939E39AF1DDCD81C0093FF2C /* User.swift */,
+				9390FA7D1E254F1A00E996D6 /* Currently Unused */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -340,7 +364,7 @@
 				932A022F1E1C40E300FDCDB6 /* Discover - SpriteKit */,
 				936BA2F61E0347ED0097DCD0 /* OpnSearchViewController.swift */,
 				93685F731DDE4C3A00DD557B /* AddBusinessViewController.swift */,
-				93DCD8E01DBE570500E2624B /* SignupViewController.swift */,
+				9390FA7E1E254F4200E996D6 /* Currently Unused */,
 				93E1C0D01DD50A5500708CF9 /* IsOpenViewController.swift */,
 				9365F37F1DD0D2C200CCF231 /* OpnViewController.swift */,
 				939E39AD1DDCAD260093FF2C /* LoginViewController.swift */,
@@ -357,6 +381,7 @@
 				93366CA51DC8121A001BEA48 /* FirebaseHelpers.swift */,
 				933E17561E09E1E30001274B /* GooglePlacesHelpers.swift */,
 				933E17581E09E1FB0001274B /* FoundationHelpers.swift */,
+				936C057E1E21AE15006F36A9 /* SpriteKitHelpers.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -726,6 +751,7 @@
 			files = (
 				93685F741DDE4C3A00DD557B /* AddBusinessViewController.swift in Sources */,
 				930A0A581E16E3BF005CB733 /* SIFloatingNode.swift in Sources */,
+				93B87FB41E2EE0A500882798 /* PhoneNode.swift in Sources */,
 				939E39B01DDCD81C0093FF2C /* User.swift in Sources */,
 				933E17591E09E1FB0001274B /* FoundationHelpers.swift in Sources */,
 				939E39AE1DDCAD260093FF2C /* LoginViewController.swift in Sources */,
@@ -740,8 +766,10 @@
 				931B382A1E1D7BCE0033C74E /* BDGradientNode.swift in Sources */,
 				93DCD8E11DBE570500E2624B /* SignupViewController.swift in Sources */,
 				93D1AEC41DFB591C00F48911 /* WeekDaysCell.swift in Sources */,
+				936C05811E23F7C6006F36A9 /* EmojiBusinessArray.swift in Sources */,
 				930A0A571E16E3BF005CB733 /* SIFloatingCollectionScene.swift in Sources */,
 				936BA2F71E0347ED0097DCD0 /* OpnSearchViewController.swift in Sources */,
+				936C057F1E21AE15006F36A9 /* SpriteKitHelpers.swift in Sources */,
 				938CFD1A1DB46A81000A0675 /* AppDelegate.swift in Sources */,
 				9365F3801DD0D2C200CCF231 /* OpnViewController.swift in Sources */,
 				93F91AED1DFF3C480069544E /* BusinessDetailsModalVC.swift in Sources */,

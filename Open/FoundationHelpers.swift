@@ -9,6 +9,8 @@
 import Foundation
 import CoreLocation
 import UIKit
+//MARK: Grand Central Dispatch Delay
+
 
 //MARK: Offset to CLLocation - Compensates for curvature of the earth!
 func locationWithBearing(bearing:Double, distanceMeters:Double, origin:CLLocationCoordinate2D) -> CLLocationCoordinate2D {
@@ -30,7 +32,7 @@ func getDayOfWeek() -> DayOfWeek {
     return (DayOfWeek(rawValue: weekday))!
 }
 
-//MARK: Array extension to filder duplicates
+//MARK: Array extension to filter duplicates
 extension Array {
     
     func filterDuplicates( _ includeElement: (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element]{
@@ -73,5 +75,24 @@ public extension Sequence where Iterator.Element: Equatable {
 extension CGFloat {
     static func random() -> CGFloat {
         return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
+}
+
+//MARK: Random number within range
+extension Int
+{
+    static func random(range: Range<Int> ) -> Int
+    {
+        var offset = 0
+        
+        if range.lowerBound < 0   // allow negative ranges
+        {
+            offset = Swift.abs(range.lowerBound)
+        }
+        
+        let mini = UInt32(range.lowerBound + offset)
+        let maxi = UInt32(range.upperBound   + offset)
+        
+        return Int(mini + arc4random_uniform(maxi - mini)) - offset
     }
 }

@@ -32,6 +32,13 @@ public enum SIFloatingCollectionSceneMode {
     case moving
 }
 
+struct PhysicsCategory {
+    static let None      : UInt32 = 0
+    static let All       : UInt32 = UInt32.max
+    static let MenuNode  : UInt32 = 0x1 << 1       // 1
+    static let BubbleNode : UInt32 = 0x2 << 2      // 2
+}
+
 open class SIFloatingCollectionScene: SKScene {
     fileprivate(set) open var magneticField = SKFieldNode.radialGravityField()
     fileprivate(set) var mode: SIFloatingCollectionSceneMode = .normal {
@@ -39,7 +46,12 @@ open class SIFloatingCollectionScene: SKScene {
             modeUpdated()
         }
     }
+    
     fileprivate(set) open var floatingNodes: [SIFloatingNode] = []
+    fileprivate(set) open var removedMenuNodes : [MenuNode] = []
+    fileprivate(set) open var removedBubbleNodes : [BubbleNode] = []
+    var currentMenu : [String] = []
+    var currentBusinesses : [Business] = []
     
     fileprivate var touchPoint: CGPoint?
     fileprivate var touchStartedTime: TimeInterval?
@@ -211,6 +223,44 @@ open class SIFloatingCollectionScene: SKScene {
         return indexes
     }
     
+    open func indexesOfNonSelectedNodes() -> [Int]! {
+        
+        var indexes: [Int] = []
+        
+        for (idx, node) in floatingNodes.enumerated() {
+            indexes.append(idx)
+            if node.state == .selected {
+                indexes.removeLast()
+            }
+        }
+        
+        indexes.sort(by: >)
+        return indexes
+        
+    }
+    
+    
+    
+    //MARK: Determine if there is a MenuNode w/ category present
+    
+    open func menuNodeWithCategoryExists (category: String) -> Bool {
+        
+        for node in floatingNodes {
+            
+            guard let n = node as? MenuNode else {
+                break
+            }
+                if n.category == category {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        
+        return false
+    }
+    
+    //MARK: find index of children nodes
     func indexesOfChildrenNodes(menuNode: MenuNode) -> [Int]! {
         
         var indexes: [Int] = []
@@ -260,11 +310,67 @@ open class SIFloatingCollectionScene: SKScene {
     }
     
     open func removeFloatingNodeAtIndex(_ index: Int) {
+        print("index \(index)")
         if shouldRemoveNodeAtIndex(index) {
+            print("should remove  \(index)")
             let node = floatingNodes[index]
             floatingNodes.remove(at: index)
             node.removeFromParent()
+            if let menuNode = node as? MenuNode {
+                let newMenu = currentMenu.filter{ $0 != menuNode.category }
+                currentMenu = newMenu
+            }
+            if let bubNode = node as? BubbleNode {
+                let newBusinesses = currentBusinesses.filter{ $0 != bubNode.business }
+                currentBusinesses = newBusinesses
+            }
             floatingDelegate?.floatingScene?(self, didRemoveFloatingNodeAtIndex: index)
+        }
+        
+    }
+    
+    open func removeFloatingNodeAtIndexAddToArray(_ index: Int) {
+        if shouldRemoveNodeAtIndex(index) {
+            let node = floatingNodes[index]
+            floatingNodes.remove(at: index)
+            
+            if let n = node as? MenuNode {
+                removedMenuNodes.append(n)
+            }
+            if let n = node as? BubbleNode {
+                removedBubbleNodes.append(n)
+            }
+            
+            node.removeFromParent()
+            floatingDelegate?.floatingScene?(self, didRemoveFloatingNodeAtIndex: index)
+        }
+    }
+    
+    open func addRemovedNodes(nodes: [SIFloatingNode]) {
+        
+        for node in nodes {
+            self.reAddChild(node)
+        }
+
+        if nodes is [MenuNode] {
+            removedMenuNodes.removeAll()
+        }
+        if nodes is [BubbleNode] {
+            removedBubbleNodes.removeAll()
+        }
+        
+    }
+    
+    open func hideFloatingNodeAtIndex(_ index: Int) {
+        let node = floatingNodes[index]
+        node.isHidden = true
+    }
+    
+    open func removePhoneNode() {
+        for (i, node) in floatingNodes.enumerated() {
+            if node is PhoneNode {
+                removeFloatingNodeAtIndex(i)
+            }
         }
     }
     
@@ -276,6 +382,39 @@ open class SIFloatingCollectionScene: SKScene {
             floatingDelegate?.floatingScene?(self, startedRemovingOfFloatingNodeAtIndex: index)
         }
     }
+    
+    open func hideNonSelectedNodes() {
+        guard let nonSelectedNodeIndexes = indexesOfNonSelectedNodes() else {
+            print("error returning non selected indexes")
+            return
+        }
+        for index in nonSelectedNodeIndexes {
+            hideFloatingNodeAtIndex(index)
+        }
+        
+    }
+    
+    open func removeNonSelectedNodes() {
+        guard let nonSelectedNodeIndexes = indexesOfNonSelectedNodes() else {
+            fatalError("error returning non selected indexes")
+        }
+        for index in nonSelectedNodeIndexes {   
+            removeFloatingNodeAtIndex(index)
+        }
+    }
+
+    func menuNodeWithCategoryExists(node: MenuNode) -> Bool {
+        guard let category = node.category else {
+            return true
+        }
+        
+            if currentMenu.contains(category) {
+                return true
+            } else {
+                return false
+            }
+            
+        }
     
     fileprivate func updateNodeState(_ node: SIFloatingNode!) {
         if let index = floatingNodes.index(of: node) {
@@ -314,15 +453,27 @@ open class SIFloatingCollectionScene: SKScene {
             configureNode(child)
             floatingNodes.append(child)
         }
+        //node.position = CGPoint(x: 100.0, y: 100.0)
         super.addChild(node)
     }
     
-    func addChildToMenuNode(_ menuNode: MenuNode, childNode: SKNode) {
+    private func reAddChild(_ node: SKNode) {
+        if let child = node as? SIFloatingNode {
+            floatingNodes.append(child)
+        }
+        //node.position = CGPoint(x: 100.0, y: 100.0)
+        super.addChild(node)
+
+    }
+    
+    func addNodeForMenuNode(_ menuNode: MenuNode, childNode: SKNode) {
         if let child = childNode as? SIFloatingNode {
             configureNode(child)
             floatingNodes.append(child)
-            menuNode.addChild(child)
+            
         }
+        childNode.position = menuNode.position
+        super.addChild(childNode)
     }
     
     func removeChildrenFromMenuNode(_ menuNode: MenuNode) {
@@ -332,7 +483,6 @@ open class SIFloatingCollectionScene: SKScene {
                 removeFloatingNodeAtIndex(index)
             }
     }
-    
     
     fileprivate func configure() {
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
@@ -375,7 +525,7 @@ open class SIFloatingCollectionScene: SKScene {
     // MARK: -
     // MARK: Floating Delegate Helpers
     fileprivate func shouldRemoveNodeAtIndex(_ index: Int) -> Bool {
-        if 0...floatingNodes.count - 1 ~= index {
+        if 0...floatingNodes.count - 1 ~= index { //is the index within the array count?
             if let shouldRemove = floatingDelegate?.floatingScene?(self, shouldRemoveFloatingNodeAtIndex: index) {
                 return shouldRemove
             }

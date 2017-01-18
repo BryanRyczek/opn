@@ -114,10 +114,6 @@ class AddBusinessViewController: FormViewController {
             cell.textLabel?.font = UIFont(name: avenir65, size: 18)
              defaultTextFieldCellUpdate(cell: cell, row:row)
         }
-        PasswordRow.defaultCellUpdate = { cell, row in
-            cell.textLabel?.font = UIFont(name: avenir65, size: 18)
-            defaultTextFieldCellUpdate(cell: cell, row:row)
-        }
         ButtonRow.defaultCellUpdate = { cell, row in
             cell.textLabel?.font = UIFont(name: avenir65, size: 30)
             cell.textLabel?.textColor = UIColor.white
@@ -612,12 +608,12 @@ class AddBusinessViewController: FormViewController {
                         }
                     }
             }
-            <<< PasswordRow("password") {
-                $0.title = "Password"
-                $0.placeholder = "Password"
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnBlur
-            }
+//            <<< PasswordRow("password") {
+//                $0.title = "Password"
+//                $0.placeholder = "Password"
+//                $0.add(rule: RuleRequired())
+//                $0.validationOptions = .validatesOnBlur
+//            }
             
     //MARK: Section 5 - Enter Button
        +++ Section {
@@ -658,9 +654,10 @@ class AddBusinessViewController: FormViewController {
                     
                     if let des = valuesDictionary["description"] as? String ?? nil {
                         self.businessDescription = des.makeFirebaseString()
-                        self.businessTags = des.components(separatedBy: ",")
-                        for entry in self.businessTags {
-                            entry.makeFirebaseString()
+                        let tags = des.components(separatedBy: ",")
+                        for entry in tags {
+                            let condensedString = entry.makeFirebaseString()
+                            self.businessTags.append(condensedString)
                         }
                     } else {
                         self.businessDescription = ""
@@ -802,7 +799,7 @@ class AddBusinessViewController: FormViewController {
                 
                 //MARK: Set Contact / PW info
                 guard let cn = valuesDictionary["contactName"] as? String ?? nil,
-                    let pw = valuesDictionary["password"] as? String ?? nil,
+                    
                     let em = valuesDictionary["email"] as? String ?? nil
                 else {
                         let alert = UIAlertController(title: "More Information Needed!", message: "Please fill out all the required fields!", preferredStyle: UIAlertControllerStyle.alert)
@@ -810,14 +807,11 @@ class AddBusinessViewController: FormViewController {
                         self.show(alert, sender: self)
                         return
                 }
-                
                 self.contactName = cn.makeFirebaseString()
-                self.password = pw.makeFirebaseString()
                 self.email = em.makeFirebaseString()
                 
                 self.saveBusiness()
-                self.performSegue(withIdentifier: "addBizShowOpn", sender: self)
-
+                
             default:
                 break
             }
@@ -866,8 +860,13 @@ class AddBusinessViewController: FormViewController {
         
         business.generateOpnPlaceID()
         
-        let businessRef = placeRef.child(business.opnPlaceID.lowercased())
-        businessRef.setValue(business.toAnyObject())
+        cacheBusiness(business: business) { result in
+            if result == true {
+                self.performSegue(withIdentifier: "addBizShowOpn", sender: self)
+            } else {
+                print("business not cached, segue not performed!")
+            }
+        }
         
     }
     
@@ -1152,7 +1151,7 @@ extension AddBusinessViewController {
            
         }
         
-        businessTags = place.types
+        //businessTags = place.types
         descriptionRow?.value = descriptionString
         descriptionRow?.updateCell()
         
