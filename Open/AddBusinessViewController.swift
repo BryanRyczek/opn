@@ -114,10 +114,6 @@ class AddBusinessViewController: FormViewController {
             cell.textLabel?.font = UIFont(name: avenir65, size: 18)
              defaultTextFieldCellUpdate(cell: cell, row:row)
         }
-        PasswordRow.defaultCellUpdate = { cell, row in
-            cell.textLabel?.font = UIFont(name: avenir65, size: 18)
-            defaultTextFieldCellUpdate(cell: cell, row:row)
-        }
         ButtonRow.defaultCellUpdate = { cell, row in
             cell.textLabel?.font = UIFont(name: avenir65, size: 30)
             cell.textLabel?.textColor = UIColor.white
@@ -612,12 +608,12 @@ class AddBusinessViewController: FormViewController {
                         }
                     }
             }
-            <<< PasswordRow("password") {
-                $0.title = "Password"
-                $0.placeholder = "Password"
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnBlur
-            }
+//            <<< PasswordRow("password") {
+//                $0.title = "Password"
+//                $0.placeholder = "Password"
+//                $0.add(rule: RuleRequired())
+//                $0.validationOptions = .validatesOnBlur
+//            }
             
     //MARK: Section 5 - Enter Button
        +++ Section {
@@ -803,7 +799,7 @@ class AddBusinessViewController: FormViewController {
                 
                 //MARK: Set Contact / PW info
                 guard let cn = valuesDictionary["contactName"] as? String ?? nil,
-                    let pw = valuesDictionary["password"] as? String ?? nil,
+                    
                     let em = valuesDictionary["email"] as? String ?? nil
                 else {
                         let alert = UIAlertController(title: "More Information Needed!", message: "Please fill out all the required fields!", preferredStyle: UIAlertControllerStyle.alert)
@@ -811,9 +807,7 @@ class AddBusinessViewController: FormViewController {
                         self.show(alert, sender: self)
                         return
                 }
-                
                 self.contactName = cn.makeFirebaseString()
-                self.password = pw.makeFirebaseString()
                 self.email = em.makeFirebaseString()
                 
                 self.saveBusiness()

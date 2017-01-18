@@ -208,7 +208,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GmY-YI-CDE" id="Xs2-k4-QdD">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -941,7 +941,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sLk-1E-ksH" id="IPK-27-AwN">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -979,13 +979,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="opnLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ohf-vi-1lF">
-                                <rect key="frame" x="66" y="28" width="244" height="162"/>
+                                <rect key="frame" x="66" y="84" width="244" height="162"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="ohf-vi-1lF" secondAttribute="width" multiplier="0.66246:1" id="4wh-pQ-drk"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="J1j-8h-jJg">
-                                <rect key="frame" x="57" y="210" width="262" height="228"/>
+                                <rect key="frame" x="57" y="266" width="262" height="228"/>
                                 <subviews>
                                     <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qtL-6t-hBM" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <rect key="frame" x="0.0" y="0.0" width="262" height="30"/>
@@ -1077,14 +1077,13 @@
                                             </attributedString>
                                         </state>
                                         <connections>
-                                            <action selector="signupDidTouch:" destination="Lta-DB-eRG" eventType="touchUpInside" id="buJ-hN-tO2"/>
                                             <segue destination="9Ns-am-1jG" kind="show" identifier="addBusinessSegue" id="VcO-y8-Eyi"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HWR-XL-tpu">
-                                <rect key="frame" x="11" y="294" width="40" height="40"/>
+                                <rect key="frame" x="11" y="350" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.8862745098" green="0.0078431372550000003" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="cgJ-G0-jyA"/>
@@ -1112,12 +1111,13 @@
                             <constraint firstItem="HWR-XL-tpu" firstAttribute="centerY" secondItem="Ywr-8G-9WH" secondAttribute="centerY" id="Rfb-dt-ufI"/>
                             <constraint firstItem="ohf-vi-1lF" firstAttribute="centerX" secondItem="drH-BG-yaL" secondAttribute="centerX" id="T3T-Xj-7aq"/>
                             <constraint firstItem="ohf-vi-1lF" firstAttribute="width" secondItem="drH-BG-yaL" secondAttribute="width" multiplier="0.65:1" id="Vgk-uf-rDM"/>
-                            <constraint firstItem="ohf-vi-1lF" firstAttribute="top" secondItem="Q63-RZ-Bc6" secondAttribute="bottom" constant="8" id="fnI-wV-gnl"/>
+                            <constraint firstItem="ohf-vi-1lF" firstAttribute="top" secondItem="Q63-RZ-Bc6" secondAttribute="bottom" constant="20" id="fnI-wV-gnl"/>
                             <constraint firstItem="J1j-8h-jJg" firstAttribute="width" secondItem="drH-BG-yaL" secondAttribute="width" multiplier="0.7" id="geb-RJ-9wP"/>
                             <constraint firstItem="HWR-XL-tpu" firstAttribute="height" secondItem="Ywr-8G-9WH" secondAttribute="height" id="u45-x3-1n9"/>
                             <constraint firstItem="J1j-8h-jJg" firstAttribute="leading" secondItem="HWR-XL-tpu" secondAttribute="trailing" constant="6" id="vMs-Kp-oPl"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="iM0-aq-16G"/>
                     <connections>
                         <outlet property="addBusinessButton" destination="umI-a7-omN" id="GAn-8F-xt8"/>
                         <outlet property="backButton" destination="HWR-XL-tpu" id="pYS-ud-tnc"/>
@@ -1130,7 +1130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJP-k6-VDS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2999" y="-618"/>
+            <point key="canvasLocation" x="3936.8000000000002" y="-618.44077961019491"/>
         </scene>
         <!--Add Business View Controller-->
         <scene sceneID="AyT-hw-mhx">
@@ -1151,7 +1151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VeJ-kf-YQM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3788" y="-618"/>
+            <point key="canvasLocation" x="4727.1999999999998" y="-618.44077961019491"/>
         </scene>
         <!--Opn Search View Controller-->
         <scene sceneID="134-Tk-MeC">
@@ -1217,7 +1217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMQ-aT-ORL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4511" y="-618"/>
+            <point key="canvasLocation" x="5448.8000000000002" y="-618.44077961019491"/>
         </scene>
         <!--Discover View Controller-->
         <scene sceneID="qA3-ha-3ma">
@@ -1239,7 +1239,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFz-nP-ymh">
-                                <rect key="frame" x="36" y="76" width="303" height="56"/>
+                                <rect key="frame" x="36" y="76" width="303" height="48"/>
                                 <attributedString key="attributedText">
                                     <fragment content="There are 20 Businesses Open within 3 mi. of you.">
                                         <attributes>
@@ -1258,7 +1258,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eki-wV-rrG" customClass="SkView">
-                                <rect key="frame" x="0.0" y="144" width="375" height="477"/>
+                                <rect key="frame" x="0.0" y="136" width="375" height="485"/>
                                 <color key="backgroundColor" red="1" green="0.87369443304093941" blue="0.94729446908724835" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -1282,11 +1282,12 @@
                     <connections>
                         <outlet property="headlineLabel" destination="AFz-nP-ymh" id="RZP-WO-YEm"/>
                         <outlet property="skContainerView" destination="Eki-wV-rrG" id="8hR-j1-s7I"/>
+                        <segue destination="VVk-wp-Xlc" kind="show" identifier="loginSegue" id="jNE-pt-Iu0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fh3-ZY-0MQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4153" y="143"/>
+            <point key="canvasLocation" x="4660" y="149"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r6d-J0-x6K">
@@ -1322,13 +1323,31 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbF-RT-a7z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3405.5999999999999" y="142.57871064467767"/>
+            <point key="canvasLocation" x="3972" y="149"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bGF-ZE-miY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VVk-wp-Xlc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0gk-NK-0sL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Lta-DB-eRG" kind="relationship" relationship="rootViewController" id="ZHu-2C-5Me"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QT7-xl-AeP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2997.5999999999999" y="-618.44077961019491"/>
         </scene>
     </scenes>
     <resources>
         <image name="opnLogo" width="317" height="210"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6C8-zJ-t4e"/>
+        <segue reference="Il4-mG-jZy"/>
     </inferredMetricsTieBreakers>
 </document>

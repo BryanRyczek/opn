@@ -239,6 +239,27 @@ open class SIFloatingCollectionScene: SKScene {
         
     }
     
+    
+    
+    //MARK: Determine if there is a MenuNode w/ category present
+    
+    open func menuNodeWithCategoryExists (category: String) -> Bool {
+        
+        for node in floatingNodes {
+            
+            guard let n = node as? MenuNode else {
+                break
+            }
+                if n.category == category {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        
+        return false
+    }
+    
     //MARK: find index of children nodes
     func indexesOfChildrenNodes(menuNode: MenuNode) -> [Int]! {
         
@@ -377,7 +398,7 @@ open class SIFloatingCollectionScene: SKScene {
         guard let nonSelectedNodeIndexes = indexesOfNonSelectedNodes() else {
             fatalError("error returning non selected indexes")
         }
-        for index in nonSelectedNodeIndexes {
+        for index in nonSelectedNodeIndexes {   
             removeFloatingNodeAtIndex(index)
         }
     }

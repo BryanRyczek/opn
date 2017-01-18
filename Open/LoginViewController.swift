@@ -99,6 +99,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func signupDidTouch(_ sender: AnyObject) {
         
+        self.performSegue(withIdentifier: self.opnSegue, sender: nil)
         
     }
     

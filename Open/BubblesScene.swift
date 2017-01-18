@@ -82,6 +82,25 @@ class BubblesScene: SIFloatingCollectionScene {
         node.run(throwAction)
     }
     
+    func distanceToCenter(node: SKNode, scene: SKScene) -> CGPoint {
+        
+        let sceneCenter : CGPoint = CGPoint(x: scene.frame.width / 2, y: scene.frame.height / 2)
+        let nodeCenter = node.position
+        let xDiff = sceneCenter.x - nodeCenter.x
+        let yDiff = sceneCenter.y - nodeCenter.y
+        let distanceToCenter : CGPoint = CGPoint(x: xDiff, y: yDiff)
+        return distanceToCenter
+    }
+    
+    func centerMenuNodeForBubbleNodeAction (parentNode: MenuNode, childNode: BubbleNode) -> SKAction {
+        
+        let movingXAction = SKAction.moveTo(x: size.width / 2, duration: 0.2)
+        let movingYAction = SKAction.moveTo(y: size.height / 2 - parentNode.frame.size.height, duration: 0.4)
+        let resize = SKAction.scale(to: 1.3, duration: 0.4)
+        let centerAction = SKAction.group([movingXAction, movingYAction, resize])
+        return centerAction
+    }
+    
     func centerNodeAction (node: SKNode) -> SKAction {
         
         let movingXAction = SKAction.moveTo(x: size.width / 2, duration: 0.2)
@@ -89,6 +108,15 @@ class BubblesScene: SIFloatingCollectionScene {
         let resize = SKAction.scale(to: 1.3, duration: 0.4)
         let centerAction = SKAction.group([movingXAction, movingYAction, resize])
         return centerAction
+    }
+    
+    func centerChildNode (point: CGPoint) -> SKAction {
+        
+        let movingXAction = SKAction.moveTo(x: point.x, duration: 0.2)
+        let movingYAction = SKAction.moveTo(y: point.y, duration: 0.4)
+        let centerAction = SKAction.group([movingXAction, movingYAction])
+        return centerAction
+        
     }
     
     func sortedFloatingNodes() -> [SIFloatingNode]! {
