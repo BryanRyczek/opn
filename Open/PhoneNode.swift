@@ -37,6 +37,12 @@ open class PhoneNode: SIFloatingNode {
         return node
     }
     
+    class func instantiate(name: String) -> PhoneNode! {
+        let node = PhoneNode(phoneNumber: name, circleOfRadius: 30)
+        configureNode(node)
+        return node
+    }
+    
     class func configureNode(_ node: PhoneNode!) {
         let boundingBox = node.path?.boundingBox;
         let radius = (boundingBox?.size.width)! / 2.0;
@@ -44,7 +50,7 @@ open class PhoneNode: SIFloatingNode {
         node.physicsBody?.categoryBitMask = PhysicsCategory.BubbleNode
         node.strokeColor = .black
         
-        node.labelNode.text = "Phone"
+        node.labelNode.text = node.phoneNumber
         node.labelNode.position = CGPoint.zero
         node.labelNode.fontColor = SKColor.black
         node.labelNode.fontSize = 10

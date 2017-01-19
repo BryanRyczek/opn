@@ -11,6 +11,7 @@ import SpriteKit
 import FirebaseDatabase
 import FirebaseAuth
 import PopupDialog
+import CoreLocation
 
 class DiscoverViewController: UIViewController, SIFloatingCollectionSceneDelegate {
     
@@ -28,7 +29,10 @@ class DiscoverViewController: UIViewController, SIFloatingCollectionSceneDelegat
     var menuNodesDataSource : [String] = []
     //MARK: SpriteKit BitMasks
     
-    
+    //MARK: Corelocation Elements
+    var locationManager : CLLocationManager!
+    var currentLat : CLLocationDegrees?
+    var currentLong : CLLocationDegrees?
     
     //MARK: SpriteKit vars
     fileprivate var opnSKView: SKView!
@@ -39,6 +43,8 @@ class DiscoverViewController: UIViewController, SIFloatingCollectionSceneDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        determineMyCurrentLocation()
         
         //MARK: Firebase Listener for Businesses. Listen for add/removed/changed event to .value type
         ref.queryOrdered(byChild: "businessName").observe(.value, with: { snapshot in
@@ -135,7 +141,7 @@ class DiscoverViewController: UIViewController, SIFloatingCollectionSceneDelegat
         floatingCollectionScene.floatingDelegate = self
         
         //SHOWING PHYSICS / FIELDS CAUSES MEMORY LEAKS!
-        opnSKView.showsPhysics = true
+        opnSKView.showsPhysics = false
         
     }
     
@@ -181,8 +187,18 @@ class DiscoverViewController: UIViewController, SIFloatingCollectionSceneDelegat
     }
     
     func showActionMenuForBubbleNode(node: BubbleNode) {
+        
         guard let phoneNode = PhoneNode.instantiate(node: node) else { return }
+        let range : Range<Int> = Range(10...400)
+        phoneNode.position = CGPoint(x: Int.random(range: range), y: Int.random(range: range))
         self.floatingCollectionScene.addChild(phoneNode)
+        
+        for i in 0...4 {
+            guard let phoneNode = PhoneNode.instantiate(name: actionTypes[i]) else { return }
+            let range : Range<Int> = Range(10...400)
+            phoneNode.position = CGPoint(x: Int.random(range: range), y: Int.random(range: range))
+            self.floatingCollectionScene.addChild(phoneNode)
+        }
     }
     
     func showFocusMenuForBubbleNode(node: BubbleNode) {
@@ -193,6 +209,7 @@ class DiscoverViewController: UIViewController, SIFloatingCollectionSceneDelegat
         let boundingBox = selectedMenuNode.path?.boundingBox
         let radius = ((boundingBox?.size.width)! / 2.0) * 1.3
         selectedMenuNode.physicsBody = SKPhysicsBody(circleOfRadius: radius + 1.5)
+        selectedMenuNode.physicsBody?.allowsRotation = false
         
         guard let menuCategory = selectedMenuNode.category else { return }
         
@@ -201,6 +218,7 @@ class DiscoverViewController: UIViewController, SIFloatingCollectionSceneDelegat
         for biz in bizArrayForNode {
             if !floatingCollectionScene.currentBusinesses.contains(biz) {
                 guard let businessNode = BubbleNode.instantiate(business: biz, menuNode: selectedMenuNode) else { return }
+                businessNode.zPosition = selectedMenuNode.zPosition - 1
                 self.floatingCollectionScene.currentBusinesses.append(biz)
                 self.floatingCollectionScene.addNodeForMenuNode(selectedMenuNode, childNode: businessNode)
             }
@@ -272,6 +290,18 @@ extension DiscoverViewController {
         //MARK: Phone node Selected
         if let node = nodeAtIndex as? PhoneNode {
             
+            if node.labelNode.text == "Directions" {
+                
+                if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+                    UIApplication.shared.openURL(URL(string:
+                    "comgooglemaps://?saddr=\(currentLat!),\(currentLong!)&daddr=John+F.+Kennedy+International+Airport,+Van+Wyck+Expressway,+Jamaica,+New+York&directionsmode=transit")!
+                    
+                    )
+                } else {
+                    print("Can't use comgooglemaps://");
+                }
+                
+            }
             guard let digits = node.phoneNumber else { return } //Get Digits 😜
             
             let numOnly = String(digits.characters.filter { String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
@@ -354,7 +384,7 @@ extension DiscoverViewController {
             //remove business specific elements
             //show businesses that were removed
             showFocusMenuForBubbleNode(node: node)
-            self.floatingCollectionScene.removePhoneNode()
+            self.floatingCollectionScene.removeNodesOfType(nodeType: PhoneNode.self)
             //show menu node that was removed
             
         }
@@ -462,4 +492,38 @@ extension DiscoverViewController {
     func update() {
         headlineLabel.text = ("There are \(floatingCollectionScene.floatingNodes.count) businesses OPN within 3 mi. of you")
     }
+}
+
+//MARK: Location Manager Delegate Methods
+extension DiscoverViewController: CLLocationManagerDelegate {
+    
+    func determineMyCurrentLocation() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+            //locationManager.startUpdatingHeading()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        
+        // Call stopUpdatingLocation() to stop listening for location updates,
+        // other wise this function will be called every time when user location changes.
+        
+        
+        currentLat = userLocation.coordinate.latitude
+        currentLong = userLocation.coordinate.longitude
+        manager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
+    }
+    
 }

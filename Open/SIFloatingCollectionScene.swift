@@ -39,6 +39,12 @@ struct PhysicsCategory {
     static let BubbleNode : UInt32 = 0x2 << 2      // 2
 }
 
+public enum SceneState {
+    case fullMenu
+    case focusMenu
+    case actionMenu
+}
+
 open class SIFloatingCollectionScene: SKScene {
     fileprivate(set) open var magneticField = SKFieldNode.radialGravityField()
     fileprivate(set) var mode: SIFloatingCollectionSceneMode = .normal {
@@ -310,12 +316,14 @@ open class SIFloatingCollectionScene: SKScene {
     }
     
     open func removeFloatingNodeAtIndex(_ index: Int) {
-        print("index \(index)")
-        if shouldRemoveNodeAtIndex(index) {
-            print("should remove  \(index)")
+        
+        if shouldRemoveNodeAtIndex(index) { // check to see if node is elgible to be removed
+            
             let node = floatingNodes[index]
             floatingNodes.remove(at: index)
             node.removeFromParent()
+            
+            //update model for keeping data for transitions
             if let menuNode = node as? MenuNode {
                 let newMenu = currentMenu.filter{ $0 != menuNode.category }
                 currentMenu = newMenu
@@ -324,6 +332,8 @@ open class SIFloatingCollectionScene: SKScene {
                 let newBusinesses = currentBusinesses.filter{ $0 != bubNode.business }
                 currentBusinesses = newBusinesses
             }
+            
+            //call delegate method
             floatingDelegate?.floatingScene?(self, didRemoveFloatingNodeAtIndex: index)
         }
         
@@ -366,13 +376,25 @@ open class SIFloatingCollectionScene: SKScene {
         node.isHidden = true
     }
     
-    open func removePhoneNode() {
-        for (i, node) in floatingNodes.enumerated() {
-            if node is PhoneNode {
-                removeFloatingNodeAtIndex(i)
+    open func removeNodesOfType(nodeType: SIFloatingNode.Type) {
+        
+        var indexes: [Int] = []
+        
+            for (i, node) in floatingNodes.enumerated() {
+                let type: AnyClass = type(of: node)
+                    if type == nodeType {
+                        indexes.append(i)
+                    }
             }
+        
+        indexes.sort(by: >) // we want to remove the nodes with the highest index first
+        
+        for index in indexes {
+            removeFloatingNodeAtIndex(index)
         }
     }
+    
+    
     
     fileprivate func startRemovingNode(_ node: SIFloatingNode!) {
         mode = .editing

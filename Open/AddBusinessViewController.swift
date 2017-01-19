@@ -964,7 +964,10 @@ extension AddBusinessViewController {
     
     func autocompleteClicked() {
         
-        let currentLocation = CLLocationCoordinate2D(latitude: currentLat!, longitude: currentLong!)
+        guard let lat = currentLat, let long = currentLong else {
+            return
+        }
+        let currentLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
         let nwOffset = locationWithBearing(bearing: 315.0, distanceMeters: 25000, origin: currentLocation)
         let seOffset = locationWithBearing(bearing: 135.0, distanceMeters: 25000, origin: currentLocation)
         let bounds = GMSCoordinateBounds(coordinate: nwOffset, coordinate: seOffset)
