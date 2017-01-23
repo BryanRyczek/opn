@@ -35,7 +35,9 @@ func randomOpnKey(length: Int, business: Business) -> String {
 
 func cacheBusiness(business: Business, completion: @escaping (_ result: Bool) -> Void) {
 
-    placeRef.queryOrdered(byChild: "placeID").queryEqual(toValue: "\(business.placeID)").observe(.value, with: {snapshot in
+    print("IT'S a MEEEE")
+    
+    placeRef.queryOrdered(byChild: "placeID").queryEqual(toValue: "\(business.placeID)").observeSingleEvent(of: .value, with: {snapshot in
     
         var returnedBusiness : Business?
         
