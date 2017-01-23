@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-let actionTypes : [String] = ["Message", "Directions", "Hours", "Offers", "Reviews"]
+let actionTypes : [String] = ["Message", "Hours", "Offers", "Reviews"]
 
 //MARK: COLORS!
 let opnBlue: UIColor = UIColor(red: 31/255, green: 54/255, blue: 232/255, alpha: 1)

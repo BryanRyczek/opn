@@ -319,7 +319,7 @@ class AddBusinessViewController: FormViewController {
                 $0.placeholder = "555.555.5555"
             }
           
-            <<< URLRow("website") {
+            <<< TextRow("website") {
                 $0.title = "Website"
                 $0.tag = "website"
                 //$0.add(rule: RuleURL())
@@ -628,6 +628,7 @@ class AddBusinessViewController: FormViewController {
             }
         .onCellSelection({ cell, row in
             
+            //values dictionary takes all the values from the form and creates a dictionary
             let valuesDictionary = self.form.values()
             
             switch self.phase {
@@ -960,8 +961,6 @@ extension AddBusinessViewController {
         
     }
     
-
-    
     func autocompleteClicked() {
         
         guard let lat = currentLat, let long = currentLong else {
@@ -1046,6 +1045,8 @@ extension AddBusinessViewController {
     func setValuesFromGooglePlaceAndJSON (place: GMSPlace, json: JSON) {
         
         placeID = place.placeID
+        latitude = place.coordinate.latitude
+        longitude = place.coordinate.longitude
         
         let section0 = self.form.sectionBy(tag: "0")
         section0?.hidden = true
@@ -1067,7 +1068,7 @@ extension AddBusinessViewController {
         let stateRow : TextRow? = self.form.rowBy(tag: "state")
         let zipCodeRow : ZipCodeRow? = self.form.rowBy(tag: "zipCode")
         let businessNumberRow : PhoneRow? = self.form.rowBy(tag: "businessNumber")
-        let websiteRow : URLRow? = self.form.rowBy(tag: "website")
+        let websiteRow : TextRow? = self.form.rowBy(tag: "website")
         let descriptionRow : TextAreaRow? = self.form.rowBy(tag: "description")
         let mondayOpenRow : TimeRow? = self.form.rowBy(tag: "mondayOpen")
         let mondayCloseRow : TimeRow? = self.form.rowBy(tag: "mondayClose")
@@ -1120,8 +1121,6 @@ extension AddBusinessViewController {
             
         }
         
-        
-        
         if let city = cityRow?.value, let array = addressArray {
             if city == array[2].trimmingCharacters(in: .whitespaces) {
                 streetAddressTwoRow?.value = addressArray?[1]
@@ -1135,7 +1134,11 @@ extension AddBusinessViewController {
         businessNumberRow?.value = place.phoneNumber
         businessNumberRow?.updateCell()
         
-        websiteRow?.value = place.website
+        if let w = place.website {
+            websiteRow?.value = String(describing: w)
+        } else {
+            websiteRow?.value = ""
+        }
         websiteRow?.updateCell()
         
         var descriptionString = ""

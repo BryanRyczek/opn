@@ -188,12 +188,23 @@ class DiscoverViewController: UIViewController, SIFloatingCollectionSceneDelegat
     
     func showActionMenuForBubbleNode(node: BubbleNode) {
         
-        guard let phoneNode = PhoneNode.instantiate(node: node) else { return }
         let range : Range<Int> = Range(10...400)
+        
+        guard let phoneNode = PhoneNode.instantiate(node: node) else { return }
         phoneNode.position = CGPoint(x: Int.random(range: range), y: Int.random(range: range))
         self.floatingCollectionScene.addChild(phoneNode)
         
-        for i in 0...4 {
+        guard let directionsNode = DirectionsNode.instantiate(node: node) else { return }
+        directionsNode.position = CGPoint(x: Int.random(range: range), y: Int.random(range: range))
+        self.floatingCollectionScene.addChild(directionsNode)
+        
+        guard let websiteNode = WebsiteNode.instantiate(node: node) else { return }
+        if let url = websiteNode.url, !url.isEmpty {
+                websiteNode.position = CGPoint(x: Int.random(range: range), y: Int.random(range: range))
+                self.floatingCollectionScene.addChild(websiteNode)
+        }
+        
+        for i in 0...2 {
             guard let phoneNode = PhoneNode.instantiate(name: actionTypes[i]) else { return }
             let range : Range<Int> = Range(10...400)
             phoneNode.position = CGPoint(x: Int.random(range: range), y: Int.random(range: range))
@@ -282,26 +293,40 @@ extension DiscoverViewController {
     
     func floatingScene(_ scene: SIFloatingCollectionScene, didSelectFloatingNodeAtIndex index: Int) {
         
-        
         print("didSelect node at index \(index)")
         
         guard let nodeAtIndex = floatingCollectionScene.floatingNodes[index] as? SIFloatingNode else { return }
         
+        
+        //MARK: Website Node Selected
+        if let node = nodeAtIndex as? WebsiteNode {
+            guard let nodeUrl = node.url else { return }
+            
+            if let checkURL = URL(string: nodeUrl) {
+                UIApplication.shared.open(checkURL, options: [:], completionHandler: nil)
+            } else {
+                print("Invalid URL")
+            }
+            
+        }
+        
+        //MARK: Directions Node Selected
+        if let node = nodeAtIndex as? DirectionsNode {
+                
+            if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+                UIApplication.shared.openURL(URL(string:
+                    "comgooglemaps://?saddr=\(currentLat!),\(currentLong!)&daddr=\(node.latitude!),\(node.longitude!)&directionsmode=transit")!
+                    
+                )
+            } else {
+                print("Can't use comgooglemaps://");
+            }
+            
+        }
+        
         //MARK: Phone node Selected
         if let node = nodeAtIndex as? PhoneNode {
             
-            if node.labelNode.text == "Directions" {
-                
-                if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
-                    UIApplication.shared.openURL(URL(string:
-                    "comgooglemaps://?saddr=\(currentLat!),\(currentLong!)&daddr=John+F.+Kennedy+International+Airport,+Van+Wyck+Expressway,+Jamaica,+New+York&directionsmode=transit")!
-                    
-                    )
-                } else {
-                    print("Can't use comgooglemaps://");
-                }
-                
-            }
             guard let digits = node.phoneNumber else { return } //Get Digits 😜
             
             let numOnly = String(digits.characters.filter { String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
@@ -382,9 +407,12 @@ extension DiscoverViewController {
         
         if let node = floatingCollectionScene.floatingNodes[index] as? BubbleNode {
             //remove business specific elements
+            self.floatingCollectionScene.removeNodesOfType(nodeType: PhoneNode.self)
+            self.floatingCollectionScene.removeNodesOfType(nodeType: DirectionsNode.self)
+            self.floatingCollectionScene.removeNodesOfType(nodeType: WebsiteNode.self)
             //show businesses that were removed
             showFocusMenuForBubbleNode(node: node)
-            self.floatingCollectionScene.removeNodesOfType(nodeType: PhoneNode.self)
+            
             //show menu node that was removed
             
         }

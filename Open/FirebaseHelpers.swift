@@ -71,7 +71,8 @@ func cacheBusiness(business: Business, completion: @escaping (_ result: Bool) ->
 
 
 extension String {
-    func makeFirebaseString() -> String{
+    
+    func makeFirebaseString() -> String {
         let arrCharacterToReplace = [".","#","$","[","]"]
         var finalString = self
         
@@ -82,7 +83,20 @@ extension String {
         
         return finalString
     }
+    
+    func firebaseURLStringToString() -> String {
+        
+        var url : URL?
+        
+        let urlString = self.replacingOccurrences(of: " ", with: ".")
+        url = URL(fileURLWithPath: urlString)
+        
+        return urlString
+    }
+    
 }
+
+
 
 func firebaseTimeStringToDate (_ string: String) -> Date {
     

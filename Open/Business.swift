@@ -227,7 +227,7 @@ struct Business {
         zip = snapshotValue["zip"] as! String
         neighborhood = snapshotValue["neighborhood"] as! String
         phoneNumber = snapshotValue["phoneNumber"] as! String
-        website = snapshotValue["website"] as! String
+        website = (snapshotValue["website"] as! String).firebaseURLStringToString()
         email = snapshotValue["email"] as! String
         businessDescription = snapshotValue["businessDescription"] as! String
         latitude = snapshotValue["latitude"] as! Double
